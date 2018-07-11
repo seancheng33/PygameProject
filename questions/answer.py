@@ -55,11 +55,11 @@ def game_title():
         for event in pygame.event.get():
             # 关闭按钮的事件
             if event.type == QUIT:
-                close_program()
+                GlobalVar().close_program()
             elif event.type == KEYDOWN:
                 # 按键按下后抬起的事件判断
                 if event.key == K_ESCAPE:
-                    close_program()
+                    GlobalVar().close_program()
 
         x, y = pygame.mouse.get_pos()
         pressed_array = pygame.mouse.get_pressed()  # 获取鼠标事件的列表
@@ -169,11 +169,11 @@ def load_game(gameLevels,current, total_score, total_right_score, total_wrong_sc
         for event in pygame.event.get():
             # 关闭按钮的事件
             if event.type == QUIT:
-                close_program()
+                GlobalVar().close_program()
             elif event.type == KEYDOWN:
                 # 按键按下后抬起的事件判断
                 if event.key == K_ESCAPE:
-                    close_program()
+                    GlobalVar().close_program()
                 # elif event.key == K_BACKSPACE:
                 #     # 按回退键，返回到标题界面。
                 #     return 'reset'
@@ -231,7 +231,7 @@ def load_game(gameLevels,current, total_score, total_right_score, total_wrong_sc
             pygame.draw.rect(SURFACE, color_dict['orange'], bt_exit)
             for event in pressed:
                 if event == 1:
-                    close_program()
+                    GlobalVar().close_program()
 
         # 自定义鼠标样式
         pygame.mouse.set_visible(False)
@@ -296,10 +296,10 @@ def end_game(score, right_score, wrong_score):
 
         for event in pygame.event.get():
             if event.type == QUIT:
-                close_program()
+                GlobalVar().close_program()
             elif event.type == KEYUP:
                 if event.key == K_ESCAPE:
-                    close_program()
+                    GlobalVar().close_program()
                 elif event.key == K_RETURN:
                     return 'reset'
         pygame.mouse.set_visible(True)
@@ -317,7 +317,7 @@ def end_game(score, right_score, wrong_score):
             pygame.draw.rect(SURFACE, color_dict['lime'], bt_exit)
             for event in pressed:
                 if event == 1:
-                    close_program()
+                    GlobalVar().close_program()
 
         SURFACE.blit(back_img, back_rect)
         SURFACE.blit(exit_img, exit_rect)
@@ -363,10 +363,10 @@ def about_this():
 
         for event in pygame.event.get():
             if event.type == QUIT:
-                close_program()
+                GlobalVar().close_program()
             elif event.type == KEYUP:
                 if event.key == K_ESCAPE:
-                    close_program()
+                    GlobalVar().close_program()
                 elif event.key == K_RETURN:
                     return 'reset'
 
@@ -385,11 +385,6 @@ def about_this():
 
         pygame.display.update()
         pygame.time.Clock().tick(30)
-
-
-def close_program():
-    pygame.quit()
-    sys.exit(0)
 
 
 def main():

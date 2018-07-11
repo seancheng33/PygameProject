@@ -6,6 +6,7 @@
 '''
 import os
 import random
+import sys
 from xml.dom.minidom import parse
 
 import pygame
@@ -14,7 +15,7 @@ import pygame
 class GlobalVar:
     def __init__(self):
         self.gameName = '大脑很囧'
-        self.titleLabel = self.gameName+' Version 1.0.0'
+        self.titleLabel = self.gameName + ' Version 1.1.0Dev'
         # 颜色字典
         self.color_dict = {'red': (255, 0, 0),  # 纯红
                            'blue': (255, 0, 0),  # 纯蓝
@@ -86,3 +87,7 @@ class GlobalVar:
         random.shuffle(new_question)
 
         return new_question
+
+    def close_program(self):
+        pygame.quit()
+        sys.exit(0)
