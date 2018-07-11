@@ -11,6 +11,7 @@ import sys
 import pygame
 from pygame.locals import *
 from xml.dom.minidom import parse
+from questions.globalVar import GlobalVar
 
 
 def game_title():
@@ -162,6 +163,9 @@ def load_game(gameLevels,current, total_score, total_right_score, total_wrong_sc
         pygame.draw.rect(SURFACE, color_dict['lime'], bt_replay)
         pygame.draw.rect(SURFACE, color_dict['lime'], bt_exit)
 
+        SURFACE.blit(replay_img, replay_rect)
+        SURFACE.blit(exit_img, exit_rect)
+
         for event in pygame.event.get():
             # 关闭按钮的事件
             if event.type == QUIT:
@@ -228,9 +232,6 @@ def load_game(gameLevels,current, total_score, total_right_score, total_wrong_sc
             for event in pressed:
                 if event == 1:
                     close_program()
-
-        SURFACE.blit(replay_img, replay_rect)
-        SURFACE.blit(exit_img, exit_rect)
 
         # 自定义鼠标样式
         pygame.mouse.set_visible(False)
@@ -447,6 +448,7 @@ def main():
                   'white': (255, 255, 255),  # 纯白
                   }
 
+    globalVar = GlobalVar()
     # 初始化
     pygame.init()
     SURFACE = pygame.display.set_mode((1024, 640))
@@ -471,7 +473,7 @@ def main():
             # 返回到游戏标题界面
             result = game_title()
         elif 'start' in result:
-            gameLevels = load_file("data.xml")  # 在点开始游戏的时候载入10道题
+            gameLevels = globalVar.load_file("data.xml")  # 在点开始游戏的时候载入10道题
             pygame.time.wait(1000)  # 和答题同理
             corrent = 0
             result = load_game(gameLevels, corrent, score, right_score, wrong_score)

@@ -32,9 +32,6 @@ class GlobalVar:
         self.right_score = 0
         self.wrong_score = 0
 
-
-
-
         # 初始化
         pygame.init()
         self.SCREEN = pygame.display.set_mode((1024, 640))
