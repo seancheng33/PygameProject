@@ -392,47 +392,6 @@ def close_program():
     sys.exit(0)
 
 
-def load_file(filename):
-    assert os.path.exists(filename), '题库文件: %s 不存在，游戏无法执行。' % (filename)
-    # 读取xml文件中的题库
-    question_data = parse(filename)
-    # 得到根节点
-    root = question_data.documentElement
-
-    game_level = []
-    questions = root.getElementsByTagName("question")
-
-    for item in questions:
-        q_list = {}
-        answerList = []
-        question = item.getAttribute("title")
-        answer_items = item.getElementsByTagName("answer")  # 返回一个列表
-        answerList.append(answer_items[0].getElementsByTagName("a")[0].childNodes[0].data)
-        answerList.append(answer_items[0].getElementsByTagName("b")[0].childNodes[0].data)
-        answerList.append(answer_items[0].getElementsByTagName("c")[0].childNodes[0].data)
-        answerList.append(answer_items[0].getElementsByTagName("d")[0].childNodes[0].data)
-        correct = item.getElementsByTagName("correct")[0].childNodes[0].data
-        q_list['question'] = question
-        q_list['answers'] = answerList
-        q_list['correct'] = correct
-        game_level.append(q_list)
-
-    # 生产随机指定数量的题集，利用set的去重特性，这样当set的长度是10时，就是10个不重复的数字
-    tmp_level = set()
-    while len(tmp_level) < totalNum:
-        randomNum = random.randint(0, len(game_level) - 1)  # 生产随机数
-        tmp_level.add(randomNum)
-
-    new_question = []
-    for i in tmp_level:
-        new_question.append(game_level[i])
-
-    # 因为set的缘故，提取出来的题目是按顺序排列的，需要打乱一次,形成每次游戏时的题目顺序的独特随机性
-    random.shuffle(new_question)
-
-    return new_question
-
-
 def main():
     # 全局化声明
     global SURFACE, titleFont, globalFont, helpFont, color_dict, questionFont, answerFont, aboutFont, totalNum
