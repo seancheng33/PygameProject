@@ -40,6 +40,7 @@ class GlobalVar:
         pygame.display.set_caption(self.titleLabel)
 
         self.titleFont = pygame.font.Font('font/YaHei.ttf', 150)
+        self.aboutFont = pygame.font.Font('font/YaHei.ttf', 20)
         self.globalFont = pygame.font.Font('font/Hei.ttf', 36)
         self.questionFont = pygame.font.Font('font/HuaKanSong.ttf', 24)
         self.answerFont = pygame.font.Font('font/HuaKanSong.ttf', 22)
