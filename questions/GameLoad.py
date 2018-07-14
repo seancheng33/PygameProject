@@ -8,7 +8,7 @@ import pygame
 from pygame.locals import *
 
 
-def load_game(SURFACE,globalVar, gameLevels,current, total_score, total_right_score, total_wrong_score):
+def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_score, total_wrong_score):
     SURFACE.fill(globalVar.color_dict['black'])
     title_bg = pygame.image.load('img/title.jpg')
 

@@ -2,7 +2,7 @@
 @Author       : sean cheng
 @Email        : aya234@163.com
 @CreateTime   : 2018/7/14
-@Program      : 
+@Program      : 游戏结束和统计正确率的界面
 '''
 import pygame
 from pygame.locals import *
