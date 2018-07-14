@@ -19,7 +19,7 @@ def main():
     SURFACE = globalVar.SCREEN
     result = game_title(SURFACE, globalVar, )  # 游戏从初始的标题开始。所以这个直接载入，不需要添加到循环中去。
 
-    totalNum = 8
+    totalNum = 10
     corrent = 0
     score = 0
     right_score = 0
@@ -29,7 +29,7 @@ def main():
             # 返回到游戏标题界面
             result = game_title(SURFACE, globalVar, )
         elif 'start' in result:
-            gameLevels = globalVar.load_file("data.xml")  # 在点开始游戏的时候载入10道题
+            gameLevels = globalVar.load_file("data.xml", totalNum)  # 在点开始游戏的时候载入10道题
             pygame.time.wait(1000)  # 和答题同理
             corrent = 0
             result = load_game(SURFACE, globalVar, gameLevels, corrent, score, right_score, wrong_score)

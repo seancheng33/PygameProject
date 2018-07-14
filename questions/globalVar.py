@@ -27,12 +27,6 @@ class GlobalVar:
                            'white': (255, 255, 255),  # 纯白
                            }
 
-        self.totelNum = 10
-        self.corrent = 0
-        self.score = 0
-        self.right_score = 0
-        self.wrong_score = 0
-
         # 初始化
         pygame.init()
         self.SCREEN = pygame.display.set_mode((1024, 640))
@@ -49,7 +43,7 @@ class GlobalVar:
         self.FPS = 30
         self.FPSCLOCK = pygame.time.Clock()
 
-    def load_file(self, filename):
+    def load_file(self, filename, totalNum):
         assert os.path.exists(filename), '题库文件: %s 不存在，游戏无法执行。' % (filename)
         # 读取xml文件中的题库
         question_data = parse(filename)
@@ -76,7 +70,7 @@ class GlobalVar:
 
         # 生产随机指定数量的题集，利用set的去重特性，这样当set的长度是10时，就是10个不重复的数字
         tmp_level = set()
-        while len(tmp_level) < self.totelNum:
+        while len(tmp_level) < totalNum:
             randNum = random.randint(0, len(game_level) - 1)
             tmp_level.add(randNum)
 
