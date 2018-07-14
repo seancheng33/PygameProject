@@ -16,7 +16,8 @@ def end_game(SURFACE, globalVar, score, right_score, totalNum):
     score_rect.centerx = SURFACE.get_rect().centerx
 
     total_right_percent = right_score / totalNum
-    right_img = globalVar.globalFont.render('正确率： ' + str(total_right_percent * 100) + ' %', True, globalVar.color_dict['orange'])
+    right_img = globalVar.globalFont.render('正确率： ' + str(total_right_percent * 100) + ' %', True,
+                                            globalVar.color_dict['orange'])
     right_rect = right_img.get_rect()
     right_rect.top = 200
     right_rect.centerx = SURFACE.get_rect().centerx

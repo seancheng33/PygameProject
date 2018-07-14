@@ -4,9 +4,6 @@
 @CreateTime   : 2018/6/19
 @Program      : pygame练习，做一个答题的程序，有游戏的标题界面，鼠标选择答案的形式作答，题库使用xml文件的形式。
 '''
-import os
-import random
-import sys
 
 import pygame
 
@@ -18,12 +15,9 @@ from questions.GameTitle import game_title
 
 
 def main():
-    # # 全局化声明
-    # global SURFACE, titleFont, globalFont, helpFont, color_dict, questionFont, answerFont, aboutFont, totalNum
-
     globalVar = GlobalVar()
     SURFACE = globalVar.SCREEN
-    result = game_title(SURFACE, globalVar,)  # 游戏从初始的标题开始。所以这个直接载入，不需要添加到循环中去。
+    result = game_title(SURFACE, globalVar, )  # 游戏从初始的标题开始。所以这个直接载入，不需要添加到循环中去。
 
     totalNum = 8
     corrent = 0
@@ -33,7 +27,7 @@ def main():
     while True:
         if 'reset' in result:
             # 返回到游戏标题界面
-            result = game_title(SURFACE,globalVar,)
+            result = game_title(SURFACE, globalVar, )
         elif 'start' in result:
             gameLevels = globalVar.load_file("data.xml")  # 在点开始游戏的时候载入10道题
             pygame.time.wait(1000)  # 和答题同理
