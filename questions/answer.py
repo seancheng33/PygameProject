@@ -12,86 +12,10 @@ import pygame
 from pygame.locals import *
 from questions.LoadGame import load_game
 from questions.globalVar import GlobalVar
+from questions.GameTitle import game_title
 
 
-def game_title():
-    title_text = '大脑 很囧'
-    bt_start_text = '开 始 游 戏'
-    bt_about_text = '关 于 游 戏'
-    title_bg = pygame.image.load('img/main.jpg')
-    title_image = titleFont.render(title_text, True, color_dict['green'])
-    title_time = 0
-    mouseCursor = pygame.image.load('img/cursor.png').convert_alpha()  # 加载鼠标图片
-
-    while True:
-        SURFACE.blit(title_bg, (0, 0))
-        if title_time == 0:
-            title_image = titleFont.render(title_text, True, color_dict['white'])
-            title_time = 1
-        elif title_time == 1:
-            title_image = titleFont.render(title_text, True, color_dict['green'])
-            title_time = 2
-        elif title_time == 2:
-            title_image = titleFont.render(title_text, True, color_dict['lime'])
-            title_time = 0
-        title_rect = title_image.get_rect()
-        title_rect.centerx = SURFACE.get_rect().centerx
-        title_rect.top = 130
-
-        tips_image = globalFont.render(bt_start_text, True, color_dict['orange'])
-        tips_rect = tips_image.get_rect()
-        tips_rect.centerx = SURFACE.get_rect().centerx - 150
-        tips_rect.top = 400
-
-        help_image = globalFont.render(bt_about_text, True, color_dict['orange'])
-        help_rect = help_image.get_rect()
-        help_rect.centerx = SURFACE.get_rect().centerx + 150
-        help_rect.top = 400
-
-        SURFACE.blit(title_image, title_rect)
-        SURFACE.blit(tips_image, tips_rect)
-        SURFACE.blit(help_image, help_rect)
-
-        for event in pygame.event.get():
-            # 关闭按钮的事件
-            if event.type == QUIT:
-                GlobalVar().close_program()
-            elif event.type == KEYDOWN:
-                # 按键按下后抬起的事件判断
-                if event.key == K_ESCAPE:
-                    GlobalVar().close_program()
-
-        x, y = pygame.mouse.get_pos()
-        pressed_array = pygame.mouse.get_pressed()  # 获取鼠标事件的列表
-
-        # 开始按键的鼠标事件，包括了鼠标经过事件和点击事件
-        if tips_rect.left < x < tips_rect.right and tips_rect.top < y < tips_rect.bottom:
-            tips_image = globalFont.render(bt_start_text, True, color_dict['red'])
-            SURFACE.blit(tips_image, tips_rect)
-            for event in pressed_array:
-                if event == 1:  # 1为鼠标左键点击事件
-                    return 'start'
-
-        # 关于按键的鼠标事件
-        if help_rect.left < x < help_rect.right and help_rect.top < y < help_rect.bottom:
-            help_image = globalFont.render(bt_about_text, True, color_dict['red'])
-            SURFACE.blit(help_image, help_rect)
-            for event in pressed_array:
-                if event == 1:  # 1为鼠标左键点击事件
-                    return 'about'
-
-        # 自定义鼠标样式
-        pygame.mouse.set_visible(False)
-
-        x -= 0
-        y -= 0
-
-        SURFACE.blit(mouseCursor, (x, y))
-        pygame.display.update()
-        pygame.time.Clock().tick(20)
-
-
-def end_game(score, right_score, wrong_score):
+def end_game(score, right_score, totalNum):
     # 游戏的结束界面，对刚才完过的游戏做出一些数据统计。
     score_img = globalFont.render('最终总成绩： ' + str(score), True, color_dict['orange'])
     score_rect = score_img.get_rect()
@@ -252,7 +176,7 @@ def main():
     answerFont = globalVar.answerFont
     helpFont = globalVar.helpFont
 
-    result = game_title()  # 游戏从初始的标题开始。所以这个直接载入，不需要添加到循环中去。
+    result = game_title(SURFACE,globalVar,)  # 游戏从初始的标题开始。所以这个直接载入，不需要添加到循环中去。
     totalNum = 8
     corrent = 0
     score = 0
@@ -261,7 +185,7 @@ def main():
     while True:
         if 'reset' in result:
             # 返回到游戏标题界面
-            result = game_title()
+            result = game_title(SURFACE,globalVar,)
         elif 'start' in result:
             gameLevels = globalVar.load_file("data.xml")  # 在点开始游戏的时候载入10道题
             pygame.time.wait(1000)  # 和答题同理
@@ -279,7 +203,7 @@ def main():
 
             # 先计分，否则最后的统计会因为少统计了一条而出错
             if corrent == len(gameLevels) - 1:
-                result = end_game(score, right_score, wrong_score)
+                result = end_game(score, right_score, totalNum)
             else:
                 corrent += 1
                 result = load_game(SURFACE, globalVar, gameLevels, corrent, score, right_score, wrong_score)
