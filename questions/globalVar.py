@@ -15,7 +15,7 @@ import pygame
 class GlobalVar:
     def __init__(self):
         self.gameName = '大脑很囧'
-        self.titleLabel = self.gameName + ' Version 1.1.0Dev'
+        self.titleLabel = self.gameName + ' Version 1.2.0Dev'
         # 颜色字典
         self.color_dict = {'red': (255, 0, 0),  # 纯红
                            'blue': (255, 0, 0),  # 纯蓝
