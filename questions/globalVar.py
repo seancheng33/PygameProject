@@ -86,3 +86,6 @@ class GlobalVar:
     def close_program(self):
         pygame.quit()
         sys.exit(0)
+
+    def maketext(self):
+        pass
