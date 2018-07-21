@@ -25,8 +25,7 @@ def about_this(SURFACE, globalVar):
     bt_back.left = 300
     bt_back.bottom = 580
 
-    back_img = globalVar.globalFont.render('返  回', True, globalVar.color_dict['white'])
-    back_rect = back_img.get_rect()
+    back_img, back_rect = globalVar.maketext(globalVar.globalFont, '返  回', globalVar.color_dict['red'])
     back_rect.center = bt_back.center
 
     while True:
@@ -34,9 +33,7 @@ def about_this(SURFACE, globalVar):
         SURFACE.blit(bg, (0, 0))
 
         for item in aboutText:
-            # font_img = globalVar.aboutFont.render(item, True, globalVar.color_dict['red'])
-            # font_rect = font_img.get_rect()
-            font_img, font_rect=globalVar.maketext(globalVar.aboutFont, item, globalVar.color_dict['red'])
+            font_img, font_rect = globalVar.maketext(globalVar.aboutFont, item, globalVar.color_dict['red'])
             font_rect.top = 80 + aboutText.index(item) * 30
             font_rect.left = 80
 
@@ -58,7 +55,7 @@ def about_this(SURFACE, globalVar):
         x, y = pygame.mouse.get_pos()
         pressed = pygame.mouse.get_pressed()
 
-        if bt_back.left < x < bt_back.right and bt_back.top < y < bt_back.bottom:
+        if bt_back.collidepoint(x, y):
             pygame.draw.rect(SURFACE, globalVar.color_dict['orange'], bt_back)
             for event in pressed:
                 if event == 1:
