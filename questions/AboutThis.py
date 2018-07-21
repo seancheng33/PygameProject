@@ -34,8 +34,9 @@ def about_this(SURFACE, globalVar):
         SURFACE.blit(bg, (0, 0))
 
         for item in aboutText:
-            font_img = globalVar.aboutFont.render(item, True, globalVar.color_dict['red'])
-            font_rect = font_img.get_rect()
+            # font_img = globalVar.aboutFont.render(item, True, globalVar.color_dict['red'])
+            # font_rect = font_img.get_rect()
+            font_img, font_rect=globalVar.maketext(globalVar.aboutFont, item, globalVar.color_dict['red'])
             font_rect.top = 80 + aboutText.index(item) * 30
             font_rect.left = 80
 

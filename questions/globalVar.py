@@ -87,5 +87,7 @@ class GlobalVar:
         pygame.quit()
         sys.exit(0)
 
-    def maketext(self):
-        pass
+    def maketext(self, font, text, color):
+        text_img = font.render(text, True, color)
+        text_rect = text_img.get_rect()
+        return (text_img, text_rect)
