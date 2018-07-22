@@ -24,6 +24,7 @@ def main():
     score = 0
     right_score = 0
     wrong_score = 0
+    gameLevels = None
     while True:
 
         if 'reset' in result:

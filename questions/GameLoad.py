@@ -20,15 +20,17 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
     bt_replay = pygame.Rect((0, 0), (220, 50))
     bt_replay.left = 730
     bt_replay.top = 400
-    replay_img = globalVar.globalFont.render('重新开始', True, globalVar.color_dict['white'])
-    replay_rect = replay_img.get_rect()
+    # replay_img = globalVar.globalFont.render('重新开始', True, globalVar.color_dict['white'])
+    # replay_rect = replay_img.get_rect()
+    replay_img, replay_rect = globalVar.maketext(globalVar.globalFont, '重新开始', globalVar.color_dict['white'])
     replay_rect.center = bt_replay.center
 
     bt_exit = pygame.Rect((0, 0), (220, 50))
     bt_exit.left = 730
     bt_exit.top = 480
-    exit_img = globalVar.globalFont.render('结束游戏', True, globalVar.color_dict['white'])
-    exit_rect = exit_img.get_rect()
+    # exit_img = globalVar.globalFont.render('结束游戏', True, globalVar.color_dict['white'])
+    # exit_rect = exit_img.get_rect()
+    exit_img, exit_rect = globalVar.maketext(globalVar.globalFont, '结束游戏', globalVar.color_dict['white'])
     exit_rect.center = bt_exit.center
 
     mouseCursor = pygame.image.load('img/cursor.png').convert_alpha()  # 载入鼠标的图片
@@ -57,18 +59,22 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
         # 显示出答案选项
         item1_image = globalVar.answerFont.render('1 - ' + level_answer[0], True, globalVar.color_dict['red'])
         item1_rect = item1_image.get_rect()
+
         item1_rect.left = 50
         item1_rect.top = 310
         item2_image = globalVar.answerFont.render('2 - ' + level_answer[1], True, globalVar.color_dict['red'])
         item2_rect = item2_image.get_rect()
+
         item2_rect.left = 50
         item2_rect.top = 380
         item3_image = globalVar.answerFont.render('3 - ' + level_answer[2], True, globalVar.color_dict['red'])
         item3_rect = item3_image.get_rect()
+
         item3_rect.left = 50
         item3_rect.top = 450
         item4_image = globalVar.answerFont.render('4 - ' + level_answer[3], True, globalVar.color_dict['red'])
         item4_rect = item4_image.get_rect()
+
         item4_rect.left = 50
         item4_rect.top = 520
 
@@ -101,8 +107,10 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
         # 鼠标控制事件
         x, y = pygame.mouse.get_pos()
         pressed = pygame.mouse.get_pressed()
-        # 四个答案区域的内容的鼠标鼠标时间控制
-        if item1_rect.left < x < item1_rect.right and item1_rect.top < y < item1_rect.bottom:
+        # 四个答案区域的内容的鼠标事件控制
+        # 最开始的使用是判断鼠标的坐标是否在图形的上下左右的范围内
+        # 之后修改为直接调用碰撞检测，减少了写 left < x < right and top < y < bottom 这样的判断，直接使用了collidepoint()
+        if item1_rect.collidepoint(x, y):
             item1_image = globalVar.answerFont.render('1 - ' + level_answer[0], True, globalVar.color_dict['gold'])
             SURFACE.blit(item1_image, item1_rect)
             for event in pressed:
@@ -111,7 +119,7 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
                         return 'yes'
                     else:
                         return 'no'
-        if item2_rect.left < x < item2_rect.right and item2_rect.top < y < item2_rect.bottom:
+        if item2_rect.collidepoint(x, y):
             item2_image = globalVar.answerFont.render('2 - ' + level_answer[1], True, globalVar.color_dict['gold'])
             SURFACE.blit(item2_image, item2_rect)
             for event in pressed:
@@ -120,7 +128,7 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
                         return 'yes'
                     else:
                         return 'no'
-        if item3_rect.left < x < item3_rect.right and item3_rect.top < y < item3_rect.bottom:
+        if item3_rect.collidepoint(x, y):
             item3_image = globalVar.answerFont.render('3 - ' + level_answer[2], True, globalVar.color_dict['gold'])
             SURFACE.blit(item3_image, item3_rect)
             for event in pressed:
@@ -129,7 +137,7 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
                         return 'yes'
                     else:
                         return 'no'
-        if item4_rect.left < x < item4_rect.right and item4_rect.top < y < item4_rect.bottom:
+        if item4_rect.collidepoint(x, y):
             item4_image = globalVar.answerFont.render('4 - ' + level_answer[3], True, globalVar.color_dict['gold'])
             SURFACE.blit(item4_image, item4_rect)
             for event in pressed:
@@ -139,12 +147,12 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
                     else:
                         return 'no'
         # 右侧按键的鼠标事件
-        if bt_replay.left < x < bt_replay.right and bt_replay.top < y < bt_replay.bottom:
+        if bt_replay.collidepoint(x, y):
             pygame.draw.rect(SURFACE, globalVar.color_dict['orange'], bt_replay)
             for event in pressed:
                 if event == 1:
                     return 'reset'
-        if bt_exit.left < x < bt_exit.right and bt_exit.top < y < bt_exit.bottom:
+        if bt_exit.collidepoint(x, y):
             pygame.draw.rect(SURFACE, globalVar.color_dict['orange'], bt_exit)
             for event in pressed:
                 if event == 1:
