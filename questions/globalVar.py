@@ -90,4 +90,4 @@ class GlobalVar:
     def maketext(self, font, text, color):
         text_img = font.render(text, True, color)
         text_rect = text_img.get_rect()
-        return (text_img, text_rect)
+        return text_img, text_rect

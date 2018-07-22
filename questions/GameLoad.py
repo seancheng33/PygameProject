@@ -43,11 +43,13 @@ def load_game(SURFACE, globalVar, gameLevels, current, total_score, total_right_
         for i in range(int(len(level_question) / 25 + 1)):
             start = i * 25
             end = (i + 1) * 25
-            question_image = globalVar.questionFont.render(level_question[start:end], True, globalVar.color_dict['black'])
+            question_image = globalVar.questionFont.render(level_question[start:end], True,
+                                                           globalVar.color_dict['black'])
             SURFACE.blit(question_image, (50, 80 + (i * 30)))
 
         # 右侧的内容
-        level_image = globalVar.helpFont.render('当前题目：第 ' + str(current + 1) + ' 题', True, globalVar.color_dict['orange'])
+        level_image = globalVar.helpFont.render('当前题目：第 ' + str(current + 1) + ' 题', True,
+                                                globalVar.color_dict['orange'])
         SURFACE.blit(level_image, (725, 80))
         score_image = globalVar.helpFont.render('当前分数：' + str(total_score), True, globalVar.color_dict['orange'])
         SURFACE.blit(score_image, (725, 120))
