@@ -4,6 +4,8 @@
 @CreateTime   : 2018/7/11
 @Program      : 游戏的主要功能模块，包括了游戏主界面的实现
 '''
+import time
+
 import pygame
 from pygame.locals import *
 
