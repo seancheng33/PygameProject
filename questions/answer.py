@@ -29,7 +29,7 @@ def main():
 
         if 'reset' in result:
             # 返回到游戏标题界面
-            result = game_title(SURFACE, globalVar, )
+            result = game_title(SURFACE, globalVar)
         elif 'start' in result:
             gameLevels = globalVar.load_file("data.xml", totalNum)  # 在点开始游戏的时候载入10道题
             pygame.time.wait(1000)  # 和答题同理
