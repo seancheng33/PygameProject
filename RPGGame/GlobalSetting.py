@@ -9,9 +9,9 @@ import pygame
 
 class GlobalSetting:
     def __init__(self):
-        self.TILESIZE = 32
-        self.TILEWIDTH = 24
-        self.TILEHEIGHT = 20
+        self.TILESIZE = 32  # 每个的大小
+        self.TILEWIDTH = 25  # 屏幕宽度的格数
+        self.TILEHEIGHT = 21  # 屏幕高度的格数
 
         self.SCREENWIDTH = self.TILESIZE * self.TILEWIDTH
         self.SCREENHEIGHT = self.TILESIZE * self.TILEHEIGHT
@@ -34,6 +34,7 @@ class GlobalSetting:
                             's': self.IMAGESDICT['sand'],
                             '*': self.IMAGESDICT['stone'],
                             'w': self.IMAGESDICT['water']}
+        self.DESC = {'UP': 1, 'RIGHT': 2, 'DOWN': 3, 'LEFT': 4}
 
         pygame.init()
         self.font_path = 'c:\\Windows\\Fonts\\SimHei.ttf'
