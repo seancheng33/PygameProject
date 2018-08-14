@@ -71,25 +71,19 @@ def run_map(mapList, gameStateObj):
                 return 'exit'
             elif event.type == KEYDOWN:
                 # 控制角色的移动
-                if event.key == K_LEFT:
+                if event.key == K_LEFT or event.key == K_a:
                     if x > 0:
                         gameStateObj['player'] = (x - 1, y)
-                elif event.key == K_RIGHT:
+                elif event.key == K_RIGHT or event.key == K_d:
                     if x < len(mapObj[0])-1:
                         gameStateObj['player'] = (x + 1, y)
-                elif event.key == K_UP:
+                elif event.key == K_UP or event.key == K_w:
                     if y > 0:
                         gameStateObj['player'] = (x, y - 1)
-                elif event.key == K_DOWN:
+                elif event.key == K_DOWN or event.key == K_s:
                     if y < len(mapObj)-1:
                         gameStateObj['player'] = (x, y + 1)
 
-                # elif event.key == K_m:
-                #     if not showMenu:
-                #         showMenu = True
-                #         show_menu()
-                #     else:
-                #         showMenu = False
 
                 elif event.key == K_ESCAPE:
                     return 'exit'
