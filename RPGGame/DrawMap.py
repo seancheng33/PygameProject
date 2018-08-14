@@ -40,19 +40,19 @@ def redraw_map(mapObj, gameStateObj):
     half_x = int(setting.TILEWIDTH // 2) + 1  # 屏幕的宽一半的位置，作为角色的中间点
     half_y = int(setting.TILEHEIGHT // 2) + 1  # 屏幕的高一半的位置，作为角色的中间点
 
-    if half_x < x < setting.TILEWIDTH:
-        if half_x >= setting.TILEWIDTH - x:
-            offsetX = (mapwidth - setting.TILEWIDTH) * setting.TILESIZE
-        else:
-            offsetX = (x - half_x) * setting.TILESIZE
+    # 根据x坐标，计算出x的镜头偏移值
+    if half_x <= x <= mapwidth-half_x:
+        offsetX = (x - half_x) * setting.TILESIZE
+    elif x+half_x > setting.TILEWIDTH:
+        offsetX = (mapwidth - setting.TILEWIDTH) * setting.TILESIZE
     else:
         offsetX = 0 * setting.TILESIZE
 
-    if half_y < y < setting.TILEHEIGHT:
-        if half_y >= setting.TILEHEIGHT - y:
-            offsetY = (mapheight - setting.TILEHEIGHT) * setting.TILESIZE
-        else:
-            offsetY = (y - half_y) * setting.TILESIZE
+    # 根据y坐标，计算出y的镜头偏移值
+    if half_y <= y <= mapheight - half_y:
+        offsetY = (y - half_y) * setting.TILESIZE
+    elif y + half_y > setting.TILEHEIGHT:
+        offsetY = (mapheight - setting.TILEHEIGHT) * setting.TILESIZE
     else:
         offsetY = 0 * setting.TILESIZE
 

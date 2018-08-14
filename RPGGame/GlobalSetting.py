@@ -40,6 +40,6 @@ class GlobalSetting:
         self.font_path = 'c:\\Windows\\Fonts\\SimHei.ttf'
         self.INVFONT = pygame.font.Font(self.font_path, 48)
         self.SCREENFACE = pygame.display.set_mode((self.SCREENWIDTH, self.SCREENHEIGHT))
-        pygame.display.set_caption('RPG大的地图移动的Demo')
+        pygame.display.set_caption('RPG大的地图移动的Demo version: 0.10')
 
         self.FPSCLOCK = pygame.time.Clock()

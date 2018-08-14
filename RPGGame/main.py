@@ -16,7 +16,7 @@ from sysfunction import close_program
 def startscreen():
     setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
 
-    title = setting.INVFONT.render('中文的标题', True, (255, 255, 255), setting.COLORDICT['bgcolor'])
+    title = setting.INVFONT.render('RPG游戏练习', True, (255, 255, 255), setting.COLORDICT['bgcolor'])
     titleRect = title.get_rect()
     titleRect.top = 100
     titleRect.centerx = int(setting.SCREENWIDTH / 2)
