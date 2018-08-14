@@ -7,9 +7,11 @@
 import sys
 import pygame
 from pygame.locals import *
+
 from RPGGame.GlobalSetting import GlobalSetting
 
 setting = GlobalSetting()
+
 
 def close_program():
     pygame.quit()
@@ -19,6 +21,7 @@ def close_program():
 def system_menu():
     pass
 
+
 def startscreen():
     setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
 
@@ -27,10 +30,9 @@ def startscreen():
     titleRect.top = 100
     titleRect.centerx = int(setting.SCREENWIDTH / 2)
 
-
     while True:
         setting.SCREENFACE.blit(title, titleRect)
-        pygame.draw.rect(setting.SCREENFACE,(0,125,0),(220, 250, 120,50))
+        pygame.draw.rect(setting.SCREENFACE, (0, 125, 0), (220, 250, 120, 50))
         for event in pygame.event.get():
             if event.type == QUIT:
                 return 'exit'

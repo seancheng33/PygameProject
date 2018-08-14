@@ -16,7 +16,9 @@ class GlobalSetting:
         self.SCREENWIDTH = self.TILESIZE * self.TILEWIDTH
         self.SCREENHEIGHT = self.TILESIZE * self.TILEHEIGHT
 
-        self.COLORDICT = {'bgcolor': (0, 140, 140)}
+        self.COLORDICT = {'bgcolor': (0, 140, 140),
+                          'white': (255, 255, 255),
+                          }
 
         self.IMAGESDICT = {
                         'coal': pygame.image.load('img/coal.png'),
@@ -40,6 +42,6 @@ class GlobalSetting:
         self.font_path = 'c:\\Windows\\Fonts\\SimHei.ttf'
         self.INVFONT = pygame.font.Font(self.font_path, 48)
         self.SCREENFACE = pygame.display.set_mode((self.SCREENWIDTH, self.SCREENHEIGHT))
-        pygame.display.set_caption('RPG大的地图移动的Demo version: 0.10')
+        pygame.display.set_caption('RPG大的地图移动的Demo version: 0.11')
 
         self.FPSCLOCK = pygame.time.Clock()
