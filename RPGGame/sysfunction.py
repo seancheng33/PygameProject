@@ -6,7 +6,7 @@
 '''
 import sys
 import pygame
-
+from pygame.locals import *
 from RPGGame.GlobalSetting import GlobalSetting
 
 setting = GlobalSetting()
