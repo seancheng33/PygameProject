@@ -9,7 +9,7 @@ from pygame.locals import *
 
 from RPGGame import DrawMap, mapdata
 from RPGGame.GlobalSetting import GlobalSetting
-from RPGGame.sysfunction import close_program, startscreen
+from RPGGame.sysfunction import close_program, start_screen
 
 setting = GlobalSetting()
 
@@ -74,14 +74,14 @@ def main():
     }
 
     setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
-    result = startscreen()
+    result = start_screen()
     while True:
         if result == 'exit':
             # 收到返回的结果是exit的话，就关闭整个程序
             close_program()
         elif result == 'title':
             # 收到返回的结果是title的话，就返回到title界面
-            result = startscreen()
+            result = start_screen()
         elif result == 'startgame':
             # 收到返回的结果是startgame的话，就开始新游戏
             result = run_map(mapList, gameStateObj)

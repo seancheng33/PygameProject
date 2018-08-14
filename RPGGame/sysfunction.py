@@ -22,7 +22,7 @@ def system_menu():
     pass
 
 
-def startscreen():
+def start_screen():
     setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
 
     title = setting.INVFONT.render('RPG游戏练习', True, (255, 255, 255), setting.COLORDICT['bgcolor'])
@@ -30,22 +30,32 @@ def startscreen():
     titleRect.top = 100
     titleRect.centerx = int(setting.SCREENWIDTH / 2)
 
+    btStart = setting.INVFONT.render('开始游戏', True, (127, 127, 127))
+    btStartRect = btStart.get_rect()
+    btStartRect.topleft = 220, 250
+
     while True:
         setting.SCREENFACE.blit(title, titleRect)
-        pygame.draw.rect(setting.SCREENFACE, (0, 125, 0), (220, 250, 120, 50))
+        setting.SCREENFACE.blit(btStart, btStartRect)
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 return 'exit'
             elif event.type == KEYUP:
                 if event.key == K_ESCAPE:
                     return 'exit'
-            elif event.type == MOUSEBUTTONUP:
-                if 220 < x < 340 and 250 < y < 300:
-                    return 'startgame'
         x, y = pygame.mouse.get_pos()
+        pressed = pygame.mouse.get_pressed()
 
-        if 220 < x < 340 and 250 < y < 300:
-            pygame.draw.rect(setting.SCREENFACE, (0, 125, 125), (220, 250, 120, 50))
+        if btStartRect.collidepoint(x, y):
+            btStart = setting.INVFONT.render('开始游戏', True, (107, 107, 107))
+            for event in pressed:
+                if event == 1:
+                    return 'startgame'
+
 
         pygame.display.update()
         setting.FPSCLOCK.tick()
+
+def can_move():
+    pass
