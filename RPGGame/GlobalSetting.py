@@ -36,7 +36,7 @@ class GlobalSetting:
                             's': self.IMAGESDICT['sand'],
                             '*': self.IMAGESDICT['stone'],
                             'w': self.IMAGESDICT['water']}
-        self.DESC = {'UP': 1, 'RIGHT': 2, 'DOWN': 3, 'LEFT': 4}
+        self.DESC = {'UP': (0, -1), 'RIGHT': (1, 0), 'DOWN': (0, 1), 'LEFT': (-1, 0)}
 
         pygame.init()
         self.font_path = 'c:\\Windows\\Fonts\\SimHei.ttf'

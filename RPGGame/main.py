@@ -9,7 +9,7 @@ from pygame.locals import *
 
 from RPGGame import DrawMap, mapdata
 from RPGGame.GlobalSetting import GlobalSetting
-from RPGGame.sysfunction import close_program, start_screen
+from RPGGame.sysfunction import close_program, start_screen, can_move
 
 setting = GlobalSetting()
 
@@ -37,16 +37,20 @@ def run_map(mapList, gameStateObj):
                 # 控制角色的移动
                 if event.key == K_LEFT or event.key == K_a:
                     if x > 0:
-                        gameStateObj['player'] = (x - 1, y)
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['LEFT'])
+                        # gameStateObj['player'] = (x - 1, y)
                 elif event.key == K_RIGHT or event.key == K_d:
                     if x < len(mapObj[0])-1:
-                        gameStateObj['player'] = (x + 1, y)
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['RIGHT'])
+                        # gameStateObj['player'] = (x + 1, y)
                 elif event.key == K_UP or event.key == K_w:
                     if y > 0:
-                        gameStateObj['player'] = (x, y - 1)
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['UP'])
+                        # gameStateObj['player'] = (x, y - 1)
                 elif event.key == K_DOWN or event.key == K_s:
                     if y < len(mapObj)-1:
-                        gameStateObj['player'] = (x, y + 1)
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['DOWN'])
+                        # gameStateObj['player'] = (x, y + 1)
 
 
                 elif event.key == K_ESCAPE:
@@ -87,7 +91,7 @@ def main():
             result = run_map(mapList, gameStateObj)
 
         pygame.display.update()
-        setting.FPSCLOCK.tick()
+        setting.FPSCLOCK.tick(120)
 
 
 if __name__ == '__main__':
