@@ -5,9 +5,7 @@
 @Program  : 练习rpg的游戏，这个是主入口文件。
 '''
 import pygame
-from pygame.locals import *
-
-from RPGGame import DrawMap, mapdata
+from RPGGame import mapdata
 from RPGGame.GlobalSetting import GlobalSetting
 from RPGGame.RunGame import run_map
 from RPGGame.sysfunction import close_program, start_screen, can_move
@@ -22,7 +20,7 @@ def main():
         'player': mapdata.role_postion['base'],
         'map name': 'base',
     }
-
+    # print(ImageLoad.imgdict)
     setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
     result = start_screen()
     while True:

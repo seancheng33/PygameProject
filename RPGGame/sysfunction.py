@@ -62,7 +62,7 @@ def can_move(mapObj, x, y, desc):
     newX, newY = x + moveX, y + moveY
     # 判断需要移动的位置是否是可以移动的类型，如果是，角色就移动到该位置，如果不是，角色就返回原来的坐标，不移动。
     # 随着地图的完善，这个元组，可能要定义为一个变量。
-    if mapObj[newY][newX] in ('g', 'w'):
+    if mapObj[newY][newX] in ('x0y1', 'x0y2'):
         return newX, newY
     else:
         return x, y
