@@ -37,16 +37,16 @@ def run_map(mapList, gameStateObj):
                 # 控制角色的移动
                 if event.key == K_LEFT or event.key == K_a:
                     if x > 0:
-                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['LEFT'])
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DIRECTION['LEFT'])
                 elif event.key == K_RIGHT or event.key == K_d:
                     if x < len(mapObj[0])-1:
-                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['RIGHT'])
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DIRECTION['RIGHT'])
                 elif event.key == K_UP or event.key == K_w:
                     if y > 0:
-                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['UP'])
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DIRECTION['UP'])
                 elif event.key == K_DOWN or event.key == K_s:
                     if y < len(mapObj)-1:
-                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['DOWN'])
+                        gameStateObj['player'] = can_move(mapObj, x, y, setting.DIRECTION['DOWN'])
                 #
                 elif event.key == K_ESCAPE:
                     return 'exit'
