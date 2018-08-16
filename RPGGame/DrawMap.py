@@ -24,7 +24,7 @@ def draw_map(mapObj, gameStateObj):
     # 游戏的角色是绘制在这里的吗？
     x, y = gameStateObj['player']
     role = pygame.image.load('img/horngirl.png')
-    role_rect = pygame.Rect(x * setting.TILESIZE, y * setting.TILESIZE, setting.TILESIZE, setting.TILESIZE)
+    role_rect = pygame.Rect(x * setting.TILESIZE, y * setting.TILESIZE - setting.TILESIZE//4, setting.TILESIZE, setting.TILESIZE)
     mapSurface.blit(role, role_rect)
 
     return mapSurface
@@ -55,7 +55,6 @@ def redraw_map(mapObj, gameStateObj):
         offsetY = (mapheight - setting.TILEHEIGHT) * setting.TILESIZE
     else:
         offsetY = 0 * setting.TILESIZE
-
 
     if mapwidth > setting.TILEWIDTH and mapheight > setting.TILEHEIGHT:
         sub_map = Rect(offsetX, offsetY, setting.SCREENWIDTH, setting.SCREENHEIGHT)

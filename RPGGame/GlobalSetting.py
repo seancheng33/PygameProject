@@ -51,7 +51,7 @@ class GlobalSetting:
         self.font_path = 'c:\\Windows\\Fonts\\SimHei.ttf'
         self.INVFONT = pygame.font.Font(self.font_path, 48)
         self.SCREENFACE = pygame.display.set_mode((self.SCREENWIDTH, self.SCREENHEIGHT))
-        pygame.display.set_caption('RPG大的地图移动的Demo version: 0.15')
+        pygame.display.set_caption('RPG游戏引擎的Demo --version: 0.20 by Sean Cheng')
 
         self.FPSCLOCK = pygame.time.Clock()
 
@@ -59,10 +59,8 @@ class GlobalSetting:
 
     def image_load(self, filename='img/background.png'):
         bgimg = pygame.image.load(filename).convert_alpha()  # 这张图片是24列38行
-
         imgwidth = 24
         imgheight = 38
-
         imgdict = {}
 
         for imgx in range(imgwidth):
