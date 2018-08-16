@@ -21,7 +21,7 @@ def main():
         'map name': 'base',
     }
     # print(ImageLoad.imgdict)
-    setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
+    setting.SCREENFACE.fill(setting.COLORDICT['silver'])
     result = start_screen()
     while True:
         if result == 'exit':

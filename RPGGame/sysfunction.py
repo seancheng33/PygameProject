@@ -23,14 +23,14 @@ def system_menu():
 
 
 def start_screen():
-    setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
+    setting.SCREENFACE.fill(setting.COLORDICT['silver'])
 
-    title = setting.INVFONT.render('RPG游戏练习', True, (255, 255, 255), setting.COLORDICT['bgcolor'])
+    title = setting.INVFONT.render('RPG游戏练习', True, setting.COLORDICT['white'], setting.COLORDICT['silver'])
     titleRect = title.get_rect()
     titleRect.top = 100
     titleRect.centerx = int(setting.SCREENWIDTH / 2)
 
-    btStart = setting.INVFONT.render('开始游戏', True, (127, 127, 127))
+    btStart = setting.INVFONT.render('开始游戏', True, setting.COLORDICT['bisque'])
     btStartRect = btStart.get_rect()
     btStartRect.topleft = 220, 250
 
@@ -48,7 +48,7 @@ def start_screen():
         pressed = pygame.mouse.get_pressed()
 
         if btStartRect.collidepoint(x, y):
-            btStart = setting.INVFONT.render('开始游戏', True, (107, 107, 107))
+            btStart = setting.INVFONT.render('开始游戏', True, setting.COLORDICT['brown'])
             for event in pressed:
                 if event == 1:
                     return 'startgame'

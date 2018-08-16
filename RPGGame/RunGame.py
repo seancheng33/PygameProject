@@ -12,13 +12,14 @@ from RPGGame.sysfunction import can_move
 
 setting = GlobalSetting()
 
+
 def run_map(mapList, gameStateObj):
     currentMapName = gameStateObj['map name']
     mapObj = mapList[currentMapName]
     showMenu = False
 
     while True:
-        setting.SCREENFACE.fill(setting.COLORDICT['bgcolor'])
+        setting.SCREENFACE.fill(setting.COLORDICT['silver'])
 
         map = DrawMap.draw_map(mapObj, gameStateObj)
         mapRect = map.get_rect()
@@ -37,21 +38,16 @@ def run_map(mapList, gameStateObj):
                 if event.key == K_LEFT or event.key == K_a:
                     if x > 0:
                         gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['LEFT'])
-                        # gameStateObj['player'] = (x - 1, y)
                 elif event.key == K_RIGHT or event.key == K_d:
                     if x < len(mapObj[0])-1:
                         gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['RIGHT'])
-                        # gameStateObj['player'] = (x + 1, y)
                 elif event.key == K_UP or event.key == K_w:
                     if y > 0:
                         gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['UP'])
-                        # gameStateObj['player'] = (x, y - 1)
                 elif event.key == K_DOWN or event.key == K_s:
                     if y < len(mapObj)-1:
                         gameStateObj['player'] = can_move(mapObj, x, y, setting.DESC['DOWN'])
-                        # gameStateObj['player'] = (x, y + 1)
-
-
+                #
                 elif event.key == K_ESCAPE:
                     return 'exit'
                 elif event.key == K_BACKSPACE:
