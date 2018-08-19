@@ -8,12 +8,25 @@
 import pygame, sys
 
 pygame.init()
-screen = pygame.display.set_mode((800,600))
+screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption('2048')
 
 while True:
 
     screen.fill((127, 89, 127))
+
+    # 横线
+    pygame.draw.line(screen, (0, 0, 0), (100, 100), (500, 100), 2)
+    pygame.draw.line(screen, (0, 0, 0), (100, 200), (500, 200), 2)
+    pygame.draw.line(screen, (0, 0, 0), (100, 300), (500, 300), 2)
+    pygame.draw.line(screen, (0, 0, 0), (100, 400), (500, 400), 2)
+    pygame.draw.line(screen, (0, 0, 0), (100, 500), (500, 500), 2)
+    # 竖线
+    pygame.draw.line(screen, (0, 0, 0), (100, 100), (100, 500), 2)
+    pygame.draw.line(screen, (0, 0, 0), (200, 100), (200, 500), 2)
+    pygame.draw.line(screen, (0, 0, 0), (300, 100), (300, 500), 2)
+    pygame.draw.line(screen, (0, 0, 0), (400, 100), (400, 500), 2)
+    pygame.draw.line(screen, (0, 0, 0), (500, 100), (500, 500), 2)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -23,7 +36,5 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit(0)
-
-
 
     pygame.display.update()
