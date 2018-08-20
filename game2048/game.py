@@ -4,6 +4,7 @@
 @CreateTime   : 2018/8/18
 @Program      : 联系用pygame制作一个2048的游戏，
 '''
+import random
 
 import pygame
 import sys
@@ -44,9 +45,19 @@ gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NU
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption('游戏2048                  ver 1.0 Program By Sean Cheng')
+pygame.display.set_caption('游戏2048                  ver 0.6 Program By Sean Cheng')
 
 tileFont = pygame.font.Font('c:\\windows\\Fonts\\SimHei.ttf', 36)
+
+# 初始化两个开始元素在任意位置。
+random_elem = 0
+while random_elem < 2:
+    x = random.randint(0, WINDOW_BLOCK_NUM-1)
+    y = random.randint(0, WINDOW_BLOCK_NUM-1)
+
+    if gameArray[x][y] == 0:
+        gameArray[x][y] = 2
+        random_elem += 1
 
 while True:
 
@@ -69,13 +80,14 @@ while True:
     # 完成游戏元素的绘制
     for i in range(len(gameArray)):
         for j in range(len(gameArray[0])):
-            tile = pygame.draw.rect(screen, COLOR_DICT['silver'],
-                                    ((TILE_SIZE + 20) * i + 110, (TILE_SIZE + 20) * j + 110, TILE_SIZE, TILE_SIZE))
-            tile_text = str(gameArray[i][j])
-            text = tileFont.render(tile_text, True, COLOR_DICT['orange'])
-            text_rect = text.get_rect()
-            text_rect.center = tile.center
-            screen.blit(text, text_rect)
+            if gameArray[i][j] != 0:
+                tile = pygame.draw.rect(screen, COLOR_DICT['silver'],
+                                        ((TILE_SIZE + 20) * i + 110, (TILE_SIZE + 20) * j + 110, TILE_SIZE, TILE_SIZE))
+                tile_text = str(gameArray[i][j])
+                text = tileFont.render(tile_text, True, COLOR_DICT['orange'])
+                text_rect = text.get_rect()
+                text_rect.center = tile.center
+                screen.blit(text, text_rect)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -85,5 +97,14 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit(0)
+
+            elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                pass
+            elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                pass
+            elif event.key == pygame.K_w or event.key == pygame.K_UP:
+                pass
+            elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                pass
 
     pygame.display.update()
