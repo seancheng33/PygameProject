@@ -40,11 +40,15 @@ TITLSIZE = 80
 
 WINDOW_BLOCK_NUM = 4
 
-initArray = [0 for i in range(WINDOW_BLOCK_NUM) for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption('游戏2048                  ver 1.0 Program By Sean Cheng')
+
+tileFont = pygame.font.Font(None,36)
+
+
 
 while True:
 
@@ -64,10 +68,15 @@ while True:
     pygame.draw.line(screen, (0, 0, 0), (400, 100), (400, 500), 2)
     pygame.draw.line(screen, (0, 0, 0), (500, 100), (500, 500), 2)
 
-    for i in range(initArray):
-        for j in range(initArray[0]):
-            # tile = pygame.draw.rect(screen, COLORDICT['silver'], ((TITLSIZE+10)*i+100, (TITLSIZE+10)*i+100, TITLSIZE, TITLSIZE))
-            pass
+    # 完成游戏元素的绘制
+    for i in range(len(gameArray)):
+        for j in range(len(gameArray[0])):
+            tile = pygame.draw.rect(screen, COLORDICT['silver'], ((TITLSIZE+20)*i+110, (TITLSIZE+20)*j+110, TITLSIZE, TITLSIZE))
+            tile_text = str(gameArray[i][j])
+            text = tileFont.render(tile_text, True, COLORDICT['orange'])
+            text_rect = text.get_rect()
+            text_rect.center = tile.center
+            screen.blit(text, text_rect)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
