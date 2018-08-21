@@ -17,6 +17,7 @@ def add_elem():
     if gameArray[x][y] == 0:
         gameArray[x][y] = 2
 
+
 COLOR_DICT = {'white': (255, 255, 255),  # 白色
               'ivory': (255, 255, 240),  # 象牙色
               'yellow': (255, 255, 0),  # 黄色
@@ -45,6 +46,11 @@ COLOR_DICT = {'white': (255, 255, 255),  # 白色
               'navy': (0, 0, 128),  # 海军蓝色
               'black': (0, 0, 0),  # 纯黑色
               }
+
+NUM_COLOR_DICT = {'2': COLOR_DICT['gray'], '4': COLOR_DICT['brown'], '8': COLOR_DICT['violet'],
+                  '16': COLOR_DICT['wheat'], '32': COLOR_DICT['coral'], '64': COLOR_DICT['turquoise'],
+                  '128': COLOR_DICT['navy'], '256': COLOR_DICT['olive'], '512': COLOR_DICT['orange'],
+                  '1024': COLOR_DICT['seagreen'], '2048': COLOR_DICT['purple']}
 
 TILE_SIZE = 80
 WINDOW_BLOCK_NUM = 4
@@ -92,7 +98,7 @@ while True:
                 tile = pygame.draw.rect(screen, COLOR_DICT['silver'],
                                         ((TILE_SIZE + 20) * i + 110, (TILE_SIZE + 20) * j + 110, TILE_SIZE, TILE_SIZE))
                 tile_text = str(gameArray[i][j])
-                text = tileFont.render(tile_text, True, COLOR_DICT['orange'])
+                text = tileFont.render(tile_text, True, NUM_COLOR_DICT[tile_text])
                 text_rect = text.get_rect()
                 text_rect.center = tile.center
                 screen.blit(text, text_rect)
