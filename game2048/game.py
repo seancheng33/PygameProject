@@ -9,6 +9,14 @@ import random
 import pygame
 import sys
 
+
+def add_elem():
+    x = random.randint(0, WINDOW_BLOCK_NUM - 1)
+    y = random.randint(0, WINDOW_BLOCK_NUM - 1)
+
+    if gameArray[x][y] == 0:
+        gameArray[x][y] = 2
+
 COLOR_DICT = {'white': (255, 255, 255),  # 白色
               'ivory': (255, 255, 240),  # 象牙色
               'yellow': (255, 255, 0),  # 黄色
@@ -45,15 +53,15 @@ gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NU
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption('游戏2048                  ver 0.6 Program By Sean Cheng')
+pygame.display.set_caption('游戏2048                  ver 0.7 Program By Sean Cheng')
 
 tileFont = pygame.font.Font('c:\\windows\\Fonts\\SimHei.ttf', 36)
 
 # 初始化两个开始元素在任意位置。
 random_elem = 0
 while random_elem < 2:
-    x = random.randint(0, WINDOW_BLOCK_NUM-1)
-    y = random.randint(0, WINDOW_BLOCK_NUM-1)
+    x = random.randint(0, WINDOW_BLOCK_NUM - 1)
+    y = random.randint(0, WINDOW_BLOCK_NUM - 1)
 
     if gameArray[x][y] == 0:
         gameArray[x][y] = 2
@@ -102,42 +110,37 @@ while True:
                 for i in range(WINDOW_BLOCK_NUM):
                     if i > 0:
                         for j in range(WINDOW_BLOCK_NUM):
-                            if gameArray[i][j] != 0 and gameArray[i-1][j] == 0:
+                            while gameArray[i][j] != 0 and gameArray[i - 1][j] == 0:
                                 gameArray[i - 1][j] = gameArray[i][j]
                                 gameArray[i][j] = 0
-                            elif gameArray[i][j] != 0 and gameArray[i-1][j] == gameArray[i][j]:
-                                gameArray[i - 1][j] += gameArray[i][j]
-                                gameArray[i][j] = 0
+                add_elem()
 
             elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                 for i in range(WINDOW_BLOCK_NUM):
                     if i < WINDOW_BLOCK_NUM - 1:
                         for j in range(WINDOW_BLOCK_NUM):
-                            if gameArray[i][j] != 0 and gameArray[i+1][j] == 0:
+                            while gameArray[i][j] != 0 and gameArray[i + 1][j] == 0:
                                 gameArray[i + 1][j] = gameArray[i][j]
                                 gameArray[i][j] = 0
-                            elif gameArray[i][j] != 0 and gameArray[i+1][j] == gameArray[i][j]:
-                                gameArray[i + 1][j] += gameArray[i][j]
-                                gameArray[i][j] = 0
+                add_elem()
+
             elif event.key == pygame.K_w or event.key == pygame.K_UP:
                 for i in range(WINDOW_BLOCK_NUM):
                     for j in range(WINDOW_BLOCK_NUM):
                         if j > 0:
-                            if gameArray[i][j] != 0 and gameArray[i][j-1] == 0:
+                            if gameArray[i][j] != 0 and gameArray[i][j - 1] == 0:
                                 gameArray[i][j - 1] = gameArray[i][j]
                                 gameArray[i][j] = 0
-                            elif gameArray[i][j] != 0 and gameArray[i][j-1] == gameArray[i][j]:
-                                gameArray[i][j-1] += gameArray[i][j]
-                                gameArray[i][j] = 0
+                add_elem()
+
             elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
                 for i in range(WINDOW_BLOCK_NUM):
                     for j in range(WINDOW_BLOCK_NUM):
                         if j < WINDOW_BLOCK_NUM - 1:
-                            if gameArray[i][j] != 0 and gameArray[i][j+1] == 0:
+                            if gameArray[i][j] != 0 and gameArray[i][j + 1] == 0:
                                 gameArray[i][j - 1] = gameArray[i][j]
                                 gameArray[i][j] = 0
-                            elif gameArray[i][j] != 0 and gameArray[i][j+1] == gameArray[i][j]:
-                                gameArray[i][j+1] += gameArray[i][j]
-                                gameArray[i][j] = 0
+                add_elem()
 
     pygame.display.update()
+    pygame.time.Clock().tick(30)
