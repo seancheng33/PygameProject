@@ -58,7 +58,7 @@ while random_elem < 2:
     if gameArray[x][y] == 0:
         gameArray[x][y] = 2
         random_elem += 1
-
+# print(gameArray)
 while True:
 
     screen.fill(COLOR_DICT['bisque'])
@@ -99,12 +99,45 @@ while True:
                 sys.exit(0)
 
             elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                pass
+                for i in range(WINDOW_BLOCK_NUM):
+                    if i > 0:
+                        for j in range(WINDOW_BLOCK_NUM):
+                            if gameArray[i][j] != 0 and gameArray[i-1][j] == 0:
+                                gameArray[i - 1][j] = gameArray[i][j]
+                                gameArray[i][j] = 0
+                            elif gameArray[i][j] != 0 and gameArray[i-1][j] == gameArray[i][j]:
+                                gameArray[i - 1][j] += gameArray[i][j]
+                                gameArray[i][j] = 0
+
             elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                pass
+                for i in range(WINDOW_BLOCK_NUM):
+                    if i < WINDOW_BLOCK_NUM - 1:
+                        for j in range(WINDOW_BLOCK_NUM):
+                            if gameArray[i][j] != 0 and gameArray[i+1][j] == 0:
+                                gameArray[i + 1][j] = gameArray[i][j]
+                                gameArray[i][j] = 0
+                            elif gameArray[i][j] != 0 and gameArray[i+1][j] == gameArray[i][j]:
+                                gameArray[i + 1][j] += gameArray[i][j]
+                                gameArray[i][j] = 0
             elif event.key == pygame.K_w or event.key == pygame.K_UP:
-                pass
+                for i in range(WINDOW_BLOCK_NUM):
+                    for j in range(WINDOW_BLOCK_NUM):
+                        if j > 0:
+                            if gameArray[i][j] != 0 and gameArray[i][j-1] == 0:
+                                gameArray[i][j - 1] = gameArray[i][j]
+                                gameArray[i][j] = 0
+                            elif gameArray[i][j] != 0 and gameArray[i][j-1] == gameArray[i][j]:
+                                gameArray[i][j-1] += gameArray[i][j]
+                                gameArray[i][j] = 0
             elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                pass
+                for i in range(WINDOW_BLOCK_NUM):
+                    for j in range(WINDOW_BLOCK_NUM):
+                        if j < WINDOW_BLOCK_NUM - 1:
+                            if gameArray[i][j] != 0 and gameArray[i][j+1] == 0:
+                                gameArray[i][j - 1] = gameArray[i][j]
+                                gameArray[i][j] = 0
+                            elif gameArray[i][j] != 0 and gameArray[i][j+1] == gameArray[i][j]:
+                                gameArray[i][j+1] += gameArray[i][j]
+                                gameArray[i][j] = 0
 
     pygame.display.update()
