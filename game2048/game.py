@@ -11,11 +11,14 @@ import sys
 
 
 def add_elem():
-    x = random.randint(0, WINDOW_BLOCK_NUM - 1)
-    y = random.randint(0, WINDOW_BLOCK_NUM - 1)
+    while True:
+        # 生产随机位置元素，完成即跳出运行
+        x = random.randint(0, WINDOW_BLOCK_NUM - 1)
+        y = random.randint(0, WINDOW_BLOCK_NUM - 1)
 
-    if gameArray[x][y] == 0:
-        gameArray[x][y] = 2
+        if gameArray[x][y] == 0:
+            gameArray[x][y] = 2
+            break
 
 
 COLOR_DICT = {'white': (255, 255, 255),  # 白色
@@ -66,12 +69,8 @@ tileFont = pygame.font.Font('c:\\windows\\Fonts\\SimHei.ttf', 36)
 # 初始化两个开始元素在任意位置。
 random_elem = 0
 while random_elem < 2:
-    x = random.randint(0, WINDOW_BLOCK_NUM - 1)
-    y = random.randint(0, WINDOW_BLOCK_NUM - 1)
-
-    if gameArray[x][y] == 0:
-        gameArray[x][y] = 2
-        random_elem += 1
+    add_elem()
+    random_elem += 1
 # print(gameArray)
 while True:
 
@@ -119,6 +118,9 @@ while True:
                             while gameArray[i][j] != 0 and gameArray[i - 1][j] == 0:
                                 gameArray[i - 1][j] = gameArray[i][j]
                                 gameArray[i][j] = 0
+                            if gameArray[i][j] == gameArray[i - 1][j]:
+                                gameArray[i - 1][j] += gameArray[i][j]
+                                gameArray[i][j] = 0
                 add_elem()
 
             elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
@@ -127,6 +129,10 @@ while True:
                         for j in range(WINDOW_BLOCK_NUM):
                             while gameArray[i][j] != 0 and gameArray[i + 1][j] == 0:
                                 gameArray[i + 1][j] = gameArray[i][j]
+                                gameArray[i][j] = 0
+
+                            if gameArray[i][j] == gameArray[i + 1][j]:
+                                gameArray[i + 1][j] += gameArray[i][j]
                                 gameArray[i][j] = 0
                 add_elem()
 
@@ -137,14 +143,22 @@ while True:
                             if gameArray[i][j] != 0 and gameArray[i][j - 1] == 0:
                                 gameArray[i][j - 1] = gameArray[i][j]
                                 gameArray[i][j] = 0
+                            if gameArray[i][j] == gameArray[i][j - 1]:
+                                gameArray[i][j - 1] += gameArray[i][j]
+                                gameArray[i][j] = 0
                 add_elem()
 
             elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
                 for i in range(WINDOW_BLOCK_NUM):
                     for j in range(WINDOW_BLOCK_NUM):
                         if j < WINDOW_BLOCK_NUM - 1:
+                            # 移动元素
                             if gameArray[i][j] != 0 and gameArray[i][j + 1] == 0:
-                                gameArray[i][j - 1] = gameArray[i][j]
+                                gameArray[i][j + 1] = gameArray[i][j]
+                                gameArray[i][j] = 0
+                            # 合并元素
+                            if gameArray[i][j] == gameArray[i][j + 1]:
+                                gameArray[i][j + 1] += gameArray[i][j]
                                 gameArray[i][j] = 0
                 add_elem()
 
