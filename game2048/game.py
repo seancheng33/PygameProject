@@ -11,14 +11,12 @@ import sys
 
 
 def add_elem():
-    while True:
-        # 生产随机位置元素，完成即跳出运行
-        x = random.randint(0, WINDOW_BLOCK_NUM - 1)
-        y = random.randint(0, WINDOW_BLOCK_NUM - 1)
+    # 生产随机位置元素，完成即跳出运行
+    x = random.randint(0, WINDOW_BLOCK_NUM - 1)
+    y = random.randint(0, WINDOW_BLOCK_NUM - 1)
 
-        if gameArray[x][y] == 0:
-            gameArray[x][y] = 2
-            break
+    if gameArray[x][y] == 0:
+        gameArray[x][y] = 2
 
 
 COLOR_DICT = {'white': (255, 255, 255),  # 白色
@@ -62,7 +60,7 @@ gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NU
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption('游戏2048                  ver 0.7 Program By Sean Cheng')
+pygame.display.set_caption('游戏2048                  ver 0.8 Program By Sean Cheng')
 
 tileFont = pygame.font.Font('c:\\windows\\Fonts\\SimHei.ttf', 36)
 
