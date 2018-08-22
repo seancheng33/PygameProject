@@ -62,7 +62,10 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption('游戏2048                  ver 0.8 Program By Sean Cheng')
 
-tileFont = pygame.font.Font('c:\\windows\\Fonts\\SimHei.ttf', 36)
+font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
+tileFont = pygame.font.Font(font_path, 36)
+titleFont = pygame.font.Font(font_path, 48)
+normalFont = pygame.font.Font(font_path, 24)
 
 # 初始化两个开始元素在任意位置。
 random_elem = 0
@@ -70,9 +73,29 @@ while random_elem < 2:
     add_elem()
     random_elem += 1
 # print(gameArray)
+
+titleText = titleFont.render('游戏2048', True, COLOR_DICT['gray'])
+titleRect = titleText.get_rect()
+titleRect.topleft = 570, 60
+
+btStartText = normalFont.render('开始游戏', True, COLOR_DICT['tomato'])
+btStartRect = btStartText.get_rect()
+btStartRect.topleft = 620, 400
+btResetText = normalFont.render('重置游戏', True, COLOR_DICT['tomato'])
+btResetRect = btResetText.get_rect()
+btResetRect.topleft = 620, 440
+btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
+btExitRect = btExitText.get_rect()
+btExitRect.topleft = 620, 480
+
 while True:
 
     screen.fill(COLOR_DICT['bisque'])
+
+    screen.blit(titleText, titleRect)
+    screen.blit(btStartText, btStartRect)
+    screen.blit(btResetText, btResetRect)
+    screen.blit(btExitText, btExitRect)
 
     # 五条横线
     pygame.draw.line(screen, (0, 0, 0), (100, 100), (500, 100), 2)
