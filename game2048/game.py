@@ -182,7 +182,7 @@ while True:
                                 gameArray[i][j] = 0
                 add_elem()
 
-        # 鼠标事件
+        # 右侧的按键的鼠标事件
         x, y = pygame.mouse.get_pos()
         pressed = pygame.mouse.get_pressed()
 
@@ -193,6 +193,22 @@ while True:
                     gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
         else:
             btStartText = normalFont.render('开始游戏', True, COLOR_DICT['tomato'])
+
+        if btResetRect.collidepoint(x, y):
+            btResetText = normalFont.render('重置游戏', True, COLOR_DICT['yellow'])
+            for event in pressed:
+                if event == 1:
+                    gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+        else:
+            btResetText = normalFont.render('重置游戏', True, COLOR_DICT['tomato'])
+
+        if btExitRect.collidepoint(x, y):
+            btExitText = normalFont.render('退出游戏', True, COLOR_DICT['yellow'])
+            for event in pressed:
+                if event == 1:
+                    pass
+        else:
+            btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
 
 
     pygame.display.update()
