@@ -1,9 +1,9 @@
-'''
+"""
 @Author       : sean cheng
 @Email        : aya234@163.com
 @CreateTime   : 2018/8/18
 @Program      : 联系用pygame制作一个2048的游戏，
-'''
+"""
 import random
 
 import pygame
@@ -17,6 +17,15 @@ def add_elem():
 
     if gameArray[x][y] == 0:
         gameArray[x][y] = 2
+
+
+def init_game():
+    gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+    # 初始化两个开始元素在任意位置。
+    random_elem = 0
+    while random_elem < 2:
+        add_elem()
+        random_elem += 1
 
 
 COLOR_DICT = {'white': (255, 255, 255),  # 白色
@@ -66,12 +75,6 @@ font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
 tileFont = pygame.font.Font(font_path, 36)
 titleFont = pygame.font.Font(font_path, 48)
 normalFont = pygame.font.Font(font_path, 24)
-
-# 初始化两个开始元素在任意位置。
-random_elem = 0
-while random_elem < 2:
-    add_elem()
-    random_elem += 1
 
 titleText = titleFont.render('游戏2048', True, COLOR_DICT['gray'])
 titleRect = titleText.get_rect()
@@ -190,7 +193,7 @@ while True:
             btStartText = normalFont.render('开始游戏', True, COLOR_DICT['yellow'])
             for event in pressed:
                 if event == 1:
-                    gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+                    init_game()  # 初始化的游戏数组
         else:
             btStartText = normalFont.render('开始游戏', True, COLOR_DICT['tomato'])
 
@@ -198,7 +201,7 @@ while True:
             btResetText = normalFont.render('重置游戏', True, COLOR_DICT['yellow'])
             for event in pressed:
                 if event == 1:
-                    gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+                    init_game()  # 初始化的游戏数组
         else:
             btResetText = normalFont.render('重置游戏', True, COLOR_DICT['tomato'])
 
@@ -206,7 +209,8 @@ while True:
             btExitText = normalFont.render('退出游戏', True, COLOR_DICT['yellow'])
             for event in pressed:
                 if event == 1:
-                    pass
+                    pygame.quit()
+                    sys.exit(0)
         else:
             btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
 
