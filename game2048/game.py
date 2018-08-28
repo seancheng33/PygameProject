@@ -22,8 +22,8 @@ def add_elem():
 def can_add_elem():
     num_zero = 16
     # 添加一个判断，如果数组全部非0，不添加元素
-    for i in range(len(gameArray)):
-        for j in range(len(gameArray[i])):
+    for i in range(WINDOW_BLOCK_NUM):
+        for j in range(WINDOW_BLOCK_NUM):
             if gameArray[i][j] != 0:
                 num_zero -= 1
     if num_zero == 0:
@@ -238,6 +238,12 @@ def main():
             else:
                 btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
 
+        # 胜利的判断条件
+        for i in range(WINDOW_BLOCK_NUM):
+            for j in range(WINDOW_BLOCK_NUM):
+                if gameArray[i][j] == 2048:
+                    print('win')
+                    break
 
         pygame.display.update()
         pygame.time.Clock().tick(30)
