@@ -5,19 +5,30 @@
 @Program      : 联系用pygame制作一个2048的游戏，
 """
 import random
-
 import pygame
 import sys
 
 
 def add_elem():
-    while True:
+    while can_add_elem():
         # 生产随机位置元素，完成即跳出运行
         x = random.randint(0, WINDOW_BLOCK_NUM - 1)
         y = random.randint(0, WINDOW_BLOCK_NUM - 1)
         if gameArray[x][y] == 0:
             gameArray[x][y] = 2
             break
+
+
+def can_add_elem():
+    num_zero = 16
+    # 添加一个判断，如果数组全部非0，不添加元素
+    for i in range(len(gameArray)):
+        for j in range(len(gameArray[i])):
+            if gameArray[i][j] != 0:
+                num_zero -= 1
+    if num_zero == 0:
+        return False
+    return True
 
 
 def init_game():
@@ -98,7 +109,7 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('游戏2048                  ver 0.11 Program By Sean Cheng')
+    pygame.display.set_caption('游戏2048                  ver 0.13 Program By Sean Cheng')
 
     font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
     tileFont = pygame.font.Font(font_path, 36)
