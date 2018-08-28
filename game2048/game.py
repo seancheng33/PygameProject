@@ -158,7 +158,7 @@ def main():
                     pygame.quit()
                     sys.exit(0)
 
-                elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                elif event.key in (pygame.K_a, pygame.K_LEFT):
                     for i in reversed(range(WINDOW_BLOCK_NUM)):  # 要反序从右边开始往左边移动，不然只移动一格
                         if i > 0:
                             for j in range(WINDOW_BLOCK_NUM):
@@ -170,7 +170,7 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem()
 
-                elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                elif event.key in (pygame.K_d, pygame.K_RIGHT):
                     for i in range(WINDOW_BLOCK_NUM):
                         if i < WINDOW_BLOCK_NUM - 1:
                             for j in range(WINDOW_BLOCK_NUM):
@@ -183,7 +183,7 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem()
 
-                elif event.key == pygame.K_w or event.key == pygame.K_UP:
+                elif event.key in (pygame.K_w, pygame.K_UP):
                     for i in range(WINDOW_BLOCK_NUM):
                         for j in reversed(range(WINDOW_BLOCK_NUM)):  # 要反序从上面往下面移动，不然只移动一格
                             if j > 0:
@@ -195,7 +195,7 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem()
 
-                elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                elif event.key in (pygame.K_s, pygame.K_DOWN):
                     for i in range(WINDOW_BLOCK_NUM):
                         for j in range(WINDOW_BLOCK_NUM):
                             if j < WINDOW_BLOCK_NUM - 1:
