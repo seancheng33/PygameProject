@@ -11,15 +11,17 @@ import sys
 
 
 def add_elem():
-    # 生产随机位置元素，完成即跳出运行
-    x = random.randint(0, WINDOW_BLOCK_NUM - 1)
-    y = random.randint(0, WINDOW_BLOCK_NUM - 1)
-
-    if gameArray[x][y] == 0:
-        gameArray[x][y] = 2
+    while True:
+        # 生产随机位置元素，完成即跳出运行
+        x = random.randint(0, WINDOW_BLOCK_NUM - 1)
+        y = random.randint(0, WINDOW_BLOCK_NUM - 1)
+        if gameArray[x][y] == 0:
+            gameArray[x][y] = 2
+            break
 
 
 def init_game():
+    global gameArray
     gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
     # 初始化两个开始元素在任意位置。
     random_elem = 0
@@ -225,9 +227,14 @@ def main():
             else:
                 btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
 
+
         pygame.display.update()
         pygame.time.Clock().tick(30)
 
 
 if __name__ == '__main__':
     main()
+
+"""
+游戏的胜利条件和失败条件的判断，就可以完成了
+"""
