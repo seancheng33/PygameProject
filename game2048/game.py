@@ -2,7 +2,7 @@
 @Author       : sean cheng
 @Email        : aya234@163.com
 @CreateTime   : 2018/8/18
-@Program      : 联系用pygame制作一个2048的游戏，
+@Program      : 联系用PyGame制作一个2048的游戏，
 """
 import random
 import pygame
@@ -253,5 +253,7 @@ if __name__ == '__main__':
     main()
 
 """
-游戏的胜利条件和失败条件的判断，就可以完成了
+游戏的失败条件的判断。
+游戏开始后，开始按键应该为不可用。
+同理，游戏未开始，应该重置游戏不可用。
 """
