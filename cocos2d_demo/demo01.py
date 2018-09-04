@@ -6,6 +6,7 @@
 """
 import cocos
 
+
 class HelloWorld(cocos.layer.Layer):
     def __init__(self):
         super(HelloWorld, self).__init__()
