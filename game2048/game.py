@@ -63,7 +63,7 @@ def is_win():
     # 遍历数组，如果里面有一个元素是2048，就表示胜利
     for i in range(WINDOW_BLOCK_NUM):
         for j in range(WINDOW_BLOCK_NUM):
-            if gameArray[i][j] == 128:
+            if gameArray[i][j] == 2048:
                 return True
             else:
                 return False
@@ -281,13 +281,6 @@ def main():
                         sys.exit(0)
             else:
                 btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
-
-        # 胜利的判断条件
-        for i in range(WINDOW_BLOCK_NUM):
-            for j in range(WINDOW_BLOCK_NUM):
-                if gameArray[i][j] == 2048:
-                    print('win')
-                    break
 
         pygame.display.update()
         pygame.time.Clock().tick(30)
