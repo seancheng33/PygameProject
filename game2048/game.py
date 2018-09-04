@@ -47,13 +47,13 @@ def can_move():
         for j in range(WINDOW_BLOCK_NUM):
             if gameArray[i][j] != 0:
                 return True
-            elif gameArray[i][j] == gameArray[i][j+1]:
+            elif gameArray[i][j] == gameArray[i][j + 1]:
                 return True
-            elif gameArray[i][j] == gameArray[i][j-1]:
+            elif gameArray[i][j] == gameArray[i][j - 1]:
                 return True
-            elif gameArray[i][j] == gameArray[i+1][j]:
+            elif gameArray[i][j] == gameArray[i + 1][j]:
                 return True
-            elif gameArray[i][j] == gameArray[i-1][j]:
+            elif gameArray[i][j] == gameArray[i - 1][j]:
                 return True
             else:
                 return False
@@ -137,7 +137,7 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('游戏2048                  ver 0.13 Program By Sean Cheng')
+    pygame.display.set_caption('游戏2048                  ver 0.16 Program By Sean Cheng')
 
     font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
     tileFont = pygame.font.Font(font_path, 36)
