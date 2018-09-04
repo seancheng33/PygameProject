@@ -41,6 +41,34 @@ def init_game():
         random_elem += 1
 
 
+def can_move():
+    # 检查是否可以移动，逻辑比较简单，就是逐个元素判断上下左右是否有相同的元素，如果可以存在，就是可以移动。否则就是不能移动
+    for i in range(WINDOW_BLOCK_NUM):
+        for j in range(WINDOW_BLOCK_NUM):
+            if gameArray[i][j] != 0:
+                return True
+            elif gameArray[i][j] == gameArray[i][j+1]:
+                return True
+            elif gameArray[i][j] == gameArray[i][j-1]:
+                return True
+            elif gameArray[i][j] == gameArray[i+1][j]:
+                return True
+            elif gameArray[i][j] == gameArray[i-1][j]:
+                return True
+            else:
+                return False
+
+
+def is_win():
+    # 遍历数组，如果里面有一个元素是2048，就表示胜利
+    for i in range(WINDOW_BLOCK_NUM):
+        for j in range(WINDOW_BLOCK_NUM):
+            if gameArray[i][j] == 128:
+                return True
+            else:
+                return False
+
+
 def draw_background():
     # 绘制网格和按键，标题等
     screen.fill(COLOR_DICT['bisque'])
@@ -169,6 +197,10 @@ def main():
                                     gameArray[i - 1][j] += gameArray[i][j]
                                     gameArray[i][j] = 0
                     add_elem()
+                    if not can_move():
+                        print('lost')
+                    elif is_win():
+                        print('win')
 
                 elif event.key in (pygame.K_d, pygame.K_RIGHT):
                     for i in range(WINDOW_BLOCK_NUM):
@@ -182,6 +214,10 @@ def main():
                                     gameArray[i + 1][j] += gameArray[i][j]
                                     gameArray[i][j] = 0
                     add_elem()
+                    if not can_move():
+                        print('lost')
+                    elif is_win():
+                        print('win')
 
                 elif event.key in (pygame.K_w, pygame.K_UP):
                     for i in range(WINDOW_BLOCK_NUM):
@@ -194,6 +230,10 @@ def main():
                                     gameArray[i][j - 1] += gameArray[i][j]
                                     gameArray[i][j] = 0
                     add_elem()
+                    if not can_move():
+                        print('lost')
+                    elif is_win():
+                        print('win')
 
                 elif event.key in (pygame.K_s, pygame.K_DOWN):
                     for i in range(WINDOW_BLOCK_NUM):
@@ -208,6 +248,10 @@ def main():
                                     gameArray[i][j + 1] += gameArray[i][j]
                                     gameArray[i][j] = 0
                     add_elem()
+                    if not can_move():
+                        print('lost')
+                    elif is_win():
+                        print('win')
 
             # 右侧的按键的鼠标事件
             x, y = pygame.mouse.get_pos()
