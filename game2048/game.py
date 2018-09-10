@@ -7,24 +7,26 @@
 import random
 import pygame
 import sys
+from SettingVar import SettingVar
 
+setting = SettingVar()
 
 def add_elem():
     while can_add_elem():
         # 生产随机位置元素，完成即跳出运行
-        x = random.randint(0, WINDOW_BLOCK_NUM - 1)
-        y = random.randint(0, WINDOW_BLOCK_NUM - 1)
-        if gameArray[x][y] == 0:
-            gameArray[x][y] = 2
+        x = random.randint(0, setting.WINDOW_BLOCK_NUM - 1)
+        y = random.randint(0, setting.WINDOW_BLOCK_NUM - 1)
+        if setting.gameArray[x][y] == 0:
+            setting.gameArray[x][y] = 2
             break
 
 
 def can_add_elem():
     num_zero = 16
     # 添加一个判断，如果数组全部非0，不添加元素
-    for i in range(WINDOW_BLOCK_NUM):
-        for j in range(WINDOW_BLOCK_NUM):
-            if gameArray[i][j] != 0:
+    for i in range(setting.WINDOW_BLOCK_NUM):
+        for j in range(setting.WINDOW_BLOCK_NUM):
+            if setting.gameArray[i][j] != 0:
                 num_zero -= 1
     if num_zero == 0:
         return False
@@ -32,8 +34,8 @@ def can_add_elem():
 
 
 def init_game():
-    global gameArray
-    gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+    # global gameArray
+    setting.gameArray = [[0 for i in range(setting.WINDOW_BLOCK_NUM)] for j in range(setting.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
     # 初始化两个开始元素在任意位置。
     random_elem = 0
     while random_elem < 2:
@@ -43,17 +45,17 @@ def init_game():
 
 def can_move():
     # 检查是否可以移动，逻辑比较简单，就是逐个元素判断上下左右是否有相同的元素，如果可以存在，就是可以移动。否则就是不能移动
-    for i in range(WINDOW_BLOCK_NUM):
-        for j in range(WINDOW_BLOCK_NUM):
-            if gameArray[i][j] != 0:
+    for i in range(setting.WINDOW_BLOCK_NUM):
+        for j in range(setting.WINDOW_BLOCK_NUM):
+            if setting.gameArray[i][j] != 0:
                 return True
-            elif gameArray[i][j] == gameArray[i][j + 1]:
+            elif setting.gameArray[i][j] == setting.gameArray[i][j + 1]:
                 return True
-            elif gameArray[i][j] == gameArray[i][j - 1]:
+            elif setting.gameArray[i][j] == setting.gameArray[i][j - 1]:
                 return True
-            elif gameArray[i][j] == gameArray[i + 1][j]:
+            elif setting.gameArray[i][j] == setting.gameArray[i + 1][j]:
                 return True
-            elif gameArray[i][j] == gameArray[i - 1][j]:
+            elif setting.gameArray[i][j] == setting.gameArray[i - 1][j]:
                 return True
             else:
                 return False
@@ -61,9 +63,9 @@ def can_move():
 
 def is_win():
     # 遍历数组，如果里面有一个元素是2048，就表示胜利
-    for i in range(WINDOW_BLOCK_NUM):
-        for j in range(WINDOW_BLOCK_NUM):
-            if gameArray[i][j] == 2048:
+    for i in range(setting.WINDOW_BLOCK_NUM):
+        for j in range(setting.WINDOW_BLOCK_NUM):
+            if setting.gameArray[i][j] == 2048:
                 return True
             else:
                 return False
@@ -71,7 +73,7 @@ def is_win():
 
 def draw_background():
     # 绘制网格和按键，标题等
-    screen.fill(COLOR_DICT['bisque'])
+    screen.fill(setting.COLOR_DICT['bisque'])
 
     screen.blit(titleText, titleRect)
     screen.blit(btStartText, btStartRect)
@@ -94,67 +96,30 @@ def draw_background():
 
 
 def main():
-    global screen, gameArray, COLOR_DICT, WINDOW_BLOCK_NUM, \
-        titleText, titleRect, btStartText, btStartRect, btResetText, btResetRect, btExitText, btExitRect
-    COLOR_DICT = {'white': (255, 255, 255),  # 白色
-                  'ivory': (255, 255, 240),  # 象牙色
-                  'yellow': (255, 255, 0),  # 黄色
-                  'seashell': (255, 245, 238),  # 海贝色
-                  'bisque': (255, 228, 196),  # 橘黄色
-                  'gold': (255, 215, 0),  # 金色
-                  'pink': (255, 192, 203),  # 粉红色
-                  'lightpink': (255, 182, 193),  # 亮粉红色
-                  'orange': (255, 165, 0),  # 橙色
-                  'coral': (255, 127, 80),  # 珊瑚色
-                  'tomato': (255, 99, 71),  # 番茄色
-                  'magenta': (255, 0, 255),  # 洋红色
-                  'wheat': (245, 222, 179),  # 小麦色
-                  'violet': (238, 130, 238),  # 紫罗兰色
-                  'silver': (192, 192, 192),  # 银白色
-                  'brown': (165, 42, 42),  # 棕色
-                  'gray': (128, 128, 128),  # 灰色
-                  'olive': (128, 128, 0),  # 橄榄色
-                  'purple': (128, 0, 128),  # 紫色
-                  'turquoise': (64, 224, 208),  # 绿宝石色
-                  'seagreen': (46, 139, 87),  # 海洋绿色
-                  'cyan': (0, 255, 255),  # 青色
-                  'green': (0, 128, 0),  # 纯绿色
-                  'blue': (0, 0, 255),  # 纯蓝色
-                  'darkblue': (0, 0, 139),  # 深蓝色
-                  'navy': (0, 0, 128),  # 海军蓝色
-                  'black': (0, 0, 0),  # 纯黑色
-                  }
+    global screen, titleText, titleRect, btStartText, btStartRect, btResetText, btResetRect, btExitText, btExitRect
 
-    NUM_COLOR_DICT = {'2': COLOR_DICT['gray'], '4': COLOR_DICT['brown'], '8': COLOR_DICT['violet'],
-                      '16': COLOR_DICT['wheat'], '32': COLOR_DICT['coral'], '64': COLOR_DICT['turquoise'],
-                      '128': COLOR_DICT['navy'], '256': COLOR_DICT['olive'], '512': COLOR_DICT['orange'],
-                      '1024': COLOR_DICT['seagreen'], '2048': COLOR_DICT['purple']}
-
-    TILE_SIZE = 80
-    WINDOW_BLOCK_NUM = 4
-
-    gameArray = [[0 for i in range(WINDOW_BLOCK_NUM)] for j in range(WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+    # gameArray = [[0 for i in range(setting.WINDOW_BLOCK_NUM)] for j in range(setting.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('游戏2048                  ver 0.16 Program By Sean Cheng')
+    pygame.display.set_caption('游戏2048                  ver 0.17 Program By Sean Cheng')
 
     font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
     tileFont = pygame.font.Font(font_path, 36)
     titleFont = pygame.font.Font(font_path, 48)
     normalFont = pygame.font.Font(font_path, 24)
 
-    titleText = titleFont.render('游戏2048', True, COLOR_DICT['gray'])
+    titleText = titleFont.render('游戏2048', True, setting.COLOR_DICT['gray'])
     titleRect = titleText.get_rect()
     titleRect.topleft = 570, 60
 
-    btStartText = normalFont.render('开始游戏', True, COLOR_DICT['tomato'])
+    btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
     btStartRect = btStartText.get_rect()
     btStartRect.topleft = 620, 400
-    btResetText = normalFont.render('重置游戏', True, COLOR_DICT['tomato'])
+    btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['tomato'])
     btResetRect = btResetText.get_rect()
     btResetRect.topleft = 620, 440
-    btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
+    btExitText = normalFont.render('退出游戏', True, setting.COLOR_DICT['tomato'])
     btExitRect = btExitText.get_rect()
     btExitRect.topleft = 620, 480
 
@@ -165,14 +130,14 @@ def main():
         draw_background()
 
         # 完成游戏元素的绘制
-        for i in range(len(gameArray)):
-            for j in range(len(gameArray[0])):
-                if gameArray[i][j] != 0:
-                    tile = pygame.draw.rect(screen, COLOR_DICT['silver'],
-                                            ((TILE_SIZE + 20) * i + 110, (TILE_SIZE + 20) * j + 110, TILE_SIZE,
-                                             TILE_SIZE))
-                    tile_text = str(gameArray[i][j])
-                    text = tileFont.render(tile_text, True, NUM_COLOR_DICT[tile_text])
+        for i in range(len(setting.gameArray)):
+            for j in range(len(setting.gameArray[0])):
+                if setting.gameArray[i][j] != 0:
+                    tile = pygame.draw.rect(screen, setting.COLOR_DICT['silver'],
+                                            ((setting.TILE_SIZE + 20) * i + 110, (setting.TILE_SIZE + 20) * j + 110,
+                                             setting.TILE_SIZE, setting.TILE_SIZE))
+                    tile_text = str(setting.gameArray[i][j])
+                    text = tileFont.render(tile_text, True, setting.NUM_COLOR_DICT[tile_text])
                     text_rect = text.get_rect()
                     text_rect.center = tile.center
                     screen.blit(text, text_rect)
@@ -187,15 +152,15 @@ def main():
                     sys.exit(0)
 
                 elif event.key in (pygame.K_a, pygame.K_LEFT):
-                    for i in reversed(range(WINDOW_BLOCK_NUM)):  # 要反序从右边开始往左边移动，不然只移动一格
+                    for i in reversed(range(setting.WINDOW_BLOCK_NUM)):  # 要反序从右边开始往左边移动，不然只移动一格
                         if i > 0:
-                            for j in range(WINDOW_BLOCK_NUM):
-                                while gameArray[i][j] != 0 and gameArray[i - 1][j] == 0:
-                                    gameArray[i - 1][j] = gameArray[i][j]
-                                    gameArray[i][j] = 0
-                                if gameArray[i][j] == gameArray[i - 1][j]:
-                                    gameArray[i - 1][j] += gameArray[i][j]
-                                    gameArray[i][j] = 0
+                            for j in range(setting.WINDOW_BLOCK_NUM):
+                                while setting.gameArray[i][j] != 0 and setting.gameArray[i - 1][j] == 0:
+                                    setting.gameArray[i - 1][j] = setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
+                                if setting.gameArray[i][j] == setting.gameArray[i - 1][j]:
+                                    setting.gameArray[i - 1][j] += setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
                     add_elem()
                     if not can_move():
                         print('lost')
@@ -203,16 +168,16 @@ def main():
                         print('win')
 
                 elif event.key in (pygame.K_d, pygame.K_RIGHT):
-                    for i in range(WINDOW_BLOCK_NUM):
-                        if i < WINDOW_BLOCK_NUM - 1:
-                            for j in range(WINDOW_BLOCK_NUM):
-                                while gameArray[i][j] != 0 and gameArray[i + 1][j] == 0:
-                                    gameArray[i + 1][j] = gameArray[i][j]
-                                    gameArray[i][j] = 0
+                    for i in range(setting.WINDOW_BLOCK_NUM):
+                        if i < setting.WINDOW_BLOCK_NUM - 1:
+                            for j in range(setting.WINDOW_BLOCK_NUM):
+                                while setting.gameArray[i][j] != 0 and setting.gameArray[i + 1][j] == 0:
+                                    setting.gameArray[i + 1][j] = setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
 
-                                if gameArray[i][j] == gameArray[i + 1][j]:
-                                    gameArray[i + 1][j] += gameArray[i][j]
-                                    gameArray[i][j] = 0
+                                if setting.gameArray[i][j] == setting.gameArray[i + 1][j]:
+                                    setting.gameArray[i + 1][j] += setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
                     add_elem()
                     if not can_move():
                         print('lost')
@@ -220,15 +185,15 @@ def main():
                         print('win')
 
                 elif event.key in (pygame.K_w, pygame.K_UP):
-                    for i in range(WINDOW_BLOCK_NUM):
-                        for j in reversed(range(WINDOW_BLOCK_NUM)):  # 要反序从上面往下面移动，不然只移动一格
+                    for i in range(setting.WINDOW_BLOCK_NUM):
+                        for j in reversed(range(setting.WINDOW_BLOCK_NUM)):  # 要反序从上面往下面移动，不然只移动一格
                             if j > 0:
-                                if gameArray[i][j] != 0 and gameArray[i][j - 1] == 0:
-                                    gameArray[i][j - 1] = gameArray[i][j]
-                                    gameArray[i][j] = 0
-                                if gameArray[i][j] == gameArray[i][j - 1]:
-                                    gameArray[i][j - 1] += gameArray[i][j]
-                                    gameArray[i][j] = 0
+                                if setting.gameArray[i][j] != 0 and setting.gameArray[i][j - 1] == 0:
+                                    setting.gameArray[i][j - 1] = setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
+                                if setting.gameArray[i][j] == setting.gameArray[i][j - 1]:
+                                    setting.gameArray[i][j - 1] += setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
                     add_elem()
                     if not can_move():
                         print('lost')
@@ -236,17 +201,17 @@ def main():
                         print('win')
 
                 elif event.key in (pygame.K_s, pygame.K_DOWN):
-                    for i in range(WINDOW_BLOCK_NUM):
-                        for j in range(WINDOW_BLOCK_NUM):
-                            if j < WINDOW_BLOCK_NUM - 1:
+                    for i in range(setting.WINDOW_BLOCK_NUM):
+                        for j in range(setting.WINDOW_BLOCK_NUM):
+                            if j < setting.WINDOW_BLOCK_NUM - 1:
                                 # 移动元素
-                                if gameArray[i][j] != 0 and gameArray[i][j + 1] == 0:
-                                    gameArray[i][j + 1] = gameArray[i][j]
-                                    gameArray[i][j] = 0
+                                if setting.gameArray[i][j] != 0 and setting.gameArray[i][j + 1] == 0:
+                                    setting.gameArray[i][j + 1] = setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
                                 # 合并元素
-                                if gameArray[i][j] == gameArray[i][j + 1]:
-                                    gameArray[i][j + 1] += gameArray[i][j]
-                                    gameArray[i][j] = 0
+                                if setting.gameArray[i][j] == setting.gameArray[i][j + 1]:
+                                    setting.gameArray[i][j + 1] += setting.gameArray[i][j]
+                                    setting.gameArray[i][j] = 0
                     add_elem()
                     if not can_move():
                         print('lost')
@@ -258,29 +223,29 @@ def main():
             pressed = pygame.mouse.get_pressed()
 
             if btStartRect.collidepoint(x, y):
-                btStartText = normalFont.render('开始游戏', True, COLOR_DICT['yellow'])
+                btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
                         init_game()  # 初始化的游戏数组
             else:
-                btStartText = normalFont.render('开始游戏', True, COLOR_DICT['tomato'])
+                btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
 
             if btResetRect.collidepoint(x, y):
-                btResetText = normalFont.render('重置游戏', True, COLOR_DICT['yellow'])
+                btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
                         init_game()  # 初始化的游戏数组
             else:
-                btResetText = normalFont.render('重置游戏', True, COLOR_DICT['tomato'])
+                btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['tomato'])
 
             if btExitRect.collidepoint(x, y):
-                btExitText = normalFont.render('退出游戏', True, COLOR_DICT['yellow'])
+                btExitText = normalFont.render('退出游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
                         pygame.quit()
                         sys.exit(0)
             else:
-                btExitText = normalFont.render('退出游戏', True, COLOR_DICT['tomato'])
+                btExitText = normalFont.render('退出游戏', True, setting.COLOR_DICT['tomato'])
 
         pygame.display.update()
         pygame.time.Clock().tick(30)
