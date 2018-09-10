@@ -11,7 +11,9 @@ from SettingVar import SettingVar
 
 setting = SettingVar()
 
+
 def add_elem():
+    """添加元素功能"""
     while can_add_elem():
         # 生产随机位置元素，完成即跳出运行
         x = random.randint(0, setting.WINDOW_BLOCK_NUM - 1)
@@ -22,6 +24,7 @@ def add_elem():
 
 
 def can_add_elem():
+    """初始化元素为零的元素数量为16个。每查找到一个非零的元素，计数减1. 如果没有是零的元素，不必添加新元素"""
     num_zero = 16
     # 添加一个判断，如果数组全部非0，不添加元素
     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -34,8 +37,9 @@ def can_add_elem():
 
 
 def init_game():
-    # global gameArray
-    setting.gameArray = [[0 for i in range(setting.WINDOW_BLOCK_NUM)] for j in range(setting.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+    """初始化游戏的数组，于开始新游戏或者重置游戏时调用"""
+    setting.gameArray = [[0 for i in range(setting.WINDOW_BLOCK_NUM)] for j in
+                         range(setting.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
     # 初始化两个开始元素在任意位置。
     random_elem = 0
     while random_elem < 2:
@@ -44,7 +48,7 @@ def init_game():
 
 
 def can_move():
-    # 检查是否可以移动，逻辑比较简单，就是逐个元素判断上下左右是否有相同的元素，如果可以存在，就是可以移动。否则就是不能移动
+    """检查是否可以移动，逻辑比较简单，就是逐个元素判断上下左右是否有相同的元素，如果可以存在，就是可以移动。否则就是不能移动"""
     for i in range(setting.WINDOW_BLOCK_NUM):
         for j in range(setting.WINDOW_BLOCK_NUM):
             if setting.gameArray[i][j] != 0:
@@ -62,7 +66,7 @@ def can_move():
 
 
 def is_win():
-    # 遍历数组，如果里面有一个元素是2048，就表示胜利
+    """遍历数组，如果里面有一个元素是2048，就表示胜利"""
     for i in range(setting.WINDOW_BLOCK_NUM):
         for j in range(setting.WINDOW_BLOCK_NUM):
             if setting.gameArray[i][j] == 2048:
@@ -71,8 +75,23 @@ def is_win():
                 return False
 
 
+def draw_game():
+    """完成游戏元素的绘制"""
+    for i in range(len(setting.gameArray)):
+        for j in range(len(setting.gameArray[0])):
+            if setting.gameArray[i][j] != 0:
+                tile = pygame.draw.rect(screen, setting.COLOR_DICT['silver'],
+                                        ((setting.TILE_SIZE + 20) * i + 110, (setting.TILE_SIZE + 20) * j + 110,
+                                         setting.TILE_SIZE, setting.TILE_SIZE))
+                tile_text = str(setting.gameArray[i][j])
+                text = tileFont.render(tile_text, True, setting.NUM_COLOR_DICT[tile_text])
+                text_rect = text.get_rect()
+                text_rect.center = tile.center
+                screen.blit(text, text_rect)
+
+
 def draw_background():
-    # 绘制网格和按键，标题等
+    """绘制网格和按键，标题等"""
     screen.fill(setting.COLOR_DICT['bisque'])
 
     screen.blit(titleText, titleRect)
@@ -96,13 +115,12 @@ def draw_background():
 
 
 def main():
-    global screen, titleText, titleRect, btStartText, btStartRect, btResetText, btResetRect, btExitText, btExitRect
-
-    # gameArray = [[0 for i in range(setting.WINDOW_BLOCK_NUM)] for j in range(setting.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+    global screen, tileFont, titleText, titleRect, \
+        btStartText, btStartRect, btResetText, btResetRect, btExitText, btExitRect
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('游戏2048                  ver 0.17 Program By Sean Cheng')
+    pygame.display.set_caption('游戏2048                  ver 0.18 Program By Sean Cheng')
 
     font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
     tileFont = pygame.font.Font(font_path, 36)
@@ -128,19 +146,7 @@ def main():
     while True:
 
         draw_background()
-
-        # 完成游戏元素的绘制
-        for i in range(len(setting.gameArray)):
-            for j in range(len(setting.gameArray[0])):
-                if setting.gameArray[i][j] != 0:
-                    tile = pygame.draw.rect(screen, setting.COLOR_DICT['silver'],
-                                            ((setting.TILE_SIZE + 20) * i + 110, (setting.TILE_SIZE + 20) * j + 110,
-                                             setting.TILE_SIZE, setting.TILE_SIZE))
-                    tile_text = str(setting.gameArray[i][j])
-                    text = tileFont.render(tile_text, True, setting.NUM_COLOR_DICT[tile_text])
-                    text_rect = text.get_rect()
-                    text_rect.center = tile.center
-                    screen.blit(text, text_rect)
+        draw_game()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
