@@ -2,7 +2,7 @@
 @Author       : sean cheng
 @Email        : aya234@163.com
 @CreateTime   : 2018/9/10
-@Program      : 
+@Program      : 全局变量的保存
 """
 
 
