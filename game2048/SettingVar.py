@@ -49,4 +49,5 @@ class SettingVar:
         self.TILE_SIZE = 80
         self.WINDOW_BLOCK_NUM = 4
 
-        gameArray = [[0 for i in range(self.WINDOW_BLOCK_NUM)] for j in range(self.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+        # self.gameArray = [[0 for i in range(self.WINDOW_BLOCK_NUM)] for j in range(self.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
+        # self.gameArray =[]
