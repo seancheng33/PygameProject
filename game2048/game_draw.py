@@ -17,7 +17,7 @@ def draw_game(screen, tileFont, gameArray):
                 tile = pygame.draw.rect(screen, setting.COLOR_DICT['silver'],
                                         ((setting.TILE_SIZE + 20) * i + 110, (setting.TILE_SIZE + 20) * j + 110,
                                          setting.TILE_SIZE, setting.TILE_SIZE))
-                tile_text = str(setting.gameArray[i][j])
+                tile_text = str(gameArray[i][j])
                 text = tileFont.render(tile_text, True, setting.NUM_COLOR_DICT[tile_text])
                 text_rect = text.get_rect()
                 text_rect.center = tile.center
