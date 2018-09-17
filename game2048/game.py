@@ -13,15 +13,6 @@ from game_draw import draw_background, draw_game
 setting = SettingVar()
 
 
-def add_elem(gameArray):
-    """添加元素功能"""
-    while can_add_elem(gameArray):
-        # 生产随机位置元素，完成即跳出运行
-        x = random.randint(0, setting.WINDOW_BLOCK_NUM - 1)
-        y = random.randint(0, setting.WINDOW_BLOCK_NUM - 1)
-        if gameArray[x][y] == 0:
-            gameArray[x][y] = 2
-            break
 
 def can_add_elem(gameArray):
     """初始化元素为零的元素数量为16个。每查找到一个非零的元素，计数减1. 如果没有是零的元素，不必添加新元素"""
@@ -34,20 +25,6 @@ def can_add_elem(gameArray):
     if num_zero == 0:
         return False
     return True
-
-
-def init_game():
-    """初始化游戏的数组，于开始新游戏或者重置游戏时调用"""
-    gameArray = [[0 for i in range(setting.WINDOW_BLOCK_NUM)] for j in
-                         range(setting.WINDOW_BLOCK_NUM)]  # 初始化的游戏数组
-    # 初始化两个开始元素在任意位置。
-    random_elem = 0
-    while random_elem < 2:
-        add_elem(gameArray)
-        random_elem += 1
-
-    return gameArray
-
 
 
 def can_move(gameArray):
@@ -104,7 +81,7 @@ def main():
     btExitRect = btExitText.get_rect()
     btExitRect.topleft = 620, 480
 
-    gameArray = init_game()
+    gameArray = setting.init_game()
 
     while True:
 
@@ -131,10 +108,10 @@ def main():
                                 if gameArray[i][j] == gameArray[i - 1][j]:
                                     gameArray[i - 1][j] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    add_elem(gameArray)
+                    setting.add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
-                    elif is_win(gameArray):
+                    if is_win(gameArray):
                         print('win')
 
                 elif event.key in (pygame.K_d, pygame.K_RIGHT):
@@ -148,10 +125,10 @@ def main():
                                 if gameArray[i][j] == gameArray[i + 1][j]:
                                     gameArray[i + 1][j] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    add_elem(gameArray)
+                    setting.add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
-                    elif is_win(gameArray):
+                    if is_win(gameArray):
                         print('win')
 
                 elif event.key in (pygame.K_w, pygame.K_UP):
@@ -164,10 +141,10 @@ def main():
                                 if gameArray[i][j] == gameArray[i][j - 1]:
                                     gameArray[i][j - 1] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    add_elem(gameArray)
+                    setting.add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
-                    elif is_win(gameArray):
+                    if is_win(gameArray):
                         print('win')
 
                 elif event.key in (pygame.K_s, pygame.K_DOWN):
@@ -182,10 +159,10 @@ def main():
                                 if gameArray[i][j] == gameArray[i][j + 1]:
                                     gameArray[i][j + 1] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    add_elem(gameArray)
+                    setting.add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
-                    elif is_win(gameArray):
+                    if is_win(gameArray):
                         print('win')
 
             # 右侧的按键的鼠标事件
@@ -196,7 +173,7 @@ def main():
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
-                        init_game(gameArray)  # 初始化的游戏数组
+                        setting.init_game(gameArray)  # 初始化的游戏数组
             else:
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
 
@@ -204,7 +181,7 @@ def main():
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
-                        init_game(gameArray)  # 初始化的游戏数组
+                        setting.init_game(gameArray)  # 初始化的游戏数组
             else:
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['tomato'])
 
@@ -227,4 +204,5 @@ if __name__ == '__main__':
 """
 游戏开始后，开始按键应该为不可用。
 同理，游戏未开始，应该重置游戏不可用。
+游戏的胜利和失败条件判断可以思考优化。
 """
