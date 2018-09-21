@@ -9,54 +9,13 @@ import pygame
 import sys
 from SettingVar import SettingVar
 from game_draw import draw_background, draw_game
+from GameFunction import init_game, add_elem, can_add_elem, can_move, is_win
 
 setting = SettingVar()
 
 
-
-def can_add_elem(gameArray):
-    """初始化元素为零的元素数量为16个。每查找到一个非零的元素，计数减1. 如果没有是零的元素，不必添加新元素"""
-    num_zero = 16
-    # 添加一个判断，如果数组全部非0，不添加元素
-    for i in range(setting.WINDOW_BLOCK_NUM):
-        for j in range(setting.WINDOW_BLOCK_NUM):
-            if gameArray[i][j] != 0:
-                num_zero -= 1
-    if num_zero == 0:
-        return False
-    return True
-
-
-def can_move(gameArray):
-    """检查是否可以移动，逻辑比较简单，就是逐个元素判断上下左右是否有相同的元素，如果可以存在，就是可以移动。否则就是不能移动"""
-    for i in range(setting.WINDOW_BLOCK_NUM):
-        for j in range(setting.WINDOW_BLOCK_NUM):
-            if gameArray[i][j] != 0:
-                return True
-            elif gameArray[i][j] == gameArray[i][j + 1]:
-                return True
-            elif gameArray[i][j] == gameArray[i][j - 1]:
-                return True
-            elif gameArray[i][j] == gameArray[i + 1][j]:
-                return True
-            elif gameArray[i][j] == gameArray[i - 1][j]:
-                return True
-            else:
-                return False
-
-
-def is_win(gameArray):
-    """遍历数组，如果里面有一个元素是2048，就表示胜利"""
-    for i in range(setting.WINDOW_BLOCK_NUM):
-        for j in range(setting.WINDOW_BLOCK_NUM):
-            if gameArray[i][j] == 2048:
-                return True
-            else:
-                return False
-
-
 def main():
-    global screen, tileFont, titleFont,normalFont
+    global screen, tileFont, titleFont, normalFont
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
@@ -81,13 +40,13 @@ def main():
     btExitRect = btExitText.get_rect()
     btExitRect.topleft = 620, 480
 
-    gameArray = setting.init_game()
+    gameArray = init_game()
 
     while True:
 
         draw_background(screen, titleText, titleRect, btStartText, btStartRect, btResetText, btResetRect, btExitText,
                         btExitRect)
-        draw_game(screen, tileFont,gameArray)
+        draw_game(screen, tileFont, gameArray)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -108,7 +67,7 @@ def main():
                                 if gameArray[i][j] == gameArray[i - 1][j]:
                                     gameArray[i - 1][j] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    setting.add_elem(gameArray)
+                    add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
                     if is_win(gameArray):
@@ -125,7 +84,7 @@ def main():
                                 if gameArray[i][j] == gameArray[i + 1][j]:
                                     gameArray[i + 1][j] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    setting.add_elem(gameArray)
+                    add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
                     if is_win(gameArray):
@@ -141,7 +100,7 @@ def main():
                                 if gameArray[i][j] == gameArray[i][j - 1]:
                                     gameArray[i][j - 1] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    setting.add_elem(gameArray)
+                    add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
                     if is_win(gameArray):
@@ -159,7 +118,7 @@ def main():
                                 if gameArray[i][j] == gameArray[i][j + 1]:
                                     gameArray[i][j + 1] += gameArray[i][j]
                                     gameArray[i][j] = 0
-                    setting.add_elem(gameArray)
+                    add_elem(gameArray)
                     if not can_move(gameArray):
                         print('lost')
                     if is_win(gameArray):
@@ -173,7 +132,7 @@ def main():
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
-                        setting.init_game(gameArray)  # 初始化的游戏数组
+                        gameArray = init_game()  # 初始化的游戏数组
             else:
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
 
@@ -181,7 +140,7 @@ def main():
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
-                        setting.init_game(gameArray)  # 初始化的游戏数组
+                        gameArray = init_game()  # 初始化的游戏数组
             else:
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['tomato'])
 
