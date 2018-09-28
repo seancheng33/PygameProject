@@ -4,7 +4,7 @@
 @CreateTime   : 2018/8/18
 @Program      : 联系用PyGame制作一个2048的游戏，
 """
-import random
+
 import pygame
 import sys
 from SettingVar import SettingVar
@@ -42,11 +42,18 @@ def main():
 
     gameArray = init_game()
 
+    gamestatus = None
+
     while True:
 
         draw_background(screen, titleText, titleRect, btStartText, btStartRect, btResetText, btResetRect, btExitText,
                         btExitRect)
-        draw_game(screen, tileFont, gameArray)
+        # draw_game(screen, tileFont, gameArray)
+
+        if gamestatus == 'start':
+            draw_game(screen, tileFont, gameArray)
+        elif gamestatus == None:
+            pass
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -133,6 +140,7 @@ def main():
                 for event in pressed:
                     if event == 1:
                         gameArray = init_game()  # 初始化的游戏数组
+                        gamestatus = 'start'
             else:
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
 
