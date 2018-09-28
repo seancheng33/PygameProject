@@ -52,7 +52,11 @@ def main():
 
         if gamestatus == 'start':
             draw_game(screen, tileFont, gameArray)
-        elif gamestatus == None:
+        elif gamestatus == 'win':
+            pass
+        elif gamestatus == 'lost':
+            pass
+        else:
             pass
 
         for event in pygame.event.get():
