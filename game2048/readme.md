@@ -6,7 +6,7 @@
 #### 开发环境及使用的外部库
 > win10<br>
 > Python 3.6.x<br>
-> Pycharm社区版<br>
+> PyCharm Community Edition <br>
 > pygame 1.9.4
 
 #### 项目的文档结构
