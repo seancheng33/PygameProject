@@ -19,7 +19,7 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('游戏2048                  ver 0.18 Program By Sean Cheng')
+    pygame.display.set_caption('游戏2048                  ver 0.20 Program By Sean Cheng')
 
     font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
     tileFont = pygame.font.Font(font_path, 36)
