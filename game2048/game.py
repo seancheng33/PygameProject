@@ -76,7 +76,7 @@ def main():
                                     gameArray[i - 1][j] = gameArray[i][j]
                                     gameArray[i][j] = 0
                                 if gameArray[i][j] == gameArray[i - 1][j]:
-                                    gameArray[i - 1][j] += gameArray[i][j]
+                                    gameArray[i - 1][j] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     if not can_move(gameArray):
@@ -93,7 +93,7 @@ def main():
                                     gameArray[i][j] = 0
 
                                 if gameArray[i][j] == gameArray[i + 1][j]:
-                                    gameArray[i + 1][j] += gameArray[i][j]
+                                    gameArray[i + 1][j] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     if not can_move(gameArray):
@@ -109,7 +109,7 @@ def main():
                                     gameArray[i][j - 1] = gameArray[i][j]
                                     gameArray[i][j] = 0
                                 if gameArray[i][j] == gameArray[i][j - 1]:
-                                    gameArray[i][j - 1] += gameArray[i][j]
+                                    gameArray[i][j - 1] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     if not can_move(gameArray):
@@ -127,7 +127,7 @@ def main():
                                     gameArray[i][j] = 0
                                 # 合并元素
                                 if gameArray[i][j] == gameArray[i][j + 1]:
-                                    gameArray[i][j + 1] += gameArray[i][j]
+                                    gameArray[i][j + 1] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     if not can_move(gameArray):
