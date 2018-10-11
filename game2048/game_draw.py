@@ -24,6 +24,8 @@ def draw_game(screen, tileFont, gameArray):
                 screen.blit(text, text_rect)
 
 
+
+
 def draw_background(screen, titleText, titleRect, btStartText, btStartRect, btResetText, btResetRect, btExitText,
                     btExitRect):
     """绘制网格和按键，标题等"""

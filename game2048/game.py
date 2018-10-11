@@ -139,21 +139,29 @@ def main():
             x, y = pygame.mouse.get_pos()
             pressed = pygame.mouse.get_pressed()
 
-            if btStartRect.collidepoint(x, y):
+            # 按键的可用和禁用判断
+            if gamestatus != 'start':
+                btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['gray'])
+            else:
+                btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['gray'])
+
+            # 开始游戏按键的鼠标事件
+            if btStartRect.collidepoint(x, y) and gamestatus != 'start':
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
                         gameArray = init_game()  # 初始化的游戏数组
                         gamestatus = 'start'
-            else:
+            elif gamestatus != 'start':
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
 
-            if btResetRect.collidepoint(x, y):
+            # 重置游戏按键的鼠标事件
+            if btResetRect.collidepoint(x, y) and gamestatus == 'start':
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
                         gameArray = init_game()  # 初始化的游戏数组
-            else:
+            elif gamestatus == 'start':
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['tomato'])
 
             if btExitRect.collidepoint(x, y):
