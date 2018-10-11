@@ -72,9 +72,11 @@ def main():
                     for i in reversed(range(setting.WINDOW_BLOCK_NUM)):  # 要反序从右边开始往左边移动，不然只移动一格
                         if i > 0:
                             for j in range(setting.WINDOW_BLOCK_NUM):
+                                # 移动元素
                                 while gameArray[i][j] != 0 and gameArray[i - 1][j] == 0:
                                     gameArray[i - 1][j] = gameArray[i][j]
                                     gameArray[i][j] = 0
+                                # 合并元素
                                 if gameArray[i][j] == gameArray[i - 1][j]:
                                     gameArray[i - 1][j] *= 2
                                     gameArray[i][j] = 0
@@ -88,10 +90,11 @@ def main():
                     for i in range(setting.WINDOW_BLOCK_NUM):
                         if i < setting.WINDOW_BLOCK_NUM - 1:
                             for j in range(setting.WINDOW_BLOCK_NUM):
+                                # 移动元素
                                 while gameArray[i][j] != 0 and gameArray[i + 1][j] == 0:
                                     gameArray[i + 1][j] = gameArray[i][j]
                                     gameArray[i][j] = 0
-
+                                # 合并元素
                                 if gameArray[i][j] == gameArray[i + 1][j]:
                                     gameArray[i + 1][j] *= 2
                                     gameArray[i][j] = 0
@@ -105,9 +108,11 @@ def main():
                     for i in range(setting.WINDOW_BLOCK_NUM):
                         for j in reversed(range(setting.WINDOW_BLOCK_NUM)):  # 要反序从上面往下面移动，不然只移动一格
                             if j > 0:
+                                # 移动元素
                                 if gameArray[i][j] != 0 and gameArray[i][j - 1] == 0:
                                     gameArray[i][j - 1] = gameArray[i][j]
                                     gameArray[i][j] = 0
+                                # 合并元素
                                 if gameArray[i][j] == gameArray[i][j - 1]:
                                     gameArray[i][j - 1] *= 2
                                     gameArray[i][j] = 0
@@ -145,7 +150,8 @@ def main():
             else:
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['gray'])
 
-            # 开始游戏按键的鼠标事件
+            # 开始游戏按键的鼠标事件，根据游戏状态来判断按键的颜色，只判断游戏状态是否‘start’即可，
+            # 因为就算是游戏胜利或者失败，都可以点开始才更符合使用习惯。
             if btStartRect.collidepoint(x, y) and gamestatus != 'start':
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
@@ -155,7 +161,7 @@ def main():
             elif gamestatus != 'start':
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
 
-            # 重置游戏按键的鼠标事件
+            # 重置游戏按键的鼠标事件，于开始按键类似的理由，只有在游戏的时候才需要重置，胜利和失败都不需要。
             if btResetRect.collidepoint(x, y) and gamestatus == 'start':
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
@@ -164,6 +170,7 @@ def main():
             elif gamestatus == 'start':
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['tomato'])
 
+            # 退出游戏按键的鼠标事件，不需要有一个游戏状态的判断，因为这个按键是需要任何时间都可用。
             if btExitRect.collidepoint(x, y):
                 btExitText = normalFont.render('退出游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
