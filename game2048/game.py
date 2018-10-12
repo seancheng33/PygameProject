@@ -25,6 +25,7 @@ def main():
     tileFont = pygame.font.Font(font_path, 36)
     titleFont = pygame.font.Font(font_path, 48)
     normalFont = pygame.font.Font(font_path, 24)
+    resultFont = pygame.font.Font(font_path,120)
 
     titleText = titleFont.render('游戏2048', True, setting.COLOR_DICT['gray'])
     titleRect = titleText.get_rect()
@@ -48,21 +49,20 @@ def main():
 
         draw_background(screen, titleText, titleRect, btStartText, btStartRect, btResetText, btResetRect, btExitText,
                         btExitRect)
-        # draw_game(screen, tileFont, gameArray)
-
+        # 游戏状态条件的判断
         if gamestatus == 'play':
-            draw_game(screen, tileFont, gameArray)
             gamestatus = win_or_lost(gameArray)
+            draw_game(screen, tileFont, gameArray)
         elif gamestatus == 'win':
-            print('win')
-            winText = titleFont.render('YOU WIN', True, setting.COLOR_DICT['tomato'])
+            # print('win')
+            winText = resultFont.render('YOU WIN!!', True, setting.COLOR_DICT['tomato'])
             winRect = winText.get_rect()
-            winRect.topleft = 270, 260
+            winRect.topleft = 0, 0
         elif gamestatus == 'lost':
-            print('lost')
-            winText = titleFont.render('YOU LOST!', True, setting.COLOR_DICT['tomato'])
-            winRect = winText.get_rect()
-            winRect.topleft = 270, 260
+            # print('lost')
+            lostText = resultFont.render('YOU LOST!!', True, setting.COLOR_DICT['tomato'])
+            lostRect = lostText.get_rect()
+            lostRect.topleft = 0, 0
         else:
             pass
 

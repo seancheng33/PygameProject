@@ -83,7 +83,7 @@ def is_win(gameArray):
     """遍历数组，如果里面有一个元素是2048，就表示胜利"""
     for i in range(setting.WINDOW_BLOCK_NUM):
         for j in range(setting.WINDOW_BLOCK_NUM):
-            if gameArray[i][j] == 32:
+            if gameArray[i][j] == 2048:
                 return True
             else:
                 return False
