@@ -50,8 +50,9 @@ def main():
                         btExitRect)
         # draw_game(screen, tileFont, gameArray)
 
-        if gamestatus == 'start':
+        if gamestatus == 'play':
             draw_game(screen, tileFont, gameArray)
+            gamestatus = win_or_lost(gameArray)
         elif gamestatus == 'win':
             print('win')
             winText = titleFont.render('YOU WIN', True, setting.COLOR_DICT['tomato'])
@@ -69,8 +70,8 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit(0)
-            elif event.type == pygame.KEYUP and gamestatus == 'start':
-                # 只有在游戏状态是start的时候，才按键有效。防止没有点击游戏开始就可以开始玩游戏
+            elif event.type == pygame.KEYUP and gamestatus == 'play':
+                # 只有在游戏状态是play的时候，才按键有效。防止没有点击游戏开始就可以开始玩游戏
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit(0)
@@ -88,7 +89,6 @@ def main():
                                     gameArray[i - 1][j] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
-                    gamestatus = win_or_lost(gameArray)
 
                 elif event.key in (pygame.K_d, pygame.K_RIGHT):
                     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -103,7 +103,6 @@ def main():
                                     gameArray[i + 1][j] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
-                    gamestatus = win_or_lost(gameArray)
 
                 elif event.key in (pygame.K_w, pygame.K_UP):
                     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -118,7 +117,6 @@ def main():
                                     gameArray[i][j - 1] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
-                    gamestatus = win_or_lost(gameArray)
 
                 elif event.key in (pygame.K_s, pygame.K_DOWN):
                     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -133,36 +131,35 @@ def main():
                                     gameArray[i][j + 1] *= 2
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
-                    gamestatus = win_or_lost(gameArray)
 
             # 右侧的按键的鼠标事件
             x, y = pygame.mouse.get_pos()
             pressed = pygame.mouse.get_pressed()
 
             # 按键的可用和禁用判断
-            if gamestatus != 'start':
+            if gamestatus != 'play':
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['gray'])
             else:
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['gray'])
 
             # 开始游戏按键的鼠标事件，根据游戏状态来判断按键的颜色，只判断游戏状态是否‘start’即可，
             # 因为就算是游戏胜利或者失败，都可以点开始才更符合使用习惯。
-            if btStartRect.collidepoint(x, y) and gamestatus != 'start':
+            if btStartRect.collidepoint(x, y) and gamestatus != 'play':
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
                         gameArray = init_game()  # 初始化的游戏数组
-                        gamestatus = 'start'
-            elif gamestatus != 'start':
+                        gamestatus = 'play'
+            elif gamestatus != 'play':
                 btStartText = normalFont.render('开始游戏', True, setting.COLOR_DICT['tomato'])
 
             # 重置游戏按键的鼠标事件，于开始按键类似的理由，只有在游戏的时候才需要重置，胜利和失败都不需要。
-            if btResetRect.collidepoint(x, y) and gamestatus == 'start':
+            if btResetRect.collidepoint(x, y) and gamestatus == 'play':
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['yellow'])
                 for event in pressed:
                     if event == 1:
                         gameArray = init_game()  # 初始化的游戏数组
-            elif gamestatus == 'start':
+            elif gamestatus == 'play':
                 btResetText = normalFont.render('重置游戏', True, setting.COLOR_DICT['tomato'])
 
             # 退出游戏按键的鼠标事件，不需要有一个游戏状态的判断，因为这个按键是需要任何时间都可用。
