@@ -87,3 +87,12 @@ def is_win(gameArray):
                 return True
             else:
                 return False
+
+
+def win_or_lost(gameArray):
+    """判断是否为胜利，如果不能移动，返回'lost'，如果是胜利，返回'win',如果不是在输赢的状态下，就返回'start'继续游戏 """
+    if not can_move(gameArray):
+        return 'lost'
+    if is_win(gameArray):
+        return 'win'
+    return 'start'
