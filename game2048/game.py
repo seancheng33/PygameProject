@@ -19,7 +19,7 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('游戏2048                  ver 0.20 Program By Sean Cheng')
+    pygame.display.set_caption('游戏2048                  ver 0.28 Program By Sean Cheng')
 
     font_path = 'c:\\windows\\Fonts\\SimHei.ttf'
     tileFont = pygame.font.Font(font_path, 36)
@@ -54,13 +54,12 @@ def main():
             draw_game(screen, tileFont, gameArray)
         elif gamestatus == 'win':
             print('win')
-            winText = titleFont.render('YOU WIN', True, setting.COLOR_DICT['navy'])
+            winText = titleFont.render('YOU WIN', True, setting.COLOR_DICT['tomato'])
             winRect = winText.get_rect()
             winRect.topleft = 270, 260
-
         elif gamestatus == 'lost':
             print('lost')
-            winText = titleFont.render('YOU LOST!', True, setting.COLOR_DICT['navy'])
+            winText = titleFont.render('YOU LOST!', True, setting.COLOR_DICT['tomato'])
             winRect = winText.get_rect()
             winRect.topleft = 270, 260
         else:
@@ -71,6 +70,7 @@ def main():
                 pygame.quit()
                 sys.exit(0)
             elif event.type == pygame.KEYUP and gamestatus == 'start':
+                # 只有在游戏状态是start的时候，才按键有效。防止没有点击游戏开始就可以开始玩游戏
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit(0)
@@ -90,7 +90,6 @@ def main():
                     add_elem(gameArray)
                     gamestatus = win_or_lost(gameArray)
 
-
                 elif event.key in (pygame.K_d, pygame.K_RIGHT):
                     for i in range(setting.WINDOW_BLOCK_NUM):
                         if i < setting.WINDOW_BLOCK_NUM - 1:
@@ -105,7 +104,6 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     gamestatus = win_or_lost(gameArray)
-
 
                 elif event.key in (pygame.K_w, pygame.K_UP):
                     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -136,7 +134,6 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     gamestatus = win_or_lost(gameArray)
-
 
             # 右侧的按键的鼠标事件
             x, y = pygame.mouse.get_pos()
