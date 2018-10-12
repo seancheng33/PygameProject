@@ -54,8 +54,15 @@ def main():
             draw_game(screen, tileFont, gameArray)
         elif gamestatus == 'win':
             print('win')
+            winText = titleFont.render('YOU WIN', True, setting.COLOR_DICT['navy'])
+            winRect = winText.get_rect()
+            winRect.topleft = 270, 260
+
         elif gamestatus == 'lost':
             print('lost')
+            winText = titleFont.render('YOU LOST!', True, setting.COLOR_DICT['navy'])
+            winRect = winText.get_rect()
+            winRect.topleft = 270, 260
         else:
             pass
 
@@ -63,7 +70,7 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit(0)
-            elif event.type == pygame.KEYUP:
+            elif event.type == pygame.KEYUP and gamestatus == 'start':
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit(0)
@@ -82,10 +89,7 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     gamestatus = win_or_lost(gameArray)
-                    # if not can_move(gameArray):
-                    #     print('lost')
-                    # if is_win(gameArray):
-                    #     print('win')
+
 
                 elif event.key in (pygame.K_d, pygame.K_RIGHT):
                     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -101,10 +105,7 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     gamestatus = win_or_lost(gameArray)
-                    # if not can_move(gameArray):
-                    #     print('lost')
-                    # if is_win(gameArray):
-                    #     print('win')
+
 
                 elif event.key in (pygame.K_w, pygame.K_UP):
                     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -120,10 +121,6 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     gamestatus = win_or_lost(gameArray)
-                    # if not can_move(gameArray):
-                    #     print('lost')
-                    # if is_win(gameArray):
-                    #     print('win')
 
                 elif event.key in (pygame.K_s, pygame.K_DOWN):
                     for i in range(setting.WINDOW_BLOCK_NUM):
@@ -139,10 +136,7 @@ def main():
                                     gameArray[i][j] = 0
                     add_elem(gameArray)
                     gamestatus = win_or_lost(gameArray)
-                    # if not can_move(gameArray):
-                    #     print('lost')
-                    # if is_win(gameArray):
-                    #     print('win')
+
 
             # 右侧的按键的鼠标事件
             x, y = pygame.mouse.get_pos()
