@@ -2,7 +2,7 @@
 @Author       : sean cheng
 @Email        : aya234@163.com
 @CreateTime   : 2018/8/18
-@Program      : 联系用PyGame制作一个2048的游戏，
+@Program      : 练习用PyGame制作一个2048的游戏，
 """
 
 import pygame
@@ -25,7 +25,7 @@ def main():
     tileFont = pygame.font.Font(font_path, 36)
     titleFont = pygame.font.Font(font_path, 48)
     normalFont = pygame.font.Font(font_path, 24)
-    resultFont = pygame.font.Font(font_path,120)
+    resultFont = pygame.font.Font(font_path, 120)
 
     titleText = titleFont.render('游戏2048', True, setting.COLOR_DICT['gray'])
     titleRect = titleText.get_rect()
@@ -54,12 +54,10 @@ def main():
             gamestatus = win_or_lost(gameArray)
             draw_game(screen, tileFont, gameArray)
         elif gamestatus == 'win':
-            # print('win')
             winText = resultFont.render('YOU WIN!!', True, setting.COLOR_DICT['tomato'])
             winRect = winText.get_rect()
             winRect.topleft = 0, 0
         elif gamestatus == 'lost':
-            # print('lost')
             lostText = resultFont.render('YOU LOST!!', True, setting.COLOR_DICT['tomato'])
             lostRect = lostText.get_rect()
             lostRect.topleft = 0, 0
@@ -178,4 +176,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
