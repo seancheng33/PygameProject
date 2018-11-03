@@ -4,6 +4,11 @@
 @CreateTime   : 2018/11/3
 @Program      : 常用的一些变量
 '''
+import sys
+
+import pygame
+
+
 class SetVar():
     def __init__(self):
         self.SCREEN_WIDTH = 1024
@@ -46,5 +51,9 @@ class SetVar():
                                '7': self.COLOR_DICT['navy'], '8': self.COLOR_DICT['olive'],
                                '9': self.COLOR_DICT['purple']}
 
+    # 关闭游戏函数，监控关闭窗口
     def terminal_window(self):
-        pass
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit(0)

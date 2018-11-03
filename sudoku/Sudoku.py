@@ -6,17 +6,23 @@
 '''
 import pygame
 from pygame import *
+from sudoku.SetVar import SetVar
 
-pygame.init()
-screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption('数独游戏——基于pygame的实现 version 0.2')
+def main():
+
+    setting = SetVar()
+
+    pygame.init()
+    screen = pygame.display.set_mode((setting.SCREEN_WIDTH, setting.SCREEN_HEIGHT))
+    pygame.display.set_caption('数独游戏——基于pygame的实现 version 0.2')
+
+    while True:
+        # 关闭游戏
+        setting.terminal_window()
 
 
+        pygame.display.update()
 
 
-
-while True:
-
-
-
-    pygame.display.update()
+if __name__ == '__main__':
+    main()
