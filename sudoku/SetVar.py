@@ -57,3 +57,7 @@ class SetVar():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit(0)
+            elif event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit(0)
+
