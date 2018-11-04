@@ -56,8 +56,9 @@ class SetVar():
         # 指定字体的路径，以下方法仅在window下有效
         # 后续再考虑如何判断该路径在mac和linux下显示不同的系统字体，理论很简单，用sys.version即可判断是windows还是linux，还是mac
         self.FONTPATH = 'c:/windows/Fonts/SimHei.ttf'
-        self.TITLEFONT = pygame.font.Font(self.FONTPATH, 48)
-        self.TEXTFONT = pygame.font.Font(self.FONTPATH, 24)
+        self.TITLEFONT = pygame.font.Font(self.FONTPATH, 48)  # 游戏标题用的字体大小
+        self.TEXTFONT = pygame.font.Font(self.FONTPATH, 24)  # 一般文字用的字体大小
+        self.TILEFONT = pygame.font.Font(self.FONTPATH, 36)  # 贴片元素用的字体大小
 
 
     # 关闭游戏函数，监控关闭窗口

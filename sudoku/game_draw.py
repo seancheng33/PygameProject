@@ -22,6 +22,7 @@ def draw_background(screen):
             lineW = 4
         else:
             lineW = 2
+
         pygame.draw.line(screen, setting.COLOR_DICT['black'], (setting.TILE_SIZE * i + 30, 30),
                          (setting.TILE_SIZE * i + 30, 570), lineW)
         pygame.draw.line(screen, setting.COLOR_DICT['black'], (30, setting.TILE_SIZE * i + 30),
@@ -33,12 +34,22 @@ def draw_background(screen):
     screen.blit(titleText, titleRect)
 
 
-def draw_tile(screen, start_posx, start_posy, tile_width, tile_height):
-    pygame.draw.rect(screen, setting.COLOR_DICT['black'], (start_posx, start_posy, tile_width, tile_height))
+def draw_tile(screen, color, start_posx, start_posy, tile_width, tile_height):
+    # 将这个rect给return出去，是为了方便下面的文字可以获取这个rect的信息，做对齐用
+    return pygame.draw.rect(screen, color, (start_posx, start_posy, tile_width, tile_height))
 
 
 def draw_gameArray(screen,gameArray):
     for row in range(len(gameArray)):
         for col in range(len(gameArray[row])):
             if gameArray[row][col] != '0':
-                draw_tile(screen, 60*col+30, 60*row+30, 56, 56)
+                # 这里是绘制非空的元素的贴片
+                tile = draw_tile(screen, setting.COLOR_DICT['tomato'], 60*col+30+6, 60*row+30+6, 48, 48)
+                text = setting.TILEFONT.render(gameArray[row][col], True, setting.COLOR_DICT['white'])
+                textRect = text.get_rect()
+                # textRect.topleft = 60*col+30+16, 60*row+30+16
+                textRect.center = tile.center
+                screen.blit(text, textRect)
+            else:
+                # 这里是绘制元素为零的贴片
+                tile = draw_tile(screen, setting.COLOR_DICT['ivory'], 60 * col + 30 + 6, 60 * row + 30 + 6, 48, 48)

@@ -17,7 +17,7 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((setting.SCREEN_WIDTH, setting.SCREEN_HEIGHT))
-    pygame.display.set_caption('数独游戏 —— 基于PyGame的实现 version 0.6')
+    pygame.display.set_caption('数独游戏 —— 基于PyGame的实现 version 0.8')
 
     gameArray = setting.game_data_load()
     print(gameArray)
