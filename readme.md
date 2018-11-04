@@ -20,7 +20,7 @@ PygameProject名字听起来貌似很高大上，但其实只是一个练习pyga
 - questions，答题游戏
 - RGGGame，RPG游戏的雏形（未完成）
 - tmp测试的小片段
-- sudoku，数独游戏（准备中）
+- sudoku，数独游戏
 - 有一个cocos2d——demo的文件夹，里面会放在一些学习cocos2d的一些练习的内容
 
 ## 目前的进程
