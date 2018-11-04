@@ -70,3 +70,12 @@ class SetVar():
                 pygame.quit()
                 sys.exit(0)
 
+    def game_data_load(self):
+        data = []
+        with open('gamedata.txt', 'r', encoding='utf-8') as load_file:
+            tmp_data = load_file.read().split('\n')
+            for i in tmp_data:
+                data.append(i.split(','))
+
+        return data
+

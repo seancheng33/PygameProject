@@ -30,4 +30,15 @@ def draw_background(screen):
     titleText = setting.TITLEFONT.render('数独游戏', True, setting.COLOR_DICT['coral'])
     titleRect = titleText.get_rect()
     titleRect.topleft = 650, 50
-    screen.blit(titleText,titleRect)
+    screen.blit(titleText, titleRect)
+
+
+def draw_tile(screen, start_posx, start_posy, tile_width, tile_height):
+    pygame.draw.rect(screen, setting.COLOR_DICT['black'], (start_posx, start_posy, tile_width, tile_height))
+
+
+def draw_gameArray(screen,gameArray):
+    for row in range(len(gameArray)):
+        for col in range(len(gameArray[row])):
+            if gameArray[row][col] != '0':
+                draw_tile(screen, 60*col+30, 60*row+30, 56, 56)
