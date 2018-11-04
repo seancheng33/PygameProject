@@ -11,9 +11,9 @@ import pygame
 
 class SetVar():
     def __init__(self):
-        self.SCREEN_WIDTH = 1024
+        self.SCREEN_WIDTH = 900
         self.SCREEN_HEIGHT = 600
-        self.TILE_SIZE = 24
+        self.TILE_SIZE = 60
         # 颜色词典
         self.COLOR_DICT = {'white': (255, 255, 255),  # 白色
                            'ivory': (255, 255, 240),  # 象牙色
@@ -50,6 +50,15 @@ class SetVar():
                                '5': self.COLOR_DICT['coral'], '6': self.COLOR_DICT['turquoise'],
                                '7': self.COLOR_DICT['navy'], '8': self.COLOR_DICT['olive'],
                                '9': self.COLOR_DICT['purple']}
+
+        pygame.init()
+
+        # 指定字体的路径，以下方法仅在window下有效
+        # 后续再考虑如何判断该路径在mac和linux下显示不同的系统字体，理论很简单，用sys.version即可判断是windows还是linux，还是mac
+        self.FONTPATH = 'c:/windows/Fonts/SimHei.ttf'
+        self.TITLEFONT = pygame.font.Font(self.FONTPATH, 48)
+        self.TEXTFONT = pygame.font.Font(self.FONTPATH, 24)
+
 
     # 关闭游戏函数，监控关闭窗口
     def terminal_window(self):
