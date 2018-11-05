@@ -17,10 +17,10 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((setting.SCREEN_WIDTH, setting.SCREEN_HEIGHT))
-    pygame.display.set_caption('数独游戏 —— 基于PyGame的实现 version 0.8')
+    pygame.display.set_caption('数独游戏 —— 基于PyGame的实现 version 0.9')
 
     gameArray = setting.game_data_load()
-    print(gameArray)
+    # print(gameArray)
 
     while True:
         # 关闭游戏
@@ -29,6 +29,7 @@ def main():
 
         draw_gameArray(screen, gameArray)
 
+        pygame.time.Clock().tick(30)
         pygame.display.update()
 
 

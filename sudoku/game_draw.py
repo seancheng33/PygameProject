@@ -39,7 +39,10 @@ def draw_tile(screen, color, start_posx, start_posy, tile_width, tile_height):
     return pygame.draw.rect(screen, color, (start_posx, start_posy, tile_width, tile_height))
 
 
-def draw_gameArray(screen,gameArray):
+def draw_gameArray(screen, gameArray):
+    posx,posy = pygame.mouse.get_pos()
+    pressed = pygame.mouse.get_pressed()
+    selected = False
     for row in range(len(gameArray)):
         for col in range(len(gameArray[row])):
             if gameArray[row][col] != '0':
@@ -50,6 +53,15 @@ def draw_gameArray(screen,gameArray):
                 # textRect.topleft = 60*col+30+16, 60*row+30+16
                 textRect.center = tile.center
                 screen.blit(text, textRect)
+
             else:
                 # 这里是绘制元素为零的贴片
-                tile = draw_tile(screen, setting.COLOR_DICT['ivory'], 60 * col + 30 + 6, 60 * row + 30 + 6, 48, 48)
+                tile = draw_tile(screen, setting.COLOR_DICT['yellow'], 60 * col + 30 + 6, 60 * row + 30 + 6,
+                                 48, 48)
+                # 元素为零的贴片，需要可以点击，然后可以填充数字
+                if tile.collidepoint(posx, posy):
+                    for event in pressed:
+                        if event == 1:
+                            selected = True
+
+
