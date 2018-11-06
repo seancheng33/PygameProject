@@ -114,4 +114,14 @@ def draw_gameArray(screen, gameArray):
                         if event == 1:
                             pass
 
-    num1Rect = pygame.draw.rect(screen, setting.COLOR_DICT['orange'], (620, 510, 10, -80))
+    num_dict = statistics(gameArray)
+
+    num1Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (620, 510, 10, num_dict.get('1', 0)*(-10)-10))
+    num2Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (650, 510, 10, num_dict.get('2', 0)*(-10)-10))
+    num3Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (680, 510, 10, num_dict.get('3', 0)*(-10)-10))
+    num4Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (710, 510, 10, num_dict.get('4', 0)*(-10)-10))
+    num5Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (740, 510, 10, num_dict.get('5', 0)*(-10)-10))
+    num6Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (770, 510, 10, num_dict.get('6', 0)*(-10)-10))
+    num7Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (800, 510, 10, num_dict.get('7', 0)*(-10)-10))
+    num8Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (830, 510, 10, num_dict.get('8', 0)*(-10)-10))
+    num9Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (860, 510, 10, num_dict.get('9', 0)*(-10)-10))
