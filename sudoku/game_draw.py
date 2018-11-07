@@ -82,6 +82,16 @@ def draw_background(screen):
     screen.blit(num8Text, num8Rect)
     screen.blit(num9Text, num9Rect)
 
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 500), (880, 500))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 490), (880, 490))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 480), (880, 480))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 470), (880, 470))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 460), (880, 460))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 450), (880, 450))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 440), (880, 440))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 430), (880, 430))
+    pygame.draw.line(screen, setting.COLOR_DICT['gray'], (610, 420), (880, 420))
+    pygame.draw.line(screen, setting.COLOR_DICT['orange'], (610, 410), (880, 410))
 
 
 def draw_tile(screen, color, start_posx, start_posy, tile_width, tile_height):
