@@ -118,6 +118,8 @@ def draw_gameArray(screen, gameArray, selectedArray):
                 # 这里是绘制元素为零的贴片
                 tile = draw_tile(screen, setting.COLOR_DICT['ivory'], 60 * col + 30 + 6, 60 * row + 30 + 6,
                                  48, 48)
+                print(selectedArray[row][col])
+
                 # 元素为零的贴片，需要可以点击，然后可以填充数字
                 if tile.collidepoint(posx, posy):
                     for event in pressed:
@@ -126,11 +128,7 @@ def draw_gameArray(screen, gameArray, selectedArray):
                             y = (posy-30)//60
                             selectedArray = [[0 for j in range(len(gameArray[i]))] for i in range(len(gameArray))]
                             selectedArray[x][y] = 1
-                            tile = draw_tile(screen, setting.COLOR_DICT['white'], 60 * col + 30 + 6, 60 * row + 30 + 6,
-                                             48, 48)
-                else:
-                    tile = draw_tile(screen, setting.COLOR_DICT['ivory'], 60 * col + 30 + 6, 60 * row + 30 + 6,
-                                 48, 48)
+
 
 
     num_dict = statistics(gameArray)
