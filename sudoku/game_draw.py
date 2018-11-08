@@ -99,7 +99,7 @@ def draw_tile(screen, color, start_posx, start_posy, tile_width, tile_height):
     return pygame.draw.rect(screen, color, (start_posx, start_posy, tile_width, tile_height))
 
 
-def draw_gameArray(screen, gameArray):
+def draw_gameArray(screen, gameArray, selectedArray):
     posx,posy = pygame.mouse.get_pos()
     pressed = pygame.mouse.get_pressed()
 
@@ -122,7 +122,16 @@ def draw_gameArray(screen, gameArray):
                 if tile.collidepoint(posx, posy):
                     for event in pressed:
                         if event == 1:
-                            pass
+                            x = (posx-30)//60
+                            y = (posy-30)//60
+                            selectedArray = [[0 for j in range(len(gameArray[i]))] for i in range(len(gameArray))]
+                            selectedArray[x][y] = 1
+                            tile = draw_tile(screen, setting.COLOR_DICT['white'], 60 * col + 30 + 6, 60 * row + 30 + 6,
+                                             48, 48)
+                else:
+                    tile = draw_tile(screen, setting.COLOR_DICT['ivory'], 60 * col + 30 + 6, 60 * row + 30 + 6,
+                                 48, 48)
+
 
     num_dict = statistics(gameArray)
 

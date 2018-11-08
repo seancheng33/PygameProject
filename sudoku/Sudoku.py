@@ -21,13 +21,15 @@ def main():
 
     gameArray = setting.game_data_load()
     # print(gameArray)
-
+    # 被选择的点的数组
+    selectedArray = [[0 for j in range(len(gameArray[i]))] for i in range(len(gameArray))]
+    # print(selectedArray)
     while True:
         # 关闭游戏
         setting.terminal_window()
         draw_background(screen)
 
-        draw_gameArray(screen, gameArray)
+        draw_gameArray(screen, gameArray, selectedArray)
 
         pygame.time.Clock().tick(30)
         pygame.display.update()
