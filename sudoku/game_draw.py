@@ -6,6 +6,7 @@
 '''
 import pygame
 
+from sudoku import function
 from sudoku.SetVar import SetVar
 
 setting = SetVar()
@@ -127,17 +128,12 @@ def draw_gameArray(screen, gameArray):
                 if tile.collidepoint(posx, posy):
                     for event in pressed:
                         if event == 1:
-                            pressedX = (posx-30)//setting.TILE_SIZE
-                            pressedY = (posy-30)//setting.TILE_SIZE
+                            pressedX = (posx - 30) // setting.TILE_SIZE
+                            pressedY = (posy - 30) // setting.TILE_SIZE
 
-                if col == pressedX and row == pressedY:
+                if function.tile_is_selected(col, row, pressedX, pressedY):
                     tile = draw_tile(screen, setting.COLOR_DICT['coral'], setting.TILE_SIZE * col + 30 + 6,
                                      setting.TILE_SIZE * row + 30 + 6, setting.TILE_DRAW_SIZE, setting.TILE_DRAW_SIZE)
-
-
-
-
-
 
 
     #
