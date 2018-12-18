@@ -14,6 +14,7 @@ class SetVar():
         self.SCREEN_WIDTH = 900
         self.SCREEN_HEIGHT = 600
         self.TILE_SIZE = 60
+        self.TILE_DRAW_SIZE = 48
         # 颜色词典
         self.COLOR_DICT = {'white': (255, 255, 255),  # 白色
                            'ivory': (255, 255, 240),  # 象牙色
@@ -59,6 +60,7 @@ class SetVar():
         self.TITLEFONT = pygame.font.Font(self.FONTPATH, 48)  # 游戏标题用的字体大小
         self.TEXTFONT = pygame.font.Font(self.FONTPATH, 24)  # 一般文字用的字体大小
         self.TILEFONT = pygame.font.Font(self.FONTPATH, 36)  # 贴片元素用的字体大小
+
 
 
     # 关闭游戏函数，监控关闭窗口

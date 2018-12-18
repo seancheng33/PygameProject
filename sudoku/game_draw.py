@@ -16,7 +16,7 @@ def statistics(gameArray):
     num_dict = {}
     for item in gameArray:
         for num in item:
-            num_dict[num] = num_dict.get(num, 0)+1
+            num_dict[num] = num_dict.get(num, 0) + 1
     return num_dict
 
 
@@ -42,6 +42,7 @@ def draw_background(screen):
     titleRect.topleft = 650, 50
     screen.blit(titleText, titleRect)
 
+    #
     num1Text = setting.TEXTFONT.render('1', True, setting.COLOR_DICT['black'])
     num2Text = setting.TEXTFONT.render('2', True, setting.COLOR_DICT['black'])
     num3Text = setting.TEXTFONT.render('3', True, setting.COLOR_DICT['black'])
@@ -100,14 +101,15 @@ def draw_tile(screen, color, start_posx, start_posy, tile_width, tile_height):
 
 
 def draw_gameArray(screen, gameArray):
-    posx,posy = pygame.mouse.get_pos()
+    posx, posy = pygame.mouse.get_pos()
     pressed = pygame.mouse.get_pressed()
 
     for row in range(len(gameArray)):
         for col in range(len(gameArray[row])):
             if gameArray[row][col] != '0':
                 # 这里是绘制非空的元素的贴片
-                tile = draw_tile(screen, setting.COLOR_DICT['tomato'], 60*col+30+6, 60*row+30+6, 48, 48)
+                tile = draw_tile(screen, setting.COLOR_DICT['tomato'], setting.TILE_SIZE * col + 30 + 6,
+                                 setting.TILE_SIZE * row + 30 + 6, setting.TILE_DRAW_SIZE, setting.TILE_DRAW_SIZE)
                 text = setting.TILEFONT.render(gameArray[row][col], True, setting.COLOR_DICT['white'])
                 textRect = text.get_rect()
                 # textRect.topleft = 60*col+30+16, 60*row+30+16
@@ -116,8 +118,8 @@ def draw_gameArray(screen, gameArray):
 
             else:
                 # 这里是绘制元素为零的贴片
-                tile = draw_tile(screen, setting.COLOR_DICT['ivory'], 60 * col + 30 + 6, 60 * row + 30 + 6,
-                                 48, 48)
+                tile = draw_tile(screen, setting.COLOR_DICT['ivory'], setting.TILE_SIZE * col + 30 + 6,
+                                 setting.TILE_SIZE * row + 30 + 6, setting.TILE_DRAW_SIZE, setting.TILE_DRAW_SIZE)
                 # 元素为零的贴片，需要可以点击，然后可以填充数字
                 if tile.collidepoint(posx, posy):
                     for event in pressed:
@@ -126,12 +128,12 @@ def draw_gameArray(screen, gameArray):
 
     num_dict = statistics(gameArray)
 
-    num1Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (620, 510, 10, num_dict.get('1', 0)*(-10)-10))
-    num2Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (650, 510, 10, num_dict.get('2', 0)*(-10)-10))
-    num3Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (680, 510, 10, num_dict.get('3', 0)*(-10)-10))
-    num4Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (710, 510, 10, num_dict.get('4', 0)*(-10)-10))
-    num5Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (740, 510, 10, num_dict.get('5', 0)*(-10)-10))
-    num6Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (770, 510, 10, num_dict.get('6', 0)*(-10)-10))
-    num7Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (800, 510, 10, num_dict.get('7', 0)*(-10)-10))
-    num8Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (830, 510, 10, num_dict.get('8', 0)*(-10)-10))
-    num9Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (860, 510, 10, num_dict.get('9', 0)*(-10)-10))
+    num1Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (620, 510, 10, num_dict.get('1', 0) * (-10) - 10))
+    num2Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (650, 510, 10, num_dict.get('2', 0) * (-10) - 10))
+    num3Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (680, 510, 10, num_dict.get('3', 0) * (-10) - 10))
+    num4Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (710, 510, 10, num_dict.get('4', 0) * (-10) - 10))
+    num5Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (740, 510, 10, num_dict.get('5', 0) * (-10) - 10))
+    num6Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (770, 510, 10, num_dict.get('6', 0) * (-10) - 10))
+    num7Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (800, 510, 10, num_dict.get('7', 0) * (-10) - 10))
+    num8Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (830, 510, 10, num_dict.get('8', 0) * (-10) - 10))
+    num9Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (860, 510, 10, num_dict.get('9', 0) * (-10) - 10))
