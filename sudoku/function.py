@@ -5,14 +5,8 @@
 @Program      : 游戏功能的函数
 """
 
-# 判断格子是否是选择状态
-pressedX = -1
-pressedY = -1
 
-
-def tile_is_selected(col, row, pressedX, pressedY):
-
-    if col == pressedX and row == pressedY:
-        return True
-
-    return False
+def selected_array(col, row):
+    selectedArray = [[0 for i in range(9)] for j in range(9)]
+    selectedArray[col][row] = 1
+    return selectedArray

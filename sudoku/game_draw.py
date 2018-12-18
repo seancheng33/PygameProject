@@ -8,6 +8,7 @@ import pygame
 
 from sudoku import function
 from sudoku.SetVar import SetVar
+from sudoku.function import selected_array
 
 setting = SetVar()
 
@@ -106,7 +107,7 @@ def draw_gameArray(screen, gameArray):
     pressed = pygame.mouse.get_pressed()
     pressedX = -1
     pressedY = -1
-
+    selectedArray = None
     for row in range(len(gameArray)):
         for col in range(len(gameArray[row])):
             if gameArray[row][col] != '0':
@@ -130,9 +131,10 @@ def draw_gameArray(screen, gameArray):
                         if event == 1:
                             pressedX = (posx - 30) // setting.TILE_SIZE
                             pressedY = (posy - 30) // setting.TILE_SIZE
+                            selectedArray = selected_array(pressedX, pressedY)
 
-                if function.tile_is_selected(col, row, pressedX, pressedY):
-                    tile = draw_tile(screen, setting.COLOR_DICT['coral'], setting.TILE_SIZE * col + 30 + 6,
+                if selectedArray[row][col]:
+                    tile = draw_tile(screen, setting.COLOR_DICT['white'], setting.TILE_SIZE * col + 30 + 6,
                                      setting.TILE_SIZE * row + 30 + 6, setting.TILE_DRAW_SIZE, setting.TILE_DRAW_SIZE)
 
 
