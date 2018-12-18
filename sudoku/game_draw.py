@@ -103,6 +103,8 @@ def draw_tile(screen, color, start_posx, start_posy, tile_width, tile_height):
 def draw_gameArray(screen, gameArray):
     posx, posy = pygame.mouse.get_pos()
     pressed = pygame.mouse.get_pressed()
+    pressedX = -1
+    pressedY = -1
 
     for row in range(len(gameArray)):
         for col in range(len(gameArray[row])):
@@ -120,14 +122,28 @@ def draw_gameArray(screen, gameArray):
                 # 这里是绘制元素为零的贴片
                 tile = draw_tile(screen, setting.COLOR_DICT['ivory'], setting.TILE_SIZE * col + 30 + 6,
                                  setting.TILE_SIZE * row + 30 + 6, setting.TILE_DRAW_SIZE, setting.TILE_DRAW_SIZE)
+
                 # 元素为零的贴片，需要可以点击，然后可以填充数字
                 if tile.collidepoint(posx, posy):
                     for event in pressed:
                         if event == 1:
-                            pass
+                            pressedX = (posx-30)//setting.TILE_SIZE
+                            pressedY = (posy-30)//setting.TILE_SIZE
 
+                if col == pressedX and row == pressedY:
+                    tile = draw_tile(screen, setting.COLOR_DICT['coral'], setting.TILE_SIZE * col + 30 + 6,
+                                     setting.TILE_SIZE * row + 30 + 6, setting.TILE_DRAW_SIZE, setting.TILE_DRAW_SIZE)
+
+
+
+
+
+
+
+    #
     num_dict = statistics(gameArray)
 
+    #
     num1Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (620, 510, 10, num_dict.get('1', 0) * (-10) - 10))
     num2Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (650, 510, 10, num_dict.get('2', 0) * (-10) - 10))
     num3Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (680, 510, 10, num_dict.get('3', 0) * (-10) - 10))
