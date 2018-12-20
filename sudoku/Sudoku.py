@@ -20,7 +20,6 @@ def main():
     pygame.display.set_caption('数独游戏 —— 基于PyGame的实现 version 0.11')
 
     gameArray = setting.game_data_load()
-    selectedArray = [[0 for i in range(9)] for j in range(9)]
     # print(gameArray)
 
     while True:
@@ -28,8 +27,8 @@ def main():
         setting.terminal_window()
         draw_background(screen)
 
-        draw_gameArray(screen, gameArray, selectedArray)
-        draw_seletced(screen, selectedArray)
+        draw_gameArray(screen, gameArray)
+        draw_seletced(screen)
 
         pygame.time.Clock().tick(30)
         pygame.display.update()

@@ -102,7 +102,7 @@ def draw_tile(screen, color, start_posx, start_posy, tile_width, tile_height):
     return pygame.draw.rect(screen, color, (start_posx, start_posy, tile_width, tile_height))
 
 
-def draw_gameArray(screen, gameArray, selectedArray):
+def draw_gameArray(screen, gameArray):
     posx, posy = pygame.mouse.get_pos()
     pressed = pygame.mouse.get_pressed()
 
@@ -128,7 +128,8 @@ def draw_gameArray(screen, gameArray, selectedArray):
                         if event == 1:
                             pressedX = (posx - 30) // setting.TILE_SIZE
                             pressedY = (posy - 30) // setting.TILE_SIZE
-                            selectedArray = selected_array(pressedX, pressedY, selectedArray)
+                            selected_array(pressedX, pressedY)
+                            print(setting.selectedArray)
 
     #
     num_dict = statistics(gameArray)
@@ -144,9 +145,11 @@ def draw_gameArray(screen, gameArray, selectedArray):
     num8Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (830, 510, 10, num_dict.get('8', 0) * (-10) - 10))
     num9Rect = pygame.draw.rect(screen, setting.COLOR_DICT['tomato'], (860, 510, 10, num_dict.get('9', 0) * (-10) - 10))
 
-def draw_seletced(screen, selectedArray):
-    for row in range(len(selectedArray)):
-        for col in range(len(selectedArray[row])):
-            if selectedArray[col][row] == 1:
-                tile = draw_tile(screen, setting.COLOR_DICT['tomato'], setting.TILE_SIZE * col + 30 + 6,
+def draw_seletced(screen):
+    array = setting.selectedArray
+    # print(array)
+    for row in range(len(array)):
+        for col in range(len(array[row])):
+            if array[col][row] == 1:
+                draw_tile(screen, setting.COLOR_DICT['tomato'], setting.TILE_SIZE * col + 30 + 6,
                                  setting.TILE_SIZE * row + 30 + 6, setting.TILE_DRAW_SIZE, setting.TILE_DRAW_SIZE)

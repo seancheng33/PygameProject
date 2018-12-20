@@ -61,6 +61,8 @@ class SetVar():
         self.TEXTFONT = pygame.font.Font(self.FONTPATH, 24)  # 一般文字用的字体大小
         self.TILEFONT = pygame.font.Font(self.FONTPATH, 36)  # 贴片元素用的字体大小
 
+        self.selectedArray = [[0 for i in range(9)] for j in range(9)]
+
 
 
     # 关闭游戏函数，监控关闭窗口
@@ -82,3 +84,5 @@ class SetVar():
 
         return data
 
+    def set_selected_array(self, array):
+        self.selectedArray = array
