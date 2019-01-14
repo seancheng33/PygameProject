@@ -60,6 +60,7 @@ def ai_scan(chess_array):
                 if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
                     point_array[row][col] += 1
 
+    # 根据上面得到的分值，决策出落子的位置
     max_list = []
     max_num = 0
     for j in range(len(point_array)):
