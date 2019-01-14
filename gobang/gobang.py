@@ -72,11 +72,7 @@ def ai_scan(chess_array):
             elif point_array[j][i] == max_num:
                 max_list.append([j, i])
 
-    if len(max_list) > 1:
-        tmp = random.choice(max_list)
-    else:
-        tmp = max_list[0]
-
+    tmp = max_list[0]
     row = tmp[0]
     col = tmp[1]
 
@@ -173,7 +169,7 @@ def game_win(chess_array, row, col):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('GoBang version 0.4 --Program by seancheng')
+    pygame.display.set_caption('GoBang version 0.6 --Program by Sean Cheng')
 
     win_font = pygame.font.Font(None, 120)
     win_str = ''
