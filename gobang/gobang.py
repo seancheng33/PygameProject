@@ -4,6 +4,7 @@
 @CreateTime   : 2019/1/14
 @Program      : 五子棋游戏
 """
+import random
 import sys
 import pygame
 from pygame import *
@@ -18,12 +19,65 @@ RED = 255, 0, 0
 def ai_scan(chess_array):
     # 对棋子的数组进行扫描，根据情况得到对当前棋局的加分判断。然后选取返回数字最高的一个数的二维坐标，电脑根据这个坐标来落子。
     # 如果存在多个数值一样高的话，就随机选择其中的一个即可。
-    row = 0
-    col = 0
 
     point_array = [[0 for i in range(len(chess_array[0]))] for j in range(len(chess_array))]  # 初始化一个全0的分值
 
+    for col in range(len(chess_array)):
+        for row in range(len(chess_array[col])):
+            chess = chess_array[row][col]
 
+            # 判断竖
+            for i in range(15):
+                # 需要控制下标越界的问题
+                if (col + i) < 15 and chess_array[row][col + i] == chess:
+                    point_array[row][col] += 1
+                if (col - i) > -1 and chess_array[row][col - i] == chess:
+                    point_array[row][col] += 1
+
+            # 判断横
+            for i in range(15):
+                # 需要控制下标越界的问题
+                if (row + i) < 15 and chess_array[row + i][col] == chess:
+                    point_array[row][col] += 1
+                if (row - i) > -1 and chess_array[row - i][col] == chess:
+                    point_array[row][col] += 1
+
+            # 判断左斜
+            same_chess = 0
+            for i in range(15):
+                # 需要控制下标越界的问题
+                if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
+                    point_array[row][col] += 1
+                if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
+                    point_array[row][col] += 1
+
+            # 判断右斜
+            same_chess = 0
+            for i in range(15):
+                # 需要控制下标越界的问题
+                if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
+                    point_array[row][col] += 1
+                if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
+                    point_array[row][col] += 1
+
+    max_list = []
+    max_num = 0
+    for j in range(len(point_array)):
+        for i in range(len(point_array[j])):
+            if point_array[j][i] > max_num:
+                max_num = point_array[j][i]
+                max_list.clear()
+                max_list.append([j, i])
+            elif point_array[j][i] == max_num:
+                max_list.append([j, i])
+
+    if len(max_list) > 1:
+        tmp = random.choice(max_list)
+    else:
+        tmp = max_list[0]
+
+    row = tmp[0]
+    col = tmp[1]
 
     return row, col
 
@@ -161,18 +215,19 @@ def main():
                 col = (mouseY - 55 - 15) // 35 + 1
                 # row和col必须是在0~14之间，不然就会报列表越界异常。
                 if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == 0:
-                    if isblack:
-                        chess_array[row][col] = 1
-                        if game_win(chess_array, row, col):
-                            win_str = 'black win!'
-                            iswin = True
-                        isblack = False
-                    else:
-                        chess_array[row][col] = 2
-                        if game_win(chess_array, row, col):
-                            win_str = 'white win!'
-                            iswin = True
-                        isblack = True
+                    chess_array[row][col] = 1
+                    if game_win(chess_array, row, col):
+                        win_str = 'black win!'
+                        iswin = True
+                    isblack = False
+
+        if not iswin and not isblack:
+            x, y = ai_scan(chess_array)
+            chess_array[x][y] = 2
+            if game_win(chess_array, x, y):
+                win_str = 'white win!'
+                iswin = True
+            isblack = True
 
         # 如果游戏胜利，就显示胜利的画面
         if iswin:
