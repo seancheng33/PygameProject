@@ -12,7 +12,20 @@ WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 ORANGE = 255, 165, 0
 GRAY = 200, 200, 200
-RED = 255,0,0
+RED = 255, 0, 0
+
+
+def ai_scan(chess_array):
+    # 对棋子的数组进行扫描，根据情况得到对当前棋局的加分判断。然后选取返回数字最高的一个数的二维坐标，电脑根据这个坐标来落子。
+    # 如果存在多个数值一样高的话，就随机选择其中的一个即可。
+    row = 0
+    col = 0
+
+    point_array = [[0 for i in range(len(chess_array[0]))] for j in range(len(chess_array))]  # 初始化一个全0的分值
+
+
+
+    return row, col
 
 
 def draw_chess(screen, chess_color, posx, posy):
