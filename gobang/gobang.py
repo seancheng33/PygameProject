@@ -40,12 +40,8 @@ def check_put_point(chess_array, row, col):
             # 需要控制下标越界的问题
             if (col - i) > -1 and chess_array[row][col - i] == chess:
                 chess_count += 1
-        # if chess == 1:
-        #     point[0] += chess_count
-        # else:
-        #     point[1] += chess_count
+
         # 判断横
-        # chess_count = 0
         for i in range(5):
             # 需要控制下标越界的问题
             if (row + i) < 15 and chess_array[row + i][col] == chess:
@@ -53,12 +49,8 @@ def check_put_point(chess_array, row, col):
         for i in range(5):
             if (row - i) > -1 and chess_array[row - i][col] == chess:
                 chess_count += 1
-        # if chess == 1:
-        #     point[0] += chess_count
-        # else:
-        #     point[1] += chess_count
+
         # 判断左斜
-        # chess_count = 0
         for i in range(5):
             # 需要控制下标越界的问题
             if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
@@ -66,12 +58,8 @@ def check_put_point(chess_array, row, col):
         for i in range(5):
             if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
                 chess_count += 1
-        # if chess == 1:
-        #     point[0] += chess_count
-        # else:
-        #     point[1] += chess_count
+
         # 判断右斜
-        # chess_count = 0
         for i in range(5):
             # 需要控制下标越界的问题
             if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
