@@ -2,7 +2,7 @@
 @Author       : sean cheng
 @Email        : aya234@163.com
 @CreateTime   : 2019/1/14
-@Program      : 五子棋游戏
+@Program      : 五子棋游戏，目标为实现可以简单的人机对弈。
 """
 import random
 import sys
@@ -18,18 +18,83 @@ RED = 255, 0, 0
 ROW = 15
 COL = 15
 
-FONTPATH = 'c:/windows/Fonts/SimHei.ttf'
+WINFONT = 'c:/windows/Fonts/SimHei.ttf'
+MACFONT = ''
+LINUXFONT = ''
 
 
-def ai_scan(chess_array, row, col):
-    # 扫描最后落子的位置开始，向8个方向查询，得到形状，然后根据这个情况判断分值。分值高则落子优先级高
-    chess = chess_array[row][col]
+def check_put_point(chess_array, row, col):
+    point = [0,0]
+    # 如果当前位置不是空白的位置，也就是说，有棋子，这个位置就不用去扫描判断它的分值。分值就直接为0
+    if chess_array[row][col] != 0:
+        return [0, 0]
 
-    # for i in range(5):
-    #     if chess_array[row + i][col] == chess:
-    #         pass
+    # 循环两次，一次是判断黑子，一次是判断白子，得分为两次相加，因为黑白双方的分数高，也就说明该点的重要性
+    for chess in range(1, 3):
+        chess_count = 0
+        for i in range(5):
+            # 需要控制下标越界的问题
+            if (col + i) < 15 and chess_array[row][col + i] == chess:
+                chess_count += 1
+        for i in range(5):
+            # 需要控制下标越界的问题
+            if (col - i) > -1 and chess_array[row][col - i] == chess:
+                chess_count += 1
+        # if chess == 1:
+        #     point[0] += chess_count
+        # else:
+        #     point[1] += chess_count
+        # 判断横
+        # chess_count = 0
+        for i in range(5):
+            # 需要控制下标越界的问题
+            if (row + i) < 15 and chess_array[row + i][col] == chess:
+                chess_count += 1
+        for i in range(5):
+            if (row - i) > -1 and chess_array[row - i][col] == chess:
+                chess_count += 1
+        # if chess == 1:
+        #     point[0] += chess_count
+        # else:
+        #     point[1] += chess_count
+        # 判断左斜
+        # chess_count = 0
+        for i in range(5):
+            # 需要控制下标越界的问题
+            if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
+                chess_count += 1
+        for i in range(5):
+            if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
+                chess_count += 1
+        # if chess == 1:
+        #     point[0] += chess_count
+        # else:
+        #     point[1] += chess_count
+        # 判断右斜
+        # chess_count = 0
+        for i in range(5):
+            # 需要控制下标越界的问题
+            if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
+                chess_count += 1
+        for i in range(5):
+            if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
+                chess_count += 1
 
-    return row, col
+        if chess == 1:
+            point[0] += chess_count
+        else:
+            point[1] += chess_count
+    return point
+
+
+def ai_scan(chess_array):
+    put_point = [[[0, 0] for _ in range(15)] for _ in range(15)]
+    for j in range(15):
+        for i in range(15):
+            put_point[i][j] = check_put_point(chess_array, i, j)
+    print(put_point)
+
+    # return row, col
 
 
 def draw_chess(screen, chess_color, posx, posy):
@@ -151,6 +216,7 @@ def main():
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption('五子棋(GoBang) version 0.9 --Program by Sean Cheng')
 
+    FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
     tip_font = pygame.font.Font(FONTPATH, 24)
     win_str = ''
@@ -185,12 +251,12 @@ def main():
         # 获取游戏的坐标和按键事件
         mouseX, mouseY = pygame.mouse.get_pos()
         pressed = pygame.mouse.get_pressed()
-        # 根据鼠标的坐标计算出数组的位置
+        # 根据鼠标的坐标计算出对应于数组中的位置
         row = (mouseX - 150 - 15) // 35 + 1
         col = (mouseY - 55 - 15) // 35 + 1
 
         for press in pressed:
-            if press == 1:
+            if press == 1:  # 点击左键的鼠标事件
                 # row和col必须是在0~14之间，不然就会报列表越界异常。
                 if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == 0:
                     if isblack:
@@ -200,6 +266,7 @@ def main():
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
+                        ai_scan(chess_array)
                     else:
                         # 设定白子在数组中的数值为2
                         chess_array[row][col] = 2
@@ -207,6 +274,8 @@ def main():
                             win_str = '白子 胜!'
                             iswin = True
                         isblack = True
+                        ai_scan(chess_array)
+
 
         # if not iswin and not isblack:
         #     x, y = ai_scan(chess_array, row, col)
