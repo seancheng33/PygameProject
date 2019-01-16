@@ -21,6 +21,12 @@ COL = 15
 
 def ai_scan(chess_array, row, col):
     # 扫描最后落子的位置开始，向8个方向查询，得到形状，然后根据这个情况判断分值。分值高则落子优先级高
+    chess = chess_array[row][col]
+
+    # for i in range(5):
+    #     if chess_array[row + i][col] == chess:
+    #         pass
+
 
     return row, col
 
@@ -66,47 +72,48 @@ def game_win(chess_array, row, col):
     chess = chess_array[row][col]
 
     # 判断竖
-    same_chess = 0
+    chess_count = 0
     for i in range(5):
         # 需要控制下标越界的问题
         if (col + i) < 15 and chess_array[row][col + i] == chess:
-            same_chess += 1
+                chess_count += 1
         if (col - i) > -1 and chess_array[row][col - i] == chess:
-            same_chess += 1
-        if same_chess > 5:
+                chess_count += 1
+        # 当线上存在5个相同的颜色的棋子时，判定为胜利
+        if chess_count > 5:
             return True
 
     # 判断横
-    same_chess = 0
+    chess_count = 0
     for i in range(5):
         # 需要控制下标越界的问题
         if (row + i) < 15 and chess_array[row + i][col] == chess:
-            same_chess += 1
+            chess_count += 1
         if (row - i) > -1 and chess_array[row - i][col] == chess:
-            same_chess += 1
-        if same_chess > 5:
+            chess_count += 1
+        if chess_count > 5:
             return True
 
     # 判断左斜
-    same_chess = 0
+    chess_count = 0
     for i in range(5):
         # 需要控制下标越界的问题
         if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
-            same_chess += 1
+            chess_count += 1
         if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
-            same_chess += 1
-        if same_chess > 5:
+            chess_count += 1
+        if chess_count > 5:
             return True
 
     # 判断右斜
-    same_chess = 0
+    chess_count = 0
     for i in range(5):
         # 需要控制下标越界的问题
         if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
-            same_chess += 1
+            chess_count += 1
         if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
-            same_chess += 1
-        if same_chess > 5:
+            chess_count += 1
+        if chess_count > 5:
             return True
 
     return False
@@ -115,7 +122,7 @@ def game_win(chess_array, row, col):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.6 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.7 --Program by Sean Cheng')
 
     win_font = pygame.font.Font(None, 120)
     win_str = ''
@@ -158,21 +165,30 @@ def main():
             if press == 1:
                 # row和col必须是在0~14之间，不然就会报列表越界异常。
                 if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == 0:
-                    # 设定黑子在数组中的数值为1
-                    chess_array[row][col] = 1
-                    if game_win(chess_array, row, col):
-                        win_str = 'black win!'
-                        iswin = True
-                    isblack = False
+                    if isblack :
+                        # 设定黑子在数组中的数值为1
+                        chess_array[row][col] = 1
+                        if game_win(chess_array, row, col):
+                            win_str = 'black win!'
+                            iswin = True
+                        isblack = False
+                    else:
+                        # 设定白子在数组中的数值为2
+                        chess_array[row][col] = 2
+                        if game_win(chess_array, row, col):
+                            win_str = 'white win!'
+                            iswin = True
+                        isblack = True
 
-        if not iswin and not isblack:
-            x, y = ai_scan(chess_array, row, col)
-            # 设定白子在数组中的数值为2
-            chess_array[x][y] = 2
-            if game_win(chess_array, x, y):
-                win_str = 'white win!'
-                iswin = True
-            isblack = True
+
+        # if not iswin and not isblack:
+        #     x, y = ai_scan(chess_array, row, col)
+        #     # 设定白子在数组中的数值为2
+        #     chess_array[x][y] = 2
+        #     if game_win(chess_array, x, y):
+        #         win_str = 'white win!'
+        #         iswin = True
+        #     isblack = True
 
         # 如果游戏胜利，就显示胜利的画面
         if iswin:
