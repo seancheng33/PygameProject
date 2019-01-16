@@ -12,7 +12,7 @@ from pygame import *
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 ORANGE = 255, 165, 0
-GRAY = 200, 200, 200
+GRAY = 127, 127, 127
 RED = 255, 0, 0
 
 ROW = 15
@@ -64,8 +64,10 @@ def draw_chessboard(screen):
 def draw_player_icon(screen):
     # 左上角的头像
     pygame.draw.rect(screen, GRAY, (20, 55, 100, 100))
+    pygame.draw.circle(screen, BLACK, (70, 105), 40)
     # 右下角的头像
     pygame.draw.rect(screen, GRAY, (670, 445, 100, 100))
+    pygame.draw.circle(screen, WHITE, (720, 495), 40)
 
 
 def judge():
@@ -83,11 +85,17 @@ def game_win(chess_array, row, col):
         # 需要控制下标越界的问题
         if (col + i) < 15 and chess_array[row][col + i] == chess:
             chess_count += 1
+        else:
+            break
+    for i in range(5):
+        # 需要控制下标越界的问题
         if (col - i) > -1 and chess_array[row][col - i] == chess:
             chess_count += 1
-        # 当线上存在5个相同的颜色的棋子时，判定为胜利
-        if chess_count > 5:
-            return True
+        else:
+            break
+    # 当线上存在5个相同的颜色的棋子时，判定为胜利
+    if chess_count > 5:
+        return True
 
     # 判断横
     chess_count = 0
@@ -95,10 +103,14 @@ def game_win(chess_array, row, col):
         # 需要控制下标越界的问题
         if (row + i) < 15 and chess_array[row + i][col] == chess:
             chess_count += 1
+        else:
+            break
         if (row - i) > -1 and chess_array[row - i][col] == chess:
             chess_count += 1
-        if chess_count > 5:
-            return True
+        else:
+            break
+    if chess_count > 5:
+        return True
 
     # 判断左斜
     chess_count = 0
@@ -106,10 +118,14 @@ def game_win(chess_array, row, col):
         # 需要控制下标越界的问题
         if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
             chess_count += 1
+        else:
+            break
         if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
             chess_count += 1
-        if chess_count > 5:
-            return True
+        else:
+            break
+    if chess_count > 5:
+        return True
 
     # 判断右斜
     chess_count = 0
@@ -117,10 +133,14 @@ def game_win(chess_array, row, col):
         # 需要控制下标越界的问题
         if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
             chess_count += 1
+        else:
+            break
         if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
             chess_count += 1
-        if chess_count > 5:
-            return True
+        else:
+            break
+    if chess_count > 5:
+        return True
 
     return False
 
@@ -176,14 +196,14 @@ def main():
                         # 设定黑子在数组中的数值为1
                         chess_array[row][col] = 1
                         if game_win(chess_array, row, col):
-                            win_str = 'black win!'
+                            win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
                     else:
                         # 设定白子在数组中的数值为2
                         chess_array[row][col] = 2
                         if game_win(chess_array, row, col):
-                            win_str = 'white win!'
+                            win_str = '白子 胜!'
                             iswin = True
                         isblack = True
 
@@ -207,7 +227,10 @@ def main():
             tip_str = tip_font.render('当前落子为黑子', True, BLACK)
         else:
             tip_str = tip_font.render('当前落子为白子', True, BLACK)
-        screen.blit(tip_str, (300, 10))
+        tip_rect = tip_str.get_rect()
+        tip_rect.top = 15
+        tip_rect.centerx = 400
+        screen.blit(tip_str, tip_rect)
 
         pygame.time.Clock().tick(150)
         pygame.display.update()
