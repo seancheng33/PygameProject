@@ -18,6 +18,8 @@ RED = 255, 0, 0
 ROW = 15
 COL = 15
 
+FONTPATH = 'c:/windows/Fonts/SimHei.ttf'
+
 
 def ai_scan(chess_array, row, col):
     # 扫描最后落子的位置开始，向8个方向查询，得到形状，然后根据这个情况判断分值。分值高则落子优先级高
@@ -26,7 +28,6 @@ def ai_scan(chess_array, row, col):
     # for i in range(5):
     #     if chess_array[row + i][col] == chess:
     #         pass
-
 
     return row, col
 
@@ -67,6 +68,11 @@ def draw_player_icon(screen):
     pygame.draw.rect(screen, GRAY, (670, 445, 100, 100))
 
 
+def judge():
+    # 使用递归来判断棋子是否连成一线
+    pass
+
+
 def game_win(chess_array, row, col):
     # 先获取目前下的棋子位置，然后再判断四个可能有连成一线的方向，如果有一个方向达成5颗棋子或以上的目标，就报游戏胜利。
     chess = chess_array[row][col]
@@ -76,9 +82,9 @@ def game_win(chess_array, row, col):
     for i in range(5):
         # 需要控制下标越界的问题
         if (col + i) < 15 and chess_array[row][col + i] == chess:
-                chess_count += 1
+            chess_count += 1
         if (col - i) > -1 and chess_array[row][col - i] == chess:
-                chess_count += 1
+            chess_count += 1
         # 当线上存在5个相同的颜色的棋子时，判定为胜利
         if chess_count > 5:
             return True
@@ -124,7 +130,8 @@ def main():
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption('五子棋(GoBang) version 0.7 --Program by Sean Cheng')
 
-    win_font = pygame.font.Font(None, 120)
+    win_font = pygame.font.Font(FONTPATH, 120)
+    tip_font = pygame.font.Font(FONTPATH, 24)
     win_str = ''
 
     chess_array = [[0 for i in range(COL)] for j in range(ROW)]  # 存储棋子的状态
@@ -165,7 +172,7 @@ def main():
             if press == 1:
                 # row和col必须是在0~14之间，不然就会报列表越界异常。
                 if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == 0:
-                    if isblack :
+                    if isblack:
                         # 设定黑子在数组中的数值为1
                         chess_array[row][col] = 1
                         if game_win(chess_array, row, col):
@@ -179,7 +186,6 @@ def main():
                             win_str = 'white win!'
                             iswin = True
                         isblack = True
-
 
         # if not iswin and not isblack:
         #     x, y = ai_scan(chess_array, row, col)
@@ -196,6 +202,12 @@ def main():
             winstrRect = winstr.get_rect()
             winstrRect.center = 400, 300
             screen.blit(winstr, winstrRect)
+
+        if isblack:
+            tip_str = tip_font.render('当前落子为黑子', True, BLACK)
+        else:
+            tip_str = tip_font.render('当前落子为白子', True, BLACK)
+        screen.blit(tip_str, (300, 10))
 
         pygame.time.Clock().tick(150)
         pygame.display.update()
