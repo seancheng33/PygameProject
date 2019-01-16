@@ -3,6 +3,8 @@
 @Email        : aya234@163.com
 @CreateTime   : 2019/1/14
 @Program      : 五子棋游戏，目标为实现可以简单的人机对弈。
+                目前使用简易的算法来实现对弈，故33禁手或44禁手等规矩的判定都不提供。
+                提供三种目前的系统的字体路径，简单的实现跨平台可运行。
 """
 import random
 import sys
@@ -24,7 +26,7 @@ LINUXFONT = ''
 
 
 def check_put_point(chess_array, row, col):
-    point = [0,0]
+    point = [0, 0]
     # 如果当前位置不是空白的位置，也就是说，有棋子，这个位置就不用去扫描判断它的分值。分值就直接为0
     if chess_array[row][col] != 0:
         return [0, 0]
@@ -68,6 +70,7 @@ def check_put_point(chess_array, row, col):
             if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
                 chess_count += 1
 
+        # 黑子和白子的数值分开记录，后续用于判定是要进行防守还是进行进攻的落子行为。
         if chess == 1:
             point[0] += chess_count
         else:
@@ -75,12 +78,50 @@ def check_put_point(chess_array, row, col):
     return point
 
 
-def ai_scan(chess_array):
+def ai_scan(chess_array, row, col):
     put_point = [[[0, 0] for _ in range(15)] for _ in range(15)]
+    # 扫描全部点并计算出每个点的分值，已经落子的点分值计算为零。
     for j in range(15):
         for i in range(15):
             put_point[i][j] = check_put_point(chess_array, i, j)
-    print(put_point)
+
+    # print(put_point)
+
+    att_dict = {}
+    def_dict = {}
+    att_max = 0
+    def_max = 0
+    for j in range(15):
+        for i in range(15):
+            attack = put_point[i][j][1]  # 白子的数值用于进攻用
+            defense = put_point[i][j][0]  # 黑子的数值用于防御用
+
+            # 统计出防御和进攻的数值形势
+            att_dict[attack] = att_dict.get(attack, [])
+            att_dict[attack].append([i, j])
+            def_dict[defense] = def_dict.get(defense, [])
+            def_dict[defense].append([i, j])
+
+    for i in att_dict.keys():
+        if i > att_max:
+            att_max = i
+    for i in def_dict.keys():
+        if i > def_max:
+            def_max = i
+
+    print('attack', att_max, att_dict[att_max])
+    print('defense', def_max, def_dict[def_max])
+
+    # 计算与刚刚落子的位置与最大数字最短距离的位置，就是要落子的位置。
+    if att_max < def_max:
+        # 防御值大于进攻值时，采取防御落子，在防御的字典中选取
+        pass
+    else:
+        # 非防御值大于进攻值，也就是进攻值大于或者等于防御值时，采取进去的进攻落子，在进攻字典中选取。
+        pass
+
+
+
 
     # return row, col
 
@@ -254,7 +295,7 @@ def main():
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
-                        ai_scan(chess_array)
+                        ai_scan(chess_array, row, col)
                     else:
                         # 设定白子在数组中的数值为2
                         chess_array[row][col] = 2
@@ -262,8 +303,7 @@ def main():
                             win_str = '白子 胜!'
                             iswin = True
                         isblack = True
-                        ai_scan(chess_array)
-
+                        ai_scan(chess_array, row, col)
 
         # if not iswin and not isblack:
         #     x, y = ai_scan(chess_array, row, col)
