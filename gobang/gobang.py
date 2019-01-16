@@ -70,75 +70,76 @@ def draw_player_icon(screen):
     pygame.draw.circle(screen, WHITE, (720, 495), 40)
 
 
-def judge():
-    # 使用递归来判断棋子是否连成一线
-    pass
-
-
 def game_win(chess_array, row, col):
     # 先获取目前下的棋子位置，然后再判断四个可能有连成一线的方向，如果有一个方向达成5颗棋子或以上的目标，就报游戏胜利。
     chess = chess_array[row][col]
 
     # 判断竖
     chess_count = 0
-    for i in range(5):
+    for i in range(4):
         # 需要控制下标越界的问题
         if (col + i) < 15 and chess_array[row][col + i] == chess:
             chess_count += 1
         else:
             break
-    for i in range(5):
+    for i in range(4):
         # 需要控制下标越界的问题
         if (col - i) > -1 and chess_array[row][col - i] == chess:
             chess_count += 1
         else:
             break
-    # 当线上存在5个相同的颜色的棋子时，判定为胜利
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
     if chess_count > 5:
         return True
 
     # 判断横
     chess_count = 0
-    for i in range(5):
+    for i in range(4):
         # 需要控制下标越界的问题
         if (row + i) < 15 and chess_array[row + i][col] == chess:
             chess_count += 1
         else:
             break
+    for i in range(4):
         if (row - i) > -1 and chess_array[row - i][col] == chess:
             chess_count += 1
         else:
             break
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
     if chess_count > 5:
         return True
 
     # 判断左斜
     chess_count = 0
-    for i in range(5):
+    for i in range(4):
         # 需要控制下标越界的问题
         if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
             chess_count += 1
         else:
             break
+    for i in range(4):
         if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
             chess_count += 1
         else:
             break
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
     if chess_count > 5:
         return True
 
     # 判断右斜
     chess_count = 0
-    for i in range(5):
+    for i in range(4):
         # 需要控制下标越界的问题
         if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
             chess_count += 1
         else:
             break
+    for i in range(4):
         if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
             chess_count += 1
         else:
             break
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
     if chess_count > 5:
         return True
 
@@ -148,7 +149,7 @@ def game_win(chess_array, row, col):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.7 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.9 --Program by Sean Cheng')
 
     win_font = pygame.font.Font(FONTPATH, 120)
     tip_font = pygame.font.Font(FONTPATH, 24)
