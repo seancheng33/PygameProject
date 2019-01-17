@@ -110,30 +110,18 @@ def ai_scan(chess_array, row, col):
 
     # 根据不同的数值，判断是要采取什么策略
     if att_max < def_max:
-        position = att_dict[att_max]
+        position = def_dict[def_max]
     else:
-        position = def_dict[att_max]
+        position = att_dict[att_max]
     # print(position)
-
+    pos_x, pos_y = 0, 0
     # 计算出对方最后一步落子的位置，然后选取与该落子距离最近的可以落子的位置落子
-    pos_x = 0
-    pos_y = 0
-    tmp = 1000
-    for x, y in position:
-        if x == 0:
-            tmpx = 7
-        if y == 0:
-            tmpy = 7
-        else:
-            tmpx = abs(row - x)
-            tmpy = abs(col - y)
-
-        if tmpx + tmpy < tmp:
-            tmp = tmpx + tmpy
-            pos_x = x
-            pos_y = y
-        print('原始', x, y)
-        print('计算后', tmpx, tmpy)
+    if len(position) > 1:
+        # 重新验证每一个点，确定哪些点存在赢得游戏的可能，重新将这些点存为一个数组，然后就随机选取就可以
+        for x, y in position:
+           pass
+    else:
+        pos_x, pos_y = position[0]
     print(pos_x, pos_y)
 
     return pos_x, pos_y
@@ -308,7 +296,7 @@ def main():
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
-                        ai_scan(chess_array, row, col)
+                        # ai_scan(chess_array, row, col)
                     # else:
                     #     # 设定白子在数组中的数值为2
                     #     chess_array[row][col] = 2
@@ -324,7 +312,7 @@ def main():
             # 设定白子在数组中的数值为2
             chess_array[x][y] = 2
             if game_win(chess_array, x, y):
-                win_str = 'white win!'
+                win_str = '白子 胜!'
                 iswin = True
             isblack = True
 
