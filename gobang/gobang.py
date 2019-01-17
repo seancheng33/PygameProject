@@ -75,14 +75,68 @@ def check_put_point(chess_array, row, col):
     return point
 
 
-def ai_scan(chess_array):
+def ai_scan(chess_array, row, col):
     put_point = [[[0, 0] for _ in range(15)] for _ in range(15)]
     for j in range(15):
         for i in range(15):
             put_point[i][j] = check_put_point(chess_array, i, j)
-    print(put_point)
+    # print(put_point)
 
-    # return row, col
+    # 统计出进攻和防守的数值
+    att_dict = {}
+    def_dict = {}
+    for j in range(15):
+        for i in range(15):
+            attack = put_point[i][j][1]
+            defense = put_point[i][j][0]
+
+            att_dict[attack] = att_dict.get(attack, [])
+            att_dict[attack].append([i, j])
+            def_dict[defense] = def_dict.get(defense, [])
+            def_dict[defense].append([i, j])
+
+    # 得出进攻和防守的最大值
+    att_max = 0
+    def_max = 0
+    for i in att_dict.keys():
+        if i > att_max:
+            att_max = i
+    for i in def_dict:
+        if i > def_max:
+            def_max = i
+
+    # print(att_dict[att_max])
+    # print(def_dict[def_max])
+
+    # 根据不同的数值，判断是要采取什么策略
+    if att_max < def_max:
+        position = att_dict[att_max]
+    else:
+        position = def_dict[att_max]
+    # print(position)
+
+    # 计算出对方最后一步落子的位置，然后选取与该落子距离最近的可以落子的位置落子
+    pos_x = 0
+    pos_y = 0
+    tmp = 1000
+    for x, y in position:
+        if x == 0:
+            tmpx = 7
+        if y == 0:
+            tmpy = 7
+        else:
+            tmpx = abs(row - x)
+            tmpy = abs(col - y)
+
+        if tmpx + tmpy < tmp:
+            tmp = tmpx + tmpy
+            pos_x = x
+            pos_y = y
+        print('原始', x, y)
+        print('计算后', tmpx, tmpy)
+    print(pos_x, pos_y)
+
+    return pos_x, pos_y
 
 
 def draw_chess(screen, chess_color, posx, posy):
@@ -202,7 +256,7 @@ def game_win(chess_array, row, col):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.9 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.15 --Program by Sean Cheng')
 
     FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
@@ -254,25 +308,25 @@ def main():
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
-                        ai_scan(chess_array)
-                    else:
-                        # 设定白子在数组中的数值为2
-                        chess_array[row][col] = 2
-                        if game_win(chess_array, row, col):
-                            win_str = '白子 胜!'
-                            iswin = True
-                        isblack = True
-                        ai_scan(chess_array)
+                        ai_scan(chess_array, row, col)
+                    # else:
+                    #     # 设定白子在数组中的数值为2
+                    #     chess_array[row][col] = 2
+                    #     if game_win(chess_array, row, col):
+                    #         win_str = '白子 胜!'
+                    #         iswin = True
+                    #     isblack = True
+                    #     ai_scan(chess_array, row, col)
 
 
-        # if not iswin and not isblack:
-        #     x, y = ai_scan(chess_array, row, col)
-        #     # 设定白子在数组中的数值为2
-        #     chess_array[x][y] = 2
-        #     if game_win(chess_array, x, y):
-        #         win_str = 'white win!'
-        #         iswin = True
-        #     isblack = True
+        if not iswin and not isblack:
+            x, y = ai_scan(chess_array, row, col)
+            # 设定白子在数组中的数值为2
+            chess_array[x][y] = 2
+            if game_win(chess_array, x, y):
+                win_str = 'white win!'
+                iswin = True
+            isblack = True
 
         # 如果游戏胜利，就显示胜利的画面
         if iswin:
