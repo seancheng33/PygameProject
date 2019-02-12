@@ -5,7 +5,6 @@
 @Program      : 五子棋游戏，目标为实现可以简单的人机对弈。
 """
 import random
-import sys
 import pygame
 from pygame import *
 
@@ -75,6 +74,84 @@ def check_put_point(chess_array, row, col):
     return point
 
 
+def chess_num(array, row, col):
+    chess = 1
+
+    position = []
+    # 判断竖
+    chess_count = 0
+    for i in range(4):
+        # 需要控制下标越界的问题
+        if (col + i) < 15 and array[row][col + i] == chess:
+            chess_count += 1
+        else:
+            break
+    for i in range(4):
+        # 需要控制下标越界的问题
+        if (col - i) > -1 and array[row][col - i] == chess:
+            chess_count += 1
+        else:
+            break
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
+    if chess_count > 2:
+        position.append(chess_count)
+
+    # 判断横
+    chess_count = 0
+    for i in range(4):
+        # 需要控制下标越界的问题
+        if (row + i) < 15 and array[row + i][col] == chess:
+            chess_count += 1
+        else:
+            break
+    for i in range(4):
+        if (row - i) > -1 and array[row - i][col] == chess:
+            chess_count += 1
+        else:
+            break
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
+    if chess_count > 2:
+        position.append(chess_count)
+
+    # 判断左斜
+    chess_count = 0
+    for i in range(4):
+        # 需要控制下标越界的问题
+        if (col + i) < 15 and (row + i) < 15 and array[row + i][col + i] == chess:
+            chess_count += 1
+        else:
+            break
+    for i in range(4):
+        if (col - i) > -1 and (row - i) > -1 and array[row - i][col - i] == chess:
+            chess_count += 1
+        else:
+            break
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
+    if chess_count > 2:
+        position.append(chess_count)
+
+    # 判断右斜
+    chess_count = 0
+    for i in range(4):
+        # 需要控制下标越界的问题
+        if (col + i) < 15 and (row - i) > -1 and array[row - i][col + i] == chess:
+            chess_count += 1
+        else:
+            break
+    for i in range(4):
+        if (col - i) > -1 and (row + i) < 15 and array[row + i][col - i] == chess:
+            chess_count += 1
+        else:
+            break
+    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
+    if chess_count > 2:
+        position.append(chess_count)
+
+    for item in position:
+        if item > 3:
+            return True
+    return False
+
 def ai_scan(chess_array, row, col):
     put_point = [[[0, 0] for _ in range(15)] for _ in range(15)]
     for j in range(15):
@@ -118,8 +195,14 @@ def ai_scan(chess_array, row, col):
     # 计算出对方最后一步落子的位置，然后选取与该落子距离最近的可以落子的位置落子
     if len(position) > 1:
         # 重新验证每一个点，确定哪些点存在赢得游戏的可能，重新将这些点存为一个数组，然后就随机选取就可以
+        tmp = []
         for x, y in position:
-           pass
+            if chess_num(chess_array, x, y):
+                tmp.append([x, y])
+        if len(tmp) == 0:
+            pos_x, pos_y = random.choice(position)
+        else:
+            pos_x, pos_y = tmp[0]
     else:
         pos_x, pos_y = position[0]
     print(pos_x, pos_y)
