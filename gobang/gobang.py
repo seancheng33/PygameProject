@@ -6,6 +6,7 @@
 """
 import random
 import pygame
+import sys
 from pygame import *
 
 WHITE = 255, 255, 255
@@ -23,192 +24,17 @@ LINUXFONT = ''
 
 
 def check_put_point(chess_array, row, col):
-    point = [0, 0]
-    # 如果当前位置不是空白的位置，也就是说，有棋子，这个位置就不用去扫描判断它的分值。分值就直接为0
-    if chess_array[row][col] != 0:
-        return [0, 0]
+    point = []
 
-    # 循环两次，一次是判断黑子，一次是判断白子，得分为两次相加，因为黑白双方的分数高，也就说明该点的重要性
-    for chess in range(1, 3):
-        chess_count = 0
-        for i in range(5):
-            # 需要控制下标越界的问题
-            if (col + i) < 15 and chess_array[row][col + i] == chess:
-                chess_count += 1
-        for i in range(5):
-            # 需要控制下标越界的问题
-            if (col - i) > -1 and chess_array[row][col - i] == chess:
-                chess_count += 1
-
-        # 判断横
-        for i in range(5):
-            # 需要控制下标越界的问题
-            if (row + i) < 15 and chess_array[row + i][col] == chess:
-                chess_count += 1
-        for i in range(5):
-            if (row - i) > -1 and chess_array[row - i][col] == chess:
-                chess_count += 1
-
-        # 判断左斜
-        for i in range(5):
-            # 需要控制下标越界的问题
-            if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
-                chess_count += 1
-        for i in range(5):
-            if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
-                chess_count += 1
-
-        # 判断右斜
-        for i in range(5):
-            # 需要控制下标越界的问题
-            if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
-                chess_count += 1
-        for i in range(5):
-            if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
-                chess_count += 1
-
-        if chess == 1:
-            point[0] += chess_count
-        else:
-            point[1] += chess_count
     return point
 
 
 def chess_num(array, row, col):
-    chess = 1
-
-    position = []
-    # 判断竖
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col + i) < 15 and array[row][col + i] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col - i) > -1 and array[row][col - i] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 2:
-        position.append(chess_count)
-
-    # 判断横
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (row + i) < 15 and array[row + i][col] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        if (row - i) > -1 and array[row - i][col] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 2:
-        position.append(chess_count)
-
-    # 判断左斜
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col + i) < 15 and (row + i) < 15 and array[row + i][col + i] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        if (col - i) > -1 and (row - i) > -1 and array[row - i][col - i] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 2:
-        position.append(chess_count)
-
-    # 判断右斜
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col + i) < 15 and (row - i) > -1 and array[row - i][col + i] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        if (col - i) > -1 and (row + i) < 15 and array[row + i][col - i] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 2:
-        position.append(chess_count)
-
-    for item in position:
-        if item > 3:
-            return True
-    return False
+    pass
 
 
 def ai_scan(chess_array, row, col):
-    put_point = [[[0, 0] for _ in range(15)] for _ in range(15)]
-    for j in range(15):
-        for i in range(15):
-            put_point[i][j] = check_put_point(chess_array, i, j)
-    # print(put_point)
-
-    # 统计出进攻和防守的数值
-    att_dict = {}
-    def_dict = {}
-    for j in range(15):
-        for i in range(15):
-            attack = put_point[i][j][1]
-            defense = put_point[i][j][0]
-
-            att_dict[attack] = att_dict.get(attack, [])
-            att_dict[attack].append([i, j])
-            def_dict[defense] = def_dict.get(defense, [])
-            def_dict[defense].append([i, j])
-
-    # 得出进攻和防守的最大值
-    att_max = 0
-    def_max = 0
-    for i in att_dict.keys():
-        if i > att_max:
-            att_max = i
-    for i in def_dict:
-        if i > def_max:
-            def_max = i
-
-    # print(att_dict[att_max])
-    # print(def_dict[def_max])
-
-    # 根据不同的数值，判断是要采取什么策略
-    if att_max < def_max:
-        position = def_dict[def_max]
-    else:
-        position = att_dict[att_max]
-    # print(position)
-    pos_x, pos_y = 0, 0
-    # 计算出对方最后一步落子的位置，然后选取与该落子距离最近的可以落子的位置落子
-    if len(position) > 1:
-        # 重新验证每一个点，确定哪些点存在赢得游戏的可能，重新将这些点存为一个数组，然后就随机选取就可以
-        tmp = []
-        for x, y in position:
-            if chess_num(chess_array, x, y):
-                tmp.append([x, y])
-        if len(tmp) == 0:
-            pos_x, pos_y = random.choice(position)
-        else:
-            pos_x, pos_y = tmp[0]
-    else:
-        pos_x, pos_y = position[0]
-    print(pos_x, pos_y)
-
-    return pos_x, pos_y
+    pass
 
 
 def draw_chess(screen, chess_color, posx, posy):
@@ -253,24 +79,25 @@ def game_win(chess_array, row, col):
     # 先获取目前下的棋子位置，然后再判断四个可能有连成一线的方向，如果有一个方向达成5颗棋子或以上的目标，就报游戏胜利。
     chess = chess_array[row][col]
 
+    # 方向横(-)的检查
     for x in range(ROW):
         for y in range(COL - 4):
             if chess_array[x][y] == chess and chess_array[x][y + 1] == chess and chess_array[x][y + 2] == chess and \
                     chess_array[x][y + 3] == chess and chess_array[x][y + 4] == chess:
                 return True
-
+    # 方向竖(-)的检查
     for x in range(ROW - 4):
         for y in range(COL):
             if chess_array[x][y] == chess and chess_array[x + 1][y] == chess and chess_array[x + 2][y] == chess and \
                     chess_array[x + 3][y] == chess and chess_array[x + 4][y] == chess:
                 return True
-
+    # 方向斜(/)的检查
     for x in range(ROW - 4):
         for y in range(4,COL):
             if chess_array[x][y] == chess and chess_array[x + 1][y - 1] == chess and chess_array[x + 2][y - 2] == chess and \
                     chess_array[x + 3][y - 3] == chess and chess_array[x + 4][y - 4] == chess:
                 return True
-
+    # 方向斜(\)的检查
     for x in range(ROW - 4):
         for y in range(COL - 4):
             if chess_array[x][y] == chess and chess_array[x + 1][y + 1] == chess and chess_array[x + 2][y + 2] == chess and \
