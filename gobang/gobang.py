@@ -23,7 +23,7 @@ LINUXFONT = ''
 
 
 def check_put_point(chess_array, row, col):
-    point = [0,0]
+    point = [0, 0]
     # 如果当前位置不是空白的位置，也就是说，有棋子，这个位置就不用去扫描判断它的分值。分值就直接为0
     if chess_array[row][col] != 0:
         return [0, 0]
@@ -152,6 +152,7 @@ def chess_num(array, row, col):
             return True
     return False
 
+
 def ai_scan(chess_array, row, col):
     put_point = [[[0, 0] for _ in range(15)] for _ in range(15)]
     for j in range(15):
@@ -252,74 +253,29 @@ def game_win(chess_array, row, col):
     # 先获取目前下的棋子位置，然后再判断四个可能有连成一线的方向，如果有一个方向达成5颗棋子或以上的目标，就报游戏胜利。
     chess = chess_array[row][col]
 
-    # 判断竖
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col + i) < 15 and chess_array[row][col + i] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col - i) > -1 and chess_array[row][col - i] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 5:
-        return True
+    for x in range(ROW):
+        for y in range(COL - 4):
+            if chess_array[x][y] == chess and chess_array[x][y + 1] == chess and chess_array[x][y + 2] == chess and \
+                    chess_array[x][y + 3] == chess and chess_array[x][y + 4] == chess:
+                return True
 
-    # 判断横
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (row + i) < 15 and chess_array[row + i][col] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        if (row - i) > -1 and chess_array[row - i][col] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 5:
-        return True
+    for x in range(ROW - 4):
+        for y in range(COL):
+            if chess_array[x][y] == chess and chess_array[x + 1][y] == chess and chess_array[x + 2][y] == chess and \
+                    chess_array[x + 3][y] == chess and chess_array[x + 4][y] == chess:
+                return True
 
-    # 判断左斜
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col + i) < 15 and (row + i) < 15 and chess_array[row + i][col + i] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        if (col - i) > -1 and (row - i) > -1 and chess_array[row - i][col - i] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 5:
-        return True
+    for x in range(ROW - 4):
+        for y in range(4,COL):
+            if chess_array[x][y] == chess and chess_array[x + 1][y - 1] == chess and chess_array[x + 2][y - 2] == chess and \
+                    chess_array[x + 3][y - 3] == chess and chess_array[x + 4][y - 4] == chess:
+                return True
 
-    # 判断右斜
-    chess_count = 0
-    for i in range(4):
-        # 需要控制下标越界的问题
-        if (col + i) < 15 and (row - i) > -1 and chess_array[row - i][col + i] == chess:
-            chess_count += 1
-        else:
-            break
-    for i in range(4):
-        if (col - i) > -1 and (row + i) < 15 and chess_array[row + i][col - i] == chess:
-            chess_count += 1
-        else:
-            break
-    # 当直线上存在5个相同的颜色的棋子时，判定为胜利
-    if chess_count > 5:
-        return True
+    for x in range(ROW - 4):
+        for y in range(COL - 4):
+            if chess_array[x][y] == chess and chess_array[x + 1][y + 1] == chess and chess_array[x + 2][y + 2] == chess and \
+                    chess_array[x + 3][y + 3] == chess and chess_array[x + 4][y + 4] == chess:
+                return True
 
     return False
 
@@ -327,7 +283,7 @@ def game_win(chess_array, row, col):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.15 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.20 --Program by Sean Cheng')
 
     FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
@@ -388,7 +344,6 @@ def main():
                     #         iswin = True
                     #     isblack = True
                     #     ai_scan(chess_array, row, col)
-
 
         if not iswin and not isblack:
             x, y = ai_scan(chess_array, row, col)
