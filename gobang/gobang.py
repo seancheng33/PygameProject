@@ -23,17 +23,7 @@ MACFONT = ''
 LINUXFONT = ''
 
 
-def check_put_point(chess_array, row, col):
-    point = []
-
-    return point
-
-
-def chess_num(array, row, col):
-    pass
-
-
-def ai_scan(chess_array, row, col):
+def ai_scan(chess_array, color):
     pass
 
 
@@ -75,9 +65,9 @@ def draw_player_icon(screen):
     pygame.draw.circle(screen, WHITE, (720, 495), 40)
 
 
-def game_win(chess_array, row, col):
+def game_win(chess_array, color):
     # 先获取目前下的棋子位置，然后再判断四个可能有连成一线的方向，如果有一个方向达成5颗棋子或以上的目标，就报游戏胜利。
-    chess = chess_array[row][col]
+    chess = color
 
     # 方向横(-)的检查
     for x in range(ROW):
@@ -117,7 +107,7 @@ def main():
     tip_font = pygame.font.Font(FONTPATH, 24)
     win_str = ''
 
-    chess_array = [[0 for i in range(COL)] for j in range(ROW)]  # 存储棋子的状态
+    chess_array = [[None for i in range(COL)] for j in range(ROW)]  # 存储棋子的状态
     isblack = True  # 当前是否为黑子下，这个判断条件有多种用途，用在判断现在是谁落子，以及谁落子后获得了胜利。
     iswin = False
 
@@ -129,9 +119,9 @@ def main():
         # 绘制出游戏中的各棋子位置
         for col in range(COL):
             for row in range(ROW):
-                if chess_array[row][col] == 1:
+                if chess_array[row][col] == 'black':
                     draw_chess(screen, BLACK, row * 35 + 150, col * 35 + 55)
-                elif chess_array[row][col] == 2:
+                elif chess_array[row][col] == 'white':
                     draw_chess(screen, WHITE, row * 35 + 150, col * 35 + 55)
 
         # 游戏关闭的控制，关闭窗口和按ESC键即可退出
@@ -154,32 +144,30 @@ def main():
         for press in pressed:
             if press == 1:  # 点击左键的鼠标事件
                 # row和col必须是在0~14之间，不然就会报列表越界异常。
-                if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == 0:
+                if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == None:
                     if isblack:
                         # 设定黑子在数组中的数值为1
-                        chess_array[row][col] = 1
-                        if game_win(chess_array, row, col):
+                        chess_array[row][col] = 'black'
+                        if game_win(chess_array, 'black'):
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
-                        # ai_scan(chess_array, row, col)
-                    # else:
-                    #     # 设定白子在数组中的数值为2
-                    #     chess_array[row][col] = 2
-                    #     if game_win(chess_array, row, col):
-                    #         win_str = '白子 胜!'
-                    #         iswin = True
-                    #     isblack = True
-                    #     ai_scan(chess_array, row, col)
+                    else:
+                        # 设定白子在数组中的数值为2
+                        chess_array[row][col] = 'white'
+                        if game_win(chess_array, 'white'):
+                            win_str = '白子 胜!'
+                            iswin = True
+                        isblack = True
 
-        if not iswin and not isblack:
-            x, y = ai_scan(chess_array, row, col)
-            # 设定白子在数组中的数值为2
-            chess_array[x][y] = 2
-            if game_win(chess_array, x, y):
-                win_str = '白子 胜!'
-                iswin = True
-            isblack = True
+        # if not iswin and not isblack:
+        #     x, y = ai_scan(chess_array, 'white')
+        #     # 设定白子在数组中的数值为2
+        #     chess_array[x][y] = 'white'
+        #     if game_win(chess_array, 'white'):
+        #         win_str = '白子 胜!'
+        #         iswin = True
+        #     isblack = True
 
         # 如果游戏胜利，就显示胜利的画面
         if iswin:
