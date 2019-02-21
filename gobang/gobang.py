@@ -23,8 +23,157 @@ MACFONT = ''
 LINUXFONT = ''
 
 
-def ai_scan(chess_array, color):
-    pass
+def ai_scan(chess_array):
+    blackPoint = {}
+    whitePoint = {}
+
+    for x in range(ROW):
+        for y in range(COL):
+            defance = 0
+            attack = 0
+            # 如果当前不是空的，是有棋子的，就当前的坐标格不用做计算。
+            if chess_array[x][y] != None:
+                continue
+
+            # =====
+            if (y + 3) < COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black' and \
+                    chess_array[x][y + 3] == 'black':
+                defance += 1
+            elif (y + 2) < COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black':
+                defance += 1
+
+            if (y + 3) < COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white' and \
+                    chess_array[x][y + 3] == 'white':
+                attack += 1
+            elif (y + 2) < COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white':
+                attack += 1
+
+            if (y - 3) > 0 and chess_array[x][y - 1] == 'black' and chess_array[x][y - 2] == 'black' and \
+                    chess_array[x][y - 3] == 'black':
+                defance += 1
+            elif (y - 2) > 0 and chess_array[x][y - 1] == 'black' and chess_array[x][y - 2] == 'black':
+                defance += 1
+
+            if (y - 3) > 0 and chess_array[x][y - 1] == 'white' and chess_array[x][y - 2] == 'white' and \
+                    chess_array[x][y - 3] == 'white':
+                attack += 1
+            elif (y - 2) > 0 and chess_array[x][y - 1] == 'white' and chess_array[x][y - 2] == 'white':
+                attack += 1
+
+            # =====
+            if (x + 3) < ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black' and \
+                    chess_array[x + 3][y] == 'black':
+                defance += 1
+            elif (x + 2) < ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black':
+                defance += 1
+
+            if (x + 3) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white' and \
+                    chess_array[x + 3][y] == 'white':
+                attack += 1
+            elif (x + 2) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white':
+                attack += 1
+
+            if (x - 3) > 0 and chess_array[x - 1][y] == 'black' and chess_array[x - 2][y] == 'black' and \
+                    chess_array[x - 3][y] == 'black':
+                defance += 1
+            elif (x - 2) > 0 and chess_array[x - 1][y] == 'black' and chess_array[x - 2][y] == 'black':
+                defance += 1
+
+            if (x - 3) > 0 and chess_array[x - 1][y] == 'white' and chess_array[x - 2][y] == 'white' and \
+                    chess_array[x - 3][y] == 'white':
+                attack += 1
+            elif (x - 2) > 0 and chess_array[x - 1][y] == 'white' and chess_array[x - 2][y] == 'white':
+                attack += 1
+
+            # =====
+            if (y + 3) < COL and (x + 3) < ROW and chess_array[x + 1][y + 1] == 'black' and \
+                    chess_array[x + 2][y + 2] == 'black' and chess_array[x + 3][y + 3] == 'black':
+                defance += 1
+            elif (y + 2) < COL and (x + 2) < ROW and chess_array[x + 1][y + 1] == 'black' and \
+                    chess_array[x + 2][y + 2] == 'black':
+                defance += 1
+
+            if (y + 3) < COL and (x + 3) < ROW and chess_array[x + 1][y + 1] == 'white' and \
+                    chess_array[x + 2][y + 2] == 'white' and chess_array[x + 3][y + 3] == 'white':
+                attack += 1
+            elif (y + 2) < COL and (x + 2) < ROW and chess_array[x + 1][y + 1] == 'white' and \
+                    chess_array[x + 2][y + 2] == 'white':
+                attack += 1
+
+            if (y - 3) > 0 and (x - 3) > 0 and chess_array[x - 1][y - 1] == 'black' and \
+                    chess_array[x - 2][y - 2] == 'black' and chess_array[x - 3][y - 3] == 'black':
+                defance += 1
+            elif (y - 2) > 0 and (x - 2) > 0 and chess_array[x - 1][y - 1] == 'black' and \
+                    chess_array[x - 2][y - 2] == 'black':
+                defance += 1
+
+            if (y - 3) > 0 and (x - 3) > 0 and chess_array[x - 1][y - 1] == 'white' and \
+                    chess_array[x - 2][y - 2] == 'white' and chess_array[x - 3][y - 3] == 'white':
+                attack += 1
+            elif (y - 2) > 0 and (x - 2) > 0 and chess_array[x - 1][y - 1] == 'white' and \
+                    chess_array[x - 2][y - 2] == 'white':
+                attack += 1
+
+            # =====
+            if (y - 3) > 0 and (x + 3) < ROW and chess_array[x + 1][y - 1] == 'black' and \
+                    chess_array[x + 2][y - 2] == 'black' and chess_array[x + 3][y - 3] == 'black':
+                defance += 1
+            elif (y - 2) > 0 and (x + 2) < ROW and chess_array[x + 1][y - 1] == 'black' and \
+                    chess_array[x + 2][y - 2] == 'black':
+                defance += 1
+
+            if (y - 3) > 0 and (x + 3) < ROW and chess_array[x + 1][y - 1] == 'white' and \
+                    chess_array[x + 2][y - 2] == 'white' and chess_array[x + 3][y - 3] == 'white':
+                attack += 1
+            elif (y - 2) > 0 and (x + 2) < ROW and chess_array[x + 1][y - 1] == 'white' and \
+                    chess_array[x + 2][y - 2] == 'white':
+                attack += 1
+
+            if (y + 3) < COL and (x - 3) > 0 and chess_array[x - 1][y + 1] == 'black' and \
+                    chess_array[x - 2][y + 2] == 'black' and chess_array[x - 3][y - 3] == 'black':
+                defance += 1
+            elif (y + 2) < COL and (x - 2) > 0 and chess_array[x - 1][y + 1] == 'black' and \
+                    chess_array[x - 2][y + 2] == 'black':
+                defance += 1
+
+            if (y + 3) < COL and (x - 3) > 0 and chess_array[x - 1][y + 1] == 'white' and \
+                    chess_array[x - 2][y + 2] == 'white' and chess_array[x - 3][y + 3] == 'white':
+                attack += 1
+            elif (y + 2) < COL and (x - 2) > 0 and chess_array[x - 1][y + 1] == 'white' and \
+                    chess_array[x - 2][y + 2] == 'white':
+                attack += 1
+
+            if defance not in blackPoint.keys():
+                blackPoint[defance] = []
+            blackPoint[defance].append((x, y))
+
+            if attack not in whitePoint.keys():
+                whitePoint[attack] = []
+            whitePoint[attack].append((x, y))
+
+    maxBlack = 0
+    maxWhite = 0
+    for i in blackPoint.keys():
+        if i > maxBlack:
+            maxBlack = i
+
+    for i in whitePoint.keys():
+        if i > maxWhite:
+            maxWhite = i
+
+    x, y = 0,0
+    if maxBlack > maxWhite:
+        if len(blackPoint[maxBlack]) == 1:
+            x, y = blackPoint[maxBlack]
+        else:
+            x,y = random.choice(blackPoint[maxBlack])
+    else:
+        if len(whitePoint[maxWhite]) == 1:
+            x, y = whitePoint[maxWhite]
+        else:
+            x, y = random.choice(whitePoint[maxWhite])
+
+    return x, y
 
 
 def draw_chess(screen, chess_color, posx, posy):
@@ -65,33 +214,32 @@ def draw_player_icon(screen):
     pygame.draw.circle(screen, WHITE, (720, 495), 40)
 
 
-def game_win(chess_array, color):
-    # 先获取目前下的棋子位置，然后再判断四个可能有连成一线的方向，如果有一个方向达成5颗棋子或以上的目标，就报游戏胜利。
-    chess = color
-
+def game_win(chess_array, chessColor):
     # 方向横(-)的检查
     for x in range(ROW):
         for y in range(COL - 4):
-            if chess_array[x][y] == chess and chess_array[x][y + 1] == chess and chess_array[x][y + 2] == chess and \
-                    chess_array[x][y + 3] == chess and chess_array[x][y + 4] == chess:
+            if chess_array[x][y] == chessColor and chess_array[x][y + 1] == chessColor and chess_array[x][y + 2] == \
+                    chessColor and chess_array[x][y + 3] == chessColor and chess_array[x][y + 4] == chessColor:
                 return True
     # 方向竖(-)的检查
     for x in range(ROW - 4):
         for y in range(COL):
-            if chess_array[x][y] == chess and chess_array[x + 1][y] == chess and chess_array[x + 2][y] == chess and \
-                    chess_array[x + 3][y] == chess and chess_array[x + 4][y] == chess:
+            if chess_array[x][y] == chessColor and chess_array[x + 1][y] == chessColor and chess_array[x + 2][y] == \
+                    chessColor and chess_array[x + 3][y] == chessColor and chess_array[x + 4][y] == chessColor:
                 return True
     # 方向斜(/)的检查
     for x in range(ROW - 4):
-        for y in range(4,COL):
-            if chess_array[x][y] == chess and chess_array[x + 1][y - 1] == chess and chess_array[x + 2][y - 2] == chess and \
-                    chess_array[x + 3][y - 3] == chess and chess_array[x + 4][y - 4] == chess:
+        for y in range(4, COL):
+            if chess_array[x][y] == chessColor and chess_array[x + 1][y - 1] == chessColor and \
+                    chess_array[x + 2][y - 2] == chessColor and chess_array[x + 3][y - 3] == chessColor and \
+                    chess_array[x + 4][y - 4] == chessColor:
                 return True
     # 方向斜(\)的检查
     for x in range(ROW - 4):
         for y in range(COL - 4):
-            if chess_array[x][y] == chess and chess_array[x + 1][y + 1] == chess and chess_array[x + 2][y + 2] == chess and \
-                    chess_array[x + 3][y + 3] == chess and chess_array[x + 4][y + 4] == chess:
+            if chess_array[x][y] == chessColor and chess_array[x + 1][y + 1] == chessColor and \
+                    chess_array[x + 2][y + 2] == chessColor and chess_array[x + 3][y + 3] == chessColor and \
+                    chess_array[x + 4][y + 4] == chessColor:
                 return True
 
     return False
@@ -152,22 +300,22 @@ def main():
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
-                    else:
-                        # 设定白子在数组中的数值为2
-                        chess_array[row][col] = 'white'
-                        if game_win(chess_array, 'white'):
-                            win_str = '白子 胜!'
-                            iswin = True
-                        isblack = True
+                    # else:
+                    #     # 设定白子在数组中的数值为2
+                    #     chess_array[row][col] = 'white'
+                    #     if game_win(chess_array, 'white'):
+                    #         win_str = '白子 胜!'
+                    #         iswin = True
+                    #     isblack = True
 
-        # if not iswin and not isblack:
-        #     x, y = ai_scan(chess_array, 'white')
-        #     # 设定白子在数组中的数值为2
-        #     chess_array[x][y] = 'white'
-        #     if game_win(chess_array, 'white'):
-        #         win_str = '白子 胜!'
-        #         iswin = True
-        #     isblack = True
+        if not iswin and not isblack:
+            x, y = ai_scan(chess_array)
+            # 设定白子在数组中的数值为2
+            chess_array[x][y] = 'white'
+            if game_win(chess_array, 'white'):
+                win_str = '白子 胜!'
+                iswin = True
+            isblack = True
 
         # 如果游戏胜利，就显示胜利的画面
         if iswin:
