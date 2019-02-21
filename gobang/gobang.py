@@ -7,8 +7,7 @@
 import pygame
 import sys
 from pygame import *
-
-from gobang.ComputerAI import ai_scan
+import ComputerAI
 
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
@@ -96,12 +95,12 @@ def game_win(chess_array, chessColor):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.20 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.25 --Program by Sean Cheng')
 
     FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
     tip_font = pygame.font.Font(FONTPATH, 24)
-    win_str = ''
+    win_str = None
 
     chess_array = [[None for i in range(COL)] for j in range(ROW)]  # 存储棋子的状态
     isblack = True  # 当前是否为黑子下，这个判断条件有多种用途，用在判断现在是谁落子，以及谁落子后获得了胜利。
@@ -157,7 +156,7 @@ def main():
                     #     isblack = True
 
         if not iswin and not isblack:
-            x, y = ai_scan(chess_array)
+            x, y = ComputerAI.ai_scan(chess_array)
             # 设定白子在数组中的数值为2
             chess_array[x][y] = 'white'
             if game_win(chess_array, 'white'):

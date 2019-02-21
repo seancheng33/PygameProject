@@ -6,7 +6,7 @@
 """
 import random
 
-from gobang.gobang import ROW, COL
+from gobang import ROW, COL
 
 
 def ai_scan(chess_array):
