@@ -54,7 +54,7 @@ def ai_scan(chess_array):
                 attack += 8
             elif (y - 3) > 0 and chess_array[x][y - 1] == 'white' and chess_array[x][y - 2] == 'white' and \
                     chess_array[x][y - 3] == 'white':
-                attack += 2
+                attack += 4
             elif (y - 2) > 0 and chess_array[x][y - 1] == 'white' and chess_array[x][y - 2] == 'white':
                 attack += 1
 
@@ -73,7 +73,7 @@ def ai_scan(chess_array):
                 attack += 8
             elif (x + 3) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white' and \
                     chess_array[x + 3][y] == 'white':
-                attack += 2
+                attack += 4
             elif (x + 2) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white':
                 attack += 1
 
@@ -91,7 +91,7 @@ def ai_scan(chess_array):
                 attack += 8
             elif (x - 3) > 0 and chess_array[x - 1][y] == 'white' and chess_array[x - 2][y] == 'white' and \
                     chess_array[x - 3][y] == 'white':
-                attack += 2
+                attack += 4
             elif (x - 2) > 0 and chess_array[x - 1][y] == 'white' and chess_array[x - 2][y] == 'white':
                 attack += 1
 
@@ -113,7 +113,7 @@ def ai_scan(chess_array):
                 attack += 8
             elif (y + 3) < COL and (x + 3) < ROW and chess_array[x + 1][y + 1] == 'white' and \
                     chess_array[x + 2][y + 2] == 'white' and chess_array[x + 3][y + 3] == 'white':
-                attack += 2
+                attack += 4
             elif (y + 2) < COL and (x + 2) < ROW and chess_array[x + 1][y + 1] == 'white' and \
                     chess_array[x + 2][y + 2] == 'white':
                 attack += 1
@@ -135,7 +135,7 @@ def ai_scan(chess_array):
                 attack += 8
             elif (y - 3) > 0 and (x - 3) > 0 and chess_array[x - 1][y - 1] == 'white' and \
                     chess_array[x - 2][y - 2] == 'white' and chess_array[x - 3][y - 3] == 'white':
-                attack += 2
+                attack += 4
             elif (y - 2) > 0 and (x - 2) > 0 and chess_array[x - 1][y - 1] == 'white' and \
                     chess_array[x - 2][y - 2] == 'white':
                 attack += 1
@@ -158,7 +158,7 @@ def ai_scan(chess_array):
                 attack += 8
             elif (y - 3) > 0 and (x + 3) < ROW and chess_array[x + 1][y - 1] == 'white' and \
                     chess_array[x + 2][y - 2] == 'white' and chess_array[x + 3][y - 3] == 'white':
-                attack += 2
+                attack += 4
             elif (y - 2) > 0 and (x + 2) < ROW and chess_array[x + 1][y - 1] == 'white' and \
                     chess_array[x + 2][y - 2] == 'white':
                 attack += 1
@@ -180,7 +180,7 @@ def ai_scan(chess_array):
                 attack += 8
             elif (y + 3) < COL and (x - 3) > 0 and chess_array[x - 1][y + 1] == 'white' and \
                     chess_array[x - 2][y + 2] == 'white' and chess_array[x - 3][y + 3] == 'white':
-                attack += 2
+                attack += 4
             elif (y + 2) < COL and (x - 2) > 0 and chess_array[x - 1][y + 1] == 'white' and \
                     chess_array[x - 2][y + 2] == 'white':
                 attack += 1

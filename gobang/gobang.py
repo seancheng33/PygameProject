@@ -95,7 +95,8 @@ def game_win(chess_array, chessColor):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.25 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.26 --Program by Sean Cheng')
+    pygame.display.set_icon(pygame.image.load('img/TitleIcon.png'))
 
     FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
