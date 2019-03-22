@@ -4,6 +4,8 @@
 @CreateTime   : 2019/1/14
 @Program      : 五子棋游戏，目标为实现可以简单的人机对弈。
 """
+import random
+
 import pygame
 import sys
 from pygame import *
@@ -21,6 +23,8 @@ COL = 15
 WINFONT = 'c:/windows/Fonts/SimHei.ttf'
 MACFONT = ''
 LINUXFONT = ''
+
+WHITEFIRST = True
 
 
 def draw_chess(screen, chess_color, posx, posy):
@@ -105,6 +109,7 @@ def main():
     chess_array = [[None for i in range(COL)] for j in range(ROW)]  # 存储棋子的状态
     isblack = True  # 当前是否为黑子下，这个判断条件有多种用途，用在判断现在是谁落子，以及谁落子后获得了胜利。
     iswin = False
+    isFirst = True
 
     while True:
         screen.fill(ORANGE)  # 绘制背景的颜色
@@ -156,7 +161,16 @@ def main():
                     #     isblack = True
 
         if not iswin and not isblack:
-            x, y = ComputerAI.ai_scan(chess_array)
+            if isFirst:
+                if chess_array[7][7] == None:
+                    x, y = 7, 7
+                else:
+                    x, y = random.choice([(6, 6), (6, 7), (6, 8), (7, 6), (7, 8), (8, 6), (8, 7), (8, 8)])
+                    while not chess_array[x][y] == None:
+                        x, y = random.choice([(6, 6), (6, 7), (6, 8), (7, 6), (7, 8), (8, 6), (8, 7), (8, 8)])
+                isFirst = False
+            else:
+                x, y = ComputerAI.ai_scan(chess_array)
             # 设定白子在数组中的数值为2
             chess_array[x][y] = 'white'
             if game_win(chess_array, 'white'):

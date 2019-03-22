@@ -304,7 +304,6 @@ def ai_scan(chess_array):
         if i > maxWhite:
             maxWhite = i
 
-
     if maxBlack > maxWhite:
         if len(blackPoint[maxBlack]) == 1:
             x, y = blackPoint[maxBlack][0]
