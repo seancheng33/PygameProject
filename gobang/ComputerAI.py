@@ -20,7 +20,7 @@ def ai_scan(chess_array):
             # 如果当前不是空的，是有棋子的，就当前的坐标格不用做计算。
             if chess_array[x][y] != None:
                 continue
-
+            # 判断各种形状形成的权重，来作为ai落子的参考
             # |竖
             if (y + 4) < COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black' and \
                     chess_array[x][y + 3] == 'black' and chess_array[x][y + 4] == 'black':
@@ -311,12 +311,16 @@ def ai_scan(chess_array):
             x, y = random.choice(blackPoint[maxBlack])
     else:
         if len(whitePoint[maxWhite]) == 1:
+            #
             x, y = whitePoint[maxWhite][0]
         elif len(whitePoint[maxWhite]) == 224 and chess_array[7][7] == None:
+            # 这个判断的意义在于，如果黑子落子正中间的位置，则白子抢占这个位置，数组长度224表示只有黑子下了一子属于判断白子第一步的位置
             x, y = 7, 7
         elif len(whitePoint[maxWhite]) > 221:
+            # 如果白子权重数组的长度大于221，黑子之前的两步是在任意位置，没有形成构成威胁的直线的联系。
             x, y = random.choice([(6, 6), (6, 7), (6, 8), (7, 6), (7, 8), (8, 6), (8, 7), (8, 8)])
             while not chess_array[x][y] == None:
+                # 这里需要判断选择的点是不是有棋子，如果有的话，就重新选择另外一个点
                 x, y = random.choice([(6, 6), (6, 7), (6, 8), (7, 6), (7, 8), (8, 6), (8, 7), (8, 8)])
         else:
             x, y = random.choice(whitePoint[maxWhite])

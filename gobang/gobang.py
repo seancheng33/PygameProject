@@ -99,7 +99,7 @@ def game_win(chess_array, chessColor):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.25 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.28 --Program by Sean Cheng')
 
     FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
@@ -151,7 +151,7 @@ def main():
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
-                    # else:
+                    # else:  # 这个内容是用来做人人对战用的。
                     #     # 设定白子在数组中的数值为2
                     #     chess_array[row][col] = 'white'
                     #     if game_win(chess_array, 'white'):
