@@ -21,8 +21,8 @@ ROW = 15
 COL = 15
 
 WINFONT = 'c:/windows/Fonts/SimHei.ttf'
-MACFONT = ''
-LINUXFONT = ''
+MACFONT = '/System/Library/Fonts/'
+LINUXFONT = '/usr/share/fonts'
 
 WHITEFIRST = True
 
