@@ -304,7 +304,6 @@ def ai_scan(chess_array):
         if i > maxWhite:
             maxWhite = i
 
-
     if maxBlack > maxWhite:
         if len(blackPoint[maxBlack]) == 1:
             x, y = blackPoint[maxBlack][0]
@@ -313,6 +312,12 @@ def ai_scan(chess_array):
     else:
         if len(whitePoint[maxWhite]) == 1:
             x, y = whitePoint[maxWhite][0]
+        elif len(whitePoint[maxWhite]) == 224 and chess_array[7][7] == None:
+            x, y = 7, 7
+        elif len(whitePoint[maxWhite]) > 221:
+            x, y = random.choice([(6, 6), (6, 7), (6, 8), (7, 6), (7, 8), (8, 6), (8, 7), (8, 8)])
+            while not chess_array[x][y] == None:
+                x, y = random.choice([(6, 6), (6, 7), (6, 8), (7, 6), (7, 8), (8, 6), (8, 7), (8, 8)])
         else:
             x, y = random.choice(whitePoint[maxWhite])
 

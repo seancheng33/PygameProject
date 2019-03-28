@@ -4,6 +4,8 @@
 @CreateTime   : 2019/1/14
 @Program      : 五子棋游戏，目标为实现可以简单的人机对弈。
 """
+import random
+
 import pygame
 import sys
 from pygame import *
@@ -21,6 +23,8 @@ COL = 15
 WINFONT = 'c:/windows/Fonts/SimHei.ttf'
 MACFONT = ''
 LINUXFONT = ''
+
+WHITEFIRST = True
 
 
 def draw_chess(screen, chess_color, posx, posy):
