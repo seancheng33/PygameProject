@@ -21,8 +21,8 @@ ROW = 15
 COL = 15
 
 WINFONT = 'c:/windows/Fonts/SimHei.ttf'
-MACFONT = ''
-LINUXFONT = ''
+MACFONT = '/System/Library/Fonts/'
+LINUXFONT = '/usr/share/fonts'
 
 WHITEFIRST = True
 
@@ -99,7 +99,8 @@ def game_win(chess_array, chessColor):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('五子棋(GoBang) version 0.28 --Program by Sean Cheng')
+    pygame.display.set_caption('五子棋(GoBang) version 0.26 --Program by Sean Cheng')
+    pygame.display.set_icon(pygame.image.load('img/TitleIcon.png'))
 
     FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
@@ -151,7 +152,7 @@ def main():
                             win_str = '黑子 胜!'
                             iswin = True
                         isblack = False
-                    # else:  # 这个内容是用来做人人对战用的。
+                    # else:
                     #     # 设定白子在数组中的数值为2
                     #     chess_array[row][col] = 'white'
                     #     if game_win(chess_array, 'white'):
