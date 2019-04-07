@@ -4,11 +4,8 @@
 @CreateTime   : 2019/1/14
 @Program      : 五子棋游戏，目标为实现可以简单的人机对弈。
 """
-import random
-
 import pygame
-import sys
-from pygame import *
+from pygame.locals import *
 import ComputerAI
 
 WHITE = 255, 255, 255
@@ -95,7 +92,6 @@ def game_win(chess_array, chessColor):
 
     return False
 
-
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
@@ -126,13 +122,13 @@ def main():
 
         # 游戏关闭的控制，关闭窗口和按ESC键即可退出
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit(0)
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.quit()
-                    sys.exit(0)
+            if event.type == QUIT:
+                quit()
+                exit(0)
+            elif event.type == KEYUP:
+                if event.key == K_ESCAPE:
+                    quit()
+                    exit(0)
 
         # 获取游戏的坐标和按键事件
         mouseX, mouseY = pygame.mouse.get_pos()
