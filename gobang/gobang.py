@@ -18,8 +18,8 @@ ROW = 15
 COL = 15
 
 WINFONT = 'c:/windows/Fonts/SimHei.ttf'
-MACFONT = '/System/Library/Fonts/'
-LINUXFONT = '/usr/share/fonts'
+MACFONT = '/System/Library/Fonts/STHeiti Light.ttc'
+LINUXFONT = '/usr/share/fonts/'
 
 WHITEFIRST = True
 
@@ -97,6 +97,8 @@ def main():
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption('五子棋(GoBang) version 0.26 --Program by Sean Cheng')
     pygame.display.set_icon(pygame.image.load('img/TitleIcon.png'))
+
+    title_bg_img = pygame.image.load('img/title.png')
 
     FONTPATH = WINFONT
     win_font = pygame.font.Font(FONTPATH, 120)
