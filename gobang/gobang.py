@@ -8,6 +8,8 @@ import pygame
 from pygame.locals import *
 import ComputerAI
 
+from title import title
+
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 ORANGE = 255, 165, 0
@@ -109,79 +111,85 @@ def main():
     isblack = True  # 当前是否为黑子下，这个判断条件有多种用途，用在判断现在是谁落子，以及谁落子后获得了胜利。
     iswin = False
 
+    result = 'title'
+
     while True:
         screen.fill(ORANGE)  # 绘制背景的颜色
-        draw_player_icon(screen)
-        draw_chessboard(screen)
 
-        # 绘制出游戏中的各棋子位置
-        for col in range(COL):
-            for row in range(ROW):
-                if chess_array[row][col] == 'black':
-                    draw_chess(screen, BLACK, row * 35 + 150, col * 35 + 55)
-                elif chess_array[row][col] == 'white':
-                    draw_chess(screen, WHITE, row * 35 + 150, col * 35 + 55)
+        if result == 'title':
+            title(screen, title_bg_img)
+        elif result == 'play':
+            draw_player_icon(screen)
+            draw_chessboard(screen)
 
-        # 游戏关闭的控制，关闭窗口和按ESC键即可退出
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                quit()
-                exit(0)
-            elif event.type == KEYUP:
-                if event.key == K_ESCAPE:
+            # 绘制出游戏中的各棋子位置
+            for col in range(COL):
+                for row in range(ROW):
+                    if chess_array[row][col] == 'black':
+                        draw_chess(screen, BLACK, row * 35 + 150, col * 35 + 55)
+                    elif chess_array[row][col] == 'white':
+                        draw_chess(screen, WHITE, row * 35 + 150, col * 35 + 55)
+
+            # 游戏关闭的控制，关闭窗口和按ESC键即可退出
+            for event in pygame.event.get():
+                if event.type == QUIT:
                     quit()
                     exit(0)
+                elif event.type == KEYUP:
+                    if event.key == K_ESCAPE:
+                        quit()
+                        exit(0)
 
-        # 获取游戏的坐标和按键事件
-        mouseX, mouseY = pygame.mouse.get_pos()
-        pressed = pygame.mouse.get_pressed()
-        # 根据鼠标的坐标计算出对应于数组中的位置
-        row = (mouseX - 150 - 15) // 35 + 1
-        col = (mouseY - 55 - 15) // 35 + 1
+            # 获取游戏的坐标和按键事件
+            mouseX, mouseY = pygame.mouse.get_pos()
+            pressed = pygame.mouse.get_pressed()
+            # 根据鼠标的坐标计算出对应于数组中的位置
+            row = (mouseX - 150 - 15) // 35 + 1
+            col = (mouseY - 55 - 15) // 35 + 1
 
-        for press in pressed:
-            if press == 1:  # 点击左键的鼠标事件
-                # row和col必须是在0~14之间，不然就会报列表越界异常。
-                if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == None:
-                    if isblack:
-                        # 设定黑子在数组中的数值为1
-                        chess_array[row][col] = 'black'
-                        if game_win(chess_array, 'black'):
-                            win_str = '黑子 胜!'
-                            iswin = True
-                        isblack = False
-                    # else:
-                    #     # 设定白子在数组中的数值为2
-                    #     chess_array[row][col] = 'white'
-                    #     if game_win(chess_array, 'white'):
-                    #         win_str = '白子 胜!'
-                    #         iswin = True
-                    #     isblack = True
+            for press in pressed:
+                if press == 1:  # 点击左键的鼠标事件
+                    # row和col必须是在0~14之间，不然就会报列表越界异常。
+                    if not iswin and -1 < row < 15 and -1 < col < 15 and chess_array[row][col] == None:
+                        if isblack:
+                            # 设定黑子在数组中的数值为1
+                            chess_array[row][col] = 'black'
+                            if game_win(chess_array, 'black'):
+                                win_str = '黑子 胜!'
+                                iswin = True
+                            isblack = False
+                        # else:
+                        #     # 设定白子在数组中的数值为2
+                        #     chess_array[row][col] = 'white'
+                        #     if game_win(chess_array, 'white'):
+                        #         win_str = '白子 胜!'
+                        #         iswin = True
+                        #     isblack = True
 
-        if not iswin and not isblack:
-            x, y = ComputerAI.ai_scan(chess_array)
-            # 设定白子在数组中的数值为2
-            chess_array[x][y] = 'white'
-            if game_win(chess_array, 'white'):
-                win_str = '白子 胜!'
-                iswin = True
-            isblack = True
+            if not iswin and not isblack:
+                x, y = ComputerAI.ai_scan(chess_array)
+                # 设定白子在数组中的数值为2
+                chess_array[x][y] = 'white'
+                if game_win(chess_array, 'white'):
+                    win_str = '白子 胜!'
+                    iswin = True
+                isblack = True
 
-        # 如果游戏胜利，就显示胜利的画面
-        if iswin:
-            winstr = win_font.render(win_str, True, RED)
-            winstrRect = winstr.get_rect()
-            winstrRect.center = 400, 300
-            screen.blit(winstr, winstrRect)
+            # 如果游戏胜利，就显示胜利的画面
+            if iswin:
+                winstr = win_font.render(win_str, True, RED)
+                winstrRect = winstr.get_rect()
+                winstrRect.center = 400, 300
+                screen.blit(winstr, winstrRect)
 
-        if isblack:
-            tip_str = tip_font.render('当前落子为黑子', True, BLACK)
-        else:
-            tip_str = tip_font.render('当前落子为白子', True, BLACK)
-        tip_rect = tip_str.get_rect()
-        tip_rect.top = 15
-        tip_rect.centerx = 400
-        screen.blit(tip_str, tip_rect)
+            if isblack:
+                tip_str = tip_font.render('当前落子为黑子', True, BLACK)
+            else:
+                tip_str = tip_font.render('当前落子为白子', True, BLACK)
+            tip_rect = tip_str.get_rect()
+            tip_rect.top = 15
+            tip_rect.centerx = 400
+            screen.blit(tip_str, tip_rect)
 
         pygame.time.Clock().tick(150)
         pygame.display.update()
