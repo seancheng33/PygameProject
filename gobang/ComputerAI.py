@@ -6,15 +6,16 @@
 """
 import random
 
-from gobang import ROW, COL
+from gobang.init_var import init_var
 
+setting = init_var()
 
 def ai_scan(chess_array):
     blackPoint = {}
     whitePoint = {}
 
-    for x in range(ROW):
-        for y in range(COL):
+    for x in range(setting.ROW):
+        for y in range(setting.COL):
             defance = 0
             attack = 0
             # 如果当前不是空的，是有棋子的，就当前的坐标格不用做计算。
@@ -22,22 +23,22 @@ def ai_scan(chess_array):
                 continue
             # 判断各种形状形成的权重，来作为ai落子的参考
             # |竖
-            if (y + 4) < COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black' and \
+            if (y + 4) < setting.COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black' and \
                     chess_array[x][y + 3] == 'black' and chess_array[x][y + 4] == 'black':
                 defance += 4
-            elif (y + 3) < COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black' and \
+            elif (y + 3) < setting.COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black' and \
                     chess_array[x][y + 3] == 'black':
                 defance += 2
-            elif (y + 2) < COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black':
+            elif (y + 2) < setting.COL and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black':
                 defance += 1
 
-            if (y + 4) < COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white' and \
+            if (y + 4) < setting.COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white' and \
                     chess_array[x][y + 3] == 'white' and chess_array[x][y + 4] == 'white':
                 attack += 8
-            elif (y + 3) < COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white' and \
+            elif (y + 3) < setting.COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white' and \
                     chess_array[x][y + 3] == 'white':
                 attack += 2
-            elif (y + 2) < COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white':
+            elif (y + 2) < setting.COL and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white':
                 attack += 1
 
             if (y - 4) > 0 and chess_array[x][y - 1] == 'black' and chess_array[x][y - 2] == 'black' and \
@@ -59,22 +60,22 @@ def ai_scan(chess_array):
                 attack += 1
 
             # -横
-            if (x + 4) < ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black' and \
+            if (x + 4) < setting.ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black' and \
                     chess_array[x + 3][y] == 'black' and chess_array[x + 4][y] == 'black':
                 defance += 8
-            elif (x + 3) < ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black' and \
+            elif (x + 3) < setting.ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black' and \
                     chess_array[x + 3][y] == 'black':
                 defance += 2
-            elif (x + 2) < ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black':
+            elif (x + 2) < setting.ROW and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black':
                 defance += 1
 
-            if (x + 4) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white' and \
+            if (x + 4) < setting.ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white' and \
                     chess_array[x + 3][y] == 'white' and chess_array[x + 4][y] == 'white':
                 attack += 8
-            elif (x + 3) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white' and \
+            elif (x + 3) < setting.ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white' and \
                     chess_array[x + 3][y] == 'white':
                 attack += 4
-            elif (x + 2) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white':
+            elif (x + 2) < setting.ROW and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white':
                 attack += 1
 
             if (x - 4) > 0 and chess_array[x - 1][y] == 'black' and chess_array[x - 2][y] == 'black' and \
@@ -96,25 +97,25 @@ def ai_scan(chess_array):
                 attack += 1
 
             # \斜
-            if (y + 4) < COL and (x + 4) < ROW and chess_array[x + 1][y + 1] == 'black' and \
+            if (y + 4) < setting.COL and (x + 4) < setting.ROW and chess_array[x + 1][y + 1] == 'black' and \
                     chess_array[x + 2][y + 2] == 'black' and chess_array[x + 3][y + 3] == 'black' and \
                     chess_array[x + 4][y + 4] == 'black':
                 defance += 8
-            elif (y + 3) < COL and (x + 3) < ROW and chess_array[x + 1][y + 1] == 'black' and \
+            elif (y + 3) < setting.COL and (x + 3) < setting.ROW and chess_array[x + 1][y + 1] == 'black' and \
                     chess_array[x + 2][y + 2] == 'black' and chess_array[x + 3][y + 3] == 'black':
                 defance += 2
-            elif (y + 2) < COL and (x + 2) < ROW and chess_array[x + 1][y + 1] == 'black' and \
+            elif (y + 2) < setting.COL and (x + 2) < setting.ROW and chess_array[x + 1][y + 1] == 'black' and \
                     chess_array[x + 2][y + 2] == 'black':
                 defance += 1
 
-            if (y + 4) < COL and (x + 4) < ROW and chess_array[x + 1][y + 1] == 'white' and \
+            if (y + 4) < setting.COL and (x + 4) < setting.ROW and chess_array[x + 1][y + 1] == 'white' and \
                     chess_array[x + 2][y + 2] == 'white' and chess_array[x + 3][y + 3] == 'white' and \
                     chess_array[x + 4][y + 4] == 'white':
                 attack += 8
-            elif (y + 3) < COL and (x + 3) < ROW and chess_array[x + 1][y + 1] == 'white' and \
+            elif (y + 3) < setting.COL and (x + 3) < setting.ROW and chess_array[x + 1][y + 1] == 'white' and \
                     chess_array[x + 2][y + 2] == 'white' and chess_array[x + 3][y + 3] == 'white':
                 attack += 4
-            elif (y + 2) < COL and (x + 2) < ROW and chess_array[x + 1][y + 1] == 'white' and \
+            elif (y + 2) < setting.COL and (x + 2) < setting.ROW and chess_array[x + 1][y + 1] == 'white' and \
                     chess_array[x + 2][y + 2] == 'white':
                 attack += 1
 
@@ -141,146 +142,146 @@ def ai_scan(chess_array):
                 attack += 1
 
             # /斜
-            if (y - 4) > 0 and (x + 4) < ROW and chess_array[x + 1][y - 1] == 'black' and \
+            if (y - 4) > 0 and (x + 4) < setting.ROW and chess_array[x + 1][y - 1] == 'black' and \
                     chess_array[x + 2][y - 2] == 'black' and chess_array[x + 3][y - 3] == 'black' and \
                     chess_array[x + 4][y - 4] == 'black':
                 defance += 8
-            elif (y - 3) > 0 and (x + 3) < ROW and chess_array[x + 1][y - 1] == 'black' and \
+            elif (y - 3) > 0 and (x + 3) < setting.ROW and chess_array[x + 1][y - 1] == 'black' and \
                     chess_array[x + 2][y - 2] == 'black' and chess_array[x + 3][y - 3] == 'black':
                 defance += 2
-            elif (y - 2) > 0 and (x + 2) < ROW and chess_array[x + 1][y - 1] == 'black' and \
+            elif (y - 2) > 0 and (x + 2) < setting.ROW and chess_array[x + 1][y - 1] == 'black' and \
                     chess_array[x + 2][y - 2] == 'black':
                 defance += 1
 
-            if (y - 4) > 0 and (x + 4) < ROW and chess_array[x + 1][y - 1] == 'white' and \
+            if (y - 4) > 0 and (x + 4) <setting.ROW and chess_array[x + 1][y - 1] == 'white' and \
                     chess_array[x + 2][y - 2] == 'white' and chess_array[x + 3][y - 3] == 'white' and \
                     chess_array[x + 4][y - 4] == 'white':
                 attack += 8
-            elif (y - 3) > 0 and (x + 3) < ROW and chess_array[x + 1][y - 1] == 'white' and \
+            elif (y - 3) > 0 and (x + 3) < setting.ROW and chess_array[x + 1][y - 1] == 'white' and \
                     chess_array[x + 2][y - 2] == 'white' and chess_array[x + 3][y - 3] == 'white':
                 attack += 4
-            elif (y - 2) > 0 and (x + 2) < ROW and chess_array[x + 1][y - 1] == 'white' and \
+            elif (y - 2) > 0 and (x + 2) < setting.ROW and chess_array[x + 1][y - 1] == 'white' and \
                     chess_array[x + 2][y - 2] == 'white':
                 attack += 1
 
-            if (y + 4) < COL and (x - 4) > 0 and chess_array[x - 1][y + 1] == 'black' and \
+            if (y + 4) < setting.COL and (x - 4) > 0 and chess_array[x - 1][y + 1] == 'black' and \
                     chess_array[x - 2][y + 2] == 'black' and chess_array[x - 3][y + 3] == 'black' and \
                     chess_array[x - 4][y + 4] == 'black':
                 defance += 8
-            elif (y + 3) < COL and (x - 3) > 0 and chess_array[x - 1][y + 1] == 'black' and \
+            elif (y + 3) < setting.COL and (x - 3) > 0 and chess_array[x - 1][y + 1] == 'black' and \
                     chess_array[x - 2][y + 2] == 'black' and chess_array[x - 3][y - 3] == 'black':
                 defance += 2
-            elif (y + 2) < COL and (x - 2) > 0 and chess_array[x - 1][y + 1] == 'black' and \
+            elif (y + 2) < setting.COL and (x - 2) > 0 and chess_array[x - 1][y + 1] == 'black' and \
                     chess_array[x - 2][y + 2] == 'black':
                 defance += 1
 
-            if (y + 4) < COL and (x - 4) > 0 and chess_array[x - 1][y + 1] == 'white' and \
+            if (y + 4) < setting.COL and (x - 4) > 0 and chess_array[x - 1][y + 1] == 'white' and \
                     chess_array[x - 2][y + 2] == 'white' and chess_array[x - 3][y + 3] == 'white' and \
                     chess_array[x - 4][y + 4] == 'white':
                 attack += 8
-            elif (y + 3) < COL and (x - 3) > 0 and chess_array[x - 1][y + 1] == 'white' and \
+            elif (y + 3) < setting.COL and (x - 3) > 0 and chess_array[x - 1][y + 1] == 'white' and \
                     chess_array[x - 2][y + 2] == 'white' and chess_array[x - 3][y + 3] == 'white':
                 attack += 4
-            elif (y + 2) < COL and (x - 2) > 0 and chess_array[x - 1][y + 1] == 'white' and \
+            elif (y + 2) < setting.COL and (x - 2) > 0 and chess_array[x - 1][y + 1] == 'white' and \
                     chess_array[x - 2][y + 2] == 'white':
                 attack += 1
 
             # 各种卡在中间的情况，例如：xoxx，xxoxx，xxox等
             # 检测黑色
             # -
-            if (x - 2) > 0 and (x + 1) < ROW and chess_array[x + 1][y] == 'black' and chess_array[x - 1][y] == 'black' \
+            if (x - 2) > 0 and (x + 1) < setting.ROW and chess_array[x + 1][y] == 'black' and chess_array[x - 1][y] == 'black' \
                     and chess_array[x - 2][y] == 'black':
                 defance += 4
-            if (x - 1) > 0 and (x + 2) < ROW and chess_array[x - 1][y] == 'black' and chess_array[x + 1][y] == 'black' \
+            if (x - 1) > 0 and (x + 2) < setting.ROW and chess_array[x - 1][y] == 'black' and chess_array[x + 1][y] == 'black' \
                     and chess_array[x + 2][y] == 'black':
                 defance += 4
-            if (x - 2) > 0 and (x + 2) < ROW and chess_array[x - 1][y] == 'black' and chess_array[x - 2][y] == 'black' \
+            if (x - 2) > 0 and (x + 2) < setting.ROW and chess_array[x - 1][y] == 'black' and chess_array[x - 2][y] == 'black' \
                     and chess_array[x + 1][y] == 'black' and chess_array[x + 2][y] == 'black':
                 defance += 8
             # |
-            if (y - 2) > 0 and (y + 1) < COL and chess_array[x][y + 1] == 'black' and chess_array[x][y - 1] == 'black' \
+            if (y - 2) > 0 and (y + 1) < setting.COL and chess_array[x][y + 1] == 'black' and chess_array[x][y - 1] == 'black' \
                     and chess_array[x][y - 2] == 'black':
                 defance += 4
-            if (y - 1) > 0 and (y + 2) < COL and chess_array[x][y - 1] == 'black' and chess_array[x][y + 1] == 'black' \
+            if (y - 1) > 0 and (y + 2) < setting.COL and chess_array[x][y - 1] == 'black' and chess_array[x][y + 1] == 'black' \
                     and chess_array[x][y + 2] == 'black':
                 defance += 4
-            if (y - 2) > 0 and (y + 2) < COL and chess_array[x][y - 1] == 'black' and chess_array[x][y - 2] == 'black' \
+            if (y - 2) > 0 and (y + 2) < setting.COL and chess_array[x][y - 1] == 'black' and chess_array[x][y - 2] == 'black' \
                     and chess_array[x][y + 1] == 'black' and chess_array[x][y + 2] == 'black':
                 defance += 8
             # \
-            if (x - 2) > 0 and (x + 1) < ROW and (y - 2) > 0 and (y + 1) < COL and chess_array[x + 1][y + 1] == 'black' \
+            if (x - 2) > 0 and (x + 1) < setting.ROW and (y - 2) > 0 and (y + 1) < setting.COL and chess_array[x + 1][y + 1] == 'black' \
                     and chess_array[x - 1][y - 1] == 'black' and chess_array[x - 2][y - 2] == 'black':
                 defance += 4
-            if (x - 1) > 0 and (x + 2) < ROW and (y - 1) > 0 and (y + 2) < COL and chess_array[x - 1][y - 1] == 'black' \
+            if (x - 1) > 0 and (x + 2) < setting.ROW and (y - 1) > 0 and (y + 2) < setting.COL and chess_array[x - 1][y - 1] == 'black' \
                     and chess_array[x + 1][y + 1] == 'black' and chess_array[x + 2][y + 2] == 'black':
                 defance += 4
-            if (x - 2) > 0 and (x + 2) < ROW and (y - 2) > 0 and (y + 2) < COL and chess_array[x - 1][y - 1] == 'black' \
+            if (x - 2) > 0 and (x + 2) < setting.ROW and (y - 2) > 0 and (y + 2) < setting.COL and chess_array[x - 1][y - 1] == 'black' \
                     and chess_array[x - 2][y - 2] == 'black' and chess_array[x + 1][y + 1] == 'black' and \
                     chess_array[x + 2][y + 2] == 'black':
                 defance += 8
             # /
-            if (x - 1) > 0 and (x + 2) < ROW and (y - 2) > 0 and (y + 1) < COL and chess_array[x - 1][y + 1] == 'black' \
+            if (x - 1) > 0 and (x + 2) < setting.ROW and (y - 2) > 0 and (y + 1) < setting.COL and chess_array[x - 1][y + 1] == 'black' \
                     and chess_array[x + 1][y - 1] == 'black' and chess_array[x + 2][y - 2] == 'black':
                 defance += 4
-            if (x - 2) > 0 and (x + 1) < ROW and (y - 1) > 0 and (y + 2) < COL and chess_array[x + 1][y - 1] == 'black' \
+            if (x - 2) > 0 and (x + 1) < setting.ROW and (y - 1) > 0 and (y + 2) < setting.COL and chess_array[x + 1][y - 1] == 'black' \
                     and chess_array[x - 1][y + 1] == 'black' and chess_array[x - 2][y + 2] == 'black':
                 defance += 4
-            if (x - 2) > 0 and (x + 2) < ROW and (y - 2) > 0 and (y + 2) < COL and chess_array[x + 1][y - 1] == 'black' \
+            if (x - 2) > 0 and (x + 2) < setting.ROW and (y - 2) > 0 and (y + 2) < setting.COL and chess_array[x + 1][y - 1] == 'black' \
                     and chess_array[x + 2][y - 2] == 'black' and chess_array[x - 1][y + 1] == 'black' and \
                     chess_array[x - 2][y + 2] == 'black':
                 defance += 8
 
                 # 检测白色
                 # -
-                if (x - 2) > 0 and (x + 1) < ROW and chess_array[x + 1][y] == 'white' and chess_array[x - 1][
+                if (x - 2) > 0 and (x + 1) < setting.ROW and chess_array[x + 1][y] == 'white' and chess_array[x - 1][
                     y] == 'white' \
                         and chess_array[x - 2][y] == 'white':
                     defance += 4
-                if (x - 1) > 0 and (x + 2) < ROW and chess_array[x - 1][y] == 'white' and chess_array[x + 1][
+                if (x - 1) > 0 and (x + 2) < setting.ROW and chess_array[x - 1][y] == 'white' and chess_array[x + 1][
                     y] == 'white' \
                         and chess_array[x + 2][y] == 'white':
                     defance += 4
-                if (x - 2) > 0 and (x + 2) < ROW and chess_array[x - 1][y] == 'white' and chess_array[x - 2][
+                if (x - 2) > 0 and (x + 2) < setting.ROW and chess_array[x - 1][y] == 'white' and chess_array[x - 2][
                     y] == 'white' \
                         and chess_array[x + 1][y] == 'white' and chess_array[x + 2][y] == 'white':
                     defance += 8
                 # |
-                if (y - 2) > 0 and (y + 1) < COL and chess_array[x][y + 1] == 'white' and chess_array[x][
+                if (y - 2) > 0 and (y + 1) < setting.COL and chess_array[x][y + 1] == 'white' and chess_array[x][
                     y - 1] == 'white' \
                         and chess_array[x][y - 2] == 'white':
                     defance += 4
-                if (y - 1) > 0 and (y + 2) < COL and chess_array[x][y - 1] == 'white' and chess_array[x][
+                if (y - 1) > 0 and (y + 2) < setting.COL and chess_array[x][y - 1] == 'white' and chess_array[x][
                     y + 1] == 'white' \
                         and chess_array[x][y + 2] == 'white':
                     defance += 4
-                if (y - 2) > 0 and (y + 2) < COL and chess_array[x][y - 1] == 'white' and chess_array[x][
+                if (y - 2) > 0 and (y + 2) < setting.COL and chess_array[x][y - 1] == 'white' and chess_array[x][
                     y - 2] == 'white' \
                         and chess_array[x][y + 1] == 'white' and chess_array[x][y + 2] == 'white':
                     defance += 8
                 # \
-                if (x - 2) > 0 and (x + 1) < ROW and (y - 2) > 0 and (y + 1) < COL and chess_array[x + 1][
+                if (x - 2) > 0 and (x + 1) < setting.ROW and (y - 2) > 0 and (y + 1) < setting.COL and chess_array[x + 1][
                     y + 1] == 'white' \
                         and chess_array[x - 1][y - 1] == 'white' and chess_array[x - 2][y - 2] == 'white':
                     defance += 4
-                if (x - 1) > 0 and (x + 2) < ROW and (y - 1) > 0 and (y + 2) < COL and chess_array[x - 1][
+                if (x - 1) > 0 and (x + 2) < setting.ROW and (y - 1) > 0 and (y + 2) < setting.COL and chess_array[x - 1][
                     y - 1] == 'white' \
                         and chess_array[x + 1][y + 1] == 'white' and chess_array[x + 2][y + 2] == 'white':
                     defance += 4
-                if (x - 2) > 0 and (x + 2) < ROW and (y - 2) > 0 and (y + 2) < COL and chess_array[x - 1][
+                if (x - 2) > 0 and (x + 2) < setting.ROW and (y - 2) > 0 and (y + 2) < setting.COL and chess_array[x - 1][
                     y - 1] == 'white' \
                         and chess_array[x - 2][y - 2] == 'white' and chess_array[x + 1][y + 1] == 'white' and \
                         chess_array[x + 2][y + 2] == 'white':
                     defance += 8
                 # /
-                if (x - 1) > 0 and (x + 2) < ROW and (y - 2) > 0 and (y + 1) < COL and chess_array[x - 1][
+                if (x - 1) > 0 and (x + 2) < setting.ROW and (y - 2) > 0 and (y + 1) < setting.COL and chess_array[x - 1][
                     y + 1] == 'white' \
                         and chess_array[x + 1][y - 1] == 'white' and chess_array[x + 2][y - 2] == 'white':
                     defance += 4
-                if (x - 2) > 0 and (x + 1) < ROW and (y - 1) > 0 and (y + 2) < COL and chess_array[x + 1][
+                if (x - 2) > 0 and (x + 1) < setting.ROW and (y - 1) > 0 and (y + 2) < setting.COL and chess_array[x + 1][
                     y - 1] == 'white' \
                         and chess_array[x - 1][y + 1] == 'white' and chess_array[x - 2][y + 2] == 'white':
                     defance += 4
-                if (x - 2) > 0 and (x + 2) < ROW and (y - 2) > 0 and (y + 2) < COL and chess_array[x + 1][
+                if (x - 2) > 0 and (x + 2) < setting.ROW and (y - 2) > 0 and (y + 2) < setting.COL and chess_array[x + 1][
                     y - 1] == 'white' \
                         and chess_array[x + 2][y - 2] == 'white' and chess_array[x - 1][y + 1] == 'white' and \
                         chess_array[x - 2][y + 2] == 'white':
