@@ -7,17 +7,17 @@
 
 class init_var:
     def __init__(self):
-        WHITE = 255, 255, 255
-        BLACK = 0, 0, 0
-        ORANGE = 255, 165, 0
-        GRAY = 127, 127, 127
-        RED = 255, 0, 0
+        self.WHITE = 255, 255, 255
+        self.BLACK = 0, 0, 0
+        self.ORANGE = 255, 165, 0
+        self.GRAY = 127, 127, 127
+        self.RED = 255, 0, 0
 
-        ROW = 15
-        COL = 15
+        self.ROW = 15
+        self.COL = 15
 
-        WINFONT = 'c:/windows/Fonts/SimHei.ttf'
-        MACFONT = '/System/Library/Fonts/STHeiti Light.ttc'
-        LINUXFONT = '/usr/share/fonts/'
+        self.WINFONT = 'c:/windows/Fonts/SimHei.ttf'
+        self.MACFONT = '/System/Library/Fonts/STHeiti Light.ttc'
+        self.LINUXFONT = '/usr/share/fonts/'
 
-        WHITEFIRST = True
+        self.WHITEFIRST = True

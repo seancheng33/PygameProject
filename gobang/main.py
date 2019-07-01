@@ -6,10 +6,10 @@
 """
 import pygame
 
-from init_var import init_var
+from gobang.init_var import init_var
 
-from func import game_play
-from gui import draw_player_icon, draw_chessboard
+from gobang.func import game_play
+from gobang.gui import draw_player_icon, draw_chessboard
 
 setting = init_var()
 
@@ -41,7 +41,7 @@ def main():
         draw_player_icon(screen)
         draw_chessboard(screen)
 
-        game_play(screen, chess_array, win_font, tip_font)
+        game_play(screen, chess_array, win_font, tip_font, iswin, isblack)
 
         pygame.time.Clock().tick(150)
         pygame.display.update()

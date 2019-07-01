@@ -21,7 +21,7 @@ def title(screen, image):
 
         return 'play'
 
-def game_play(screen,chess_array,win_font,tip_font):
+def game_play(screen,chess_array,win_font,tip_font, iswin, isblack):
     # 绘制出游戏中的各棋子位置
     for col in range(setting.COL):
         for row in range(setting.ROW):
