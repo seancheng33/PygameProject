@@ -14,14 +14,12 @@ setting = init_var()
 
 def title(screen, image):
     while True:
-        # 添加背景色
-        # screen.fill()
-        # 添加背景图片
         screen.blit(image, (0, 0))
+
 
         return 'play'
 
-def game_play(screen,chess_array,win_font,tip_font, iswin, isblack):
+def game_play(screen,chess_array,tip_font, iswin, isblack):
     # 绘制出游戏中的各棋子位置
     for col in range(setting.COL):
         for row in range(setting.ROW):
@@ -75,12 +73,7 @@ def game_play(screen,chess_array,win_font,tip_font, iswin, isblack):
             iswin = True
         isblack = True
 
-    # 如果游戏胜利，就显示胜利的画面
-    if iswin:
-        winstr = win_font.render(win_str, True, setting.RED)
-        winstrRect = winstr.get_rect()
-        winstrRect.center = 400, 300
-        screen.blit(winstr, winstrRect)
+
 
     if isblack:
         tip_str = tip_font.render('当前落子为黑子', True, setting.BLACK)
@@ -91,6 +84,13 @@ def game_play(screen,chess_array,win_font,tip_font, iswin, isblack):
     tip_rect.centerx = 400
     screen.blit(tip_str, tip_rect)
 
+def win_title(screen,win_font,iswin,win_str):
+    # 如果游戏胜利，就显示胜利的画面
+    if iswin:
+        winstr = win_font.render(win_str, True, setting.RED)
+        winstrRect = winstr.get_rect()
+        winstrRect.center = 400, 300
+        screen.blit(winstr, winstrRect)
 
 def game_win(chess_array, chessColor):
     # 方向横(-)的检查
