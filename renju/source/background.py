@@ -10,11 +10,12 @@ from pyglet.gl import *
 
 
 class BackgroundLayer(Layer):
-    def __init__(self, background):
+    def __init__(self, bg_name):
         super().__init__()
-        if background == "title":
+
+        if bg_name == "title":
             self.img = pyglet.resource.image("title.png")
-        elif background == "game":
+        elif bg_name == "gameing":
             self.img = pyglet.resource.image("background.png")
 
     def draw(self):

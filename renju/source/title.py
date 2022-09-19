@@ -4,10 +4,13 @@
 @CreateTime   : 2022/9/9
 @Program      : 标题和进入主游戏的场景
 '''
-from cocos.layer import MultiplexLayer
+from cocos.director import director
 from cocos.scene import Scene
 from cocos.menu import *
+from cocos.scenes import ZoomTransition
+
 from background import BackgroundLayer
+from about import create_about_scene
 from settings import Settings
 
 class MainMenu(Menu):
@@ -29,13 +32,15 @@ class MainMenu(Menu):
         self.font_item_selected["font_size"] = 32
         self.font_item_selected["color"] = (255, 69, 0, 255)
 
+        self.menu_vmargin = 30
+
         self.menu_valign = BOTTOM
         self.menu_halign = CENTER
 
         items = []
         items.append(MenuItem("开 始 游 戏", self.on_play))
         items.append(MenuItem("", self.on_none))
-        items.append(MenuItem("关 于 本 游 戏", self.on_about))
+        items.append(MenuItem("关 于 此 游 戏", self.on_about))
         items.append(MenuItem("", self.on_none))
         items.append(MenuItem("退 出 游 戏", self.on_quit))
 
@@ -48,39 +53,18 @@ class MainMenu(Menu):
         pass
 
     def on_about(self):
-        self.parent.switch_to(1)
+        about_scene = create_about_scene()
+        director.push(ZoomTransition(about_scene))
 
     def on_quit(self):
         exit()
 
 
-class AboutMenu(Menu):
-    def __init__(self):
-        super().__init__()
 
-        self.font_item["font_name"] = "Unifont"
-        self.font_item["font_size"] = 32
-        self.font_item["color"] = (255, 165, 0, 255)
-
-        self.font_item_selected["font_name"] = "Unifont"
-        self.font_item_selected["font_size"] = 32
-        self.font_item_selected["color"] = (255, 69, 0, 255)
-
-        self.menu_valign = BOTTOM
-        self
-
-        items = []
-        items.append(MenuItem("返 回 主 菜 单", self.on_back))
-
-        self.create_menu(items, shake(), shake_back())
-
-    def on_back(self):
-        self.parent.switch_to(0)
 
 def create_title_scene():
     scene = Scene()
-    scene.add(BackgroundLayer('title'), z=0)
-
-    scene.add(MultiplexLayer(MainMenu(), AboutMenu()), z=1)
+    scene.add(BackgroundLayer("title"), z=0)
+    scene.add(MainMenu(), z=1)
 
     return scene

@@ -10,7 +10,7 @@ from cocos.director import director
 import title
 
 def GameRun():
-    director.init(resizable=True, width=800, height=600, caption="五子棋游戏 version--0.2")
+    director.init(resizable=True, width=800, height=600, caption="五子棋游戏 version--0.5")
     director.run(title.create_title_scene())
 
 

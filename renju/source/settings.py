@@ -14,3 +14,10 @@ class Settings:
         pyglet.font.add_directory("../res/fonts")
     except Exception as e:
         print(e)
+
+
+    ROW = 15
+    COLUMN = 15
+    SQUARE_SIZE = 32
+
+
